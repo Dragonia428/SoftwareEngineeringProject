@@ -1,4 +1,4 @@
-public abstract class DBManage
+public class DBManage
 {
-	
+	//public 
 }
