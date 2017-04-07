@@ -1,30 +1,41 @@
 import java.sql.*;
 public class Connect {
-	public static void main(String[] args)
+	public Connect(String databasename)
 	{
-		Connect c = new Connect();
-		c.CreateDatabase();
+		CreateDatabase("RMS");
+		UseDatabase("RMS");
 	}
-	private void CreateDatabase()
+	private void CreateDatabase(String DBName)
 	{
 
     try {
      
-        //Class.forName("com.mysql.jdbc.Driver");
-        //System.out.println("Driver loaded");
-     
-	    Connection con = DriverManager.getConnection("jdbc:mysql://127.0.0.1", "root", "123456");    
-
-	 //   System.out.println(" CONNECTED TO MySQL DB......");
+        Class.forName("com.mysql.jdbc.Driver");
+	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
 	    Statement st = con.createStatement();
-	    st.execute();
-	    st.executeQuery("USE RMS;");
-	    st.executeUpdate("");
+	    st.execute("DROP DATABASE IF EXISTS RMS;");
+	    st.execute("CREATE DATABASE RMS;");
     }
     catch (Exception ex) {
         System.out.println("ERROR OCCURED.");
         ex.printStackTrace();
     }
+  }
+  private void UseDatabase(String DBName)
+  {
+
+    try {
+     
+        Class.forName("com.mysql.jdbc.Driver");
+	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
+	    Statement st = con.createStatement();
+	   	st.execute("USE " + DBName + ";");
+    }
+    catch (Exception ex) {
+        System.out.println("ERROR OCCURED.");
+        ex.printStackTrace();
+    }
+  
   }
   private boolean CanConnect()
   {
