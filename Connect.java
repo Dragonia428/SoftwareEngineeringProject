@@ -1,19 +1,30 @@
 import java.sql.*;
 public class Connect {
-	public String databasename; 
+	public String databasename = "RMS";
+	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
 	public Connect(String databasename)
 	{
-		CreateDatabase(databasename);
-		InitializeTables(databasename);
+		try {
+			InitializeTables(databasename);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace(); 
+		}
 	}
 	private void InitializeTables(String databasename)
 	{
 		try {
 			 Class.forName("com.mysql.jdbc.Driver");
-	    	Connection con = DriverManager.getConnection("jdbc:mysql://localhost/" + databasename, "root", "123456");    
+	    	Connection con = DriverManager.getConnection(databaselink, "root", "123456");    
 	    	Statement st = con.createStatement();
+	    	st.execute("DROP TABLE IF EXISTS chefs;");
+	    	st.execute("DROP TABLE IF EXISTS users;");
+	    	st.execute("DROP TABLE IF EXISTS dishes");
 	    	st.execute(UserTable());
 	    	st.execute(ChefsTable());
+	    	st.execute("CREATE INDEX cname ON chefs(chef_name)");
+	    	st.execute(DishesTable());
 		}
 		catch(Exception ex)
 		{
@@ -26,17 +37,21 @@ public class Connect {
 	private String ChefsTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("DROP TABLE IF EXISTS chefs; ");
-		str.append("CREATE TABLE chefs(first_name varchar(11), last_name varchar(11), title varchar(11), pay int(6));");
+		str.append("CREATE TABLE chefs(chef_name varchar(20), title varchar(11), pay int(6));");
 		return str.toString();
 	}
 	private String UserTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("DROP TABLE IF EXISTS users; ");
 		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20), last_name varchar(20), user_name varchar(15), email varchar(26), password varchar(10), status varchar(3), PRIMARY KEY(id));");
 		return str.toString();	
+	}
+	private String DishesTable()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE dishes(chef_name varchar(20), dish_name varchar(20), price int(5), type varchar(10), FOREIGN KEY(chef_name) REFERENCES chefs(chef_name));");
+		return str.toString();
 	}
 	private void CreateDatabase(String DBName)
 	{
