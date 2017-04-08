@@ -9,9 +9,8 @@ public class Connect {
 	{
 
     try {
-     
-        Class.forName("com.mysql.jdbc.Driver");
-	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
+      Class.forName("com.mysql.jdbc.Driver");
+	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");
 	    Statement st = con.createStatement();
 	    st.execute("DROP DATABASE IF EXISTS RMS;");
 	    st.execute("CREATE DATABASE RMS;");
@@ -25,9 +24,8 @@ public class Connect {
   {
 
     try {
-     
-        Class.forName("com.mysql.jdbc.Driver");
-	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
+      Class.forName("com.mysql.jdbc.Driver");
+	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");
 	    Statement st = con.createStatement();
 	   	st.execute("USE " + DBName + ";");
     }
@@ -35,7 +33,7 @@ public class Connect {
         System.out.println("ERROR OCCURED.");
         ex.printStackTrace();
     }
-  
+
   }
   private boolean CanConnect()
   {
@@ -48,14 +46,14 @@ public class Connect {
       catch (Exception ex) {
         System.out.println(" CLASS NOT FOUND EXCEPTION .");
       }
-      Connection con = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "123456");    
+      Connection con = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "123456");
       return true;
     }
     catch (Exception ex) {
         return false;
     }
-  	}
-  
+  }
 
-	
+
+
 }
