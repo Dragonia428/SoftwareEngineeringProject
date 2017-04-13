@@ -44,7 +44,7 @@ public class Connect {
 	{
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
-		str.append("first_name varchar(20), last_name varchar(20), user_name varchar(15), email varchar(26), password varchar(10), status varchar(3), PRIMARY KEY(id));");
+		str.append("first_name varchar(20), last_name varchar(20), email varchar(26), password varchar(10), status varchar(3), PRIMARY KEY(id));");
 		return str.toString();	
 	}
 	private String DishesTable()
