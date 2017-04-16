@@ -21,6 +21,7 @@ public class Connect {
 	    	st.execute("DROP TABLE IF EXISTS chefs;");
 	    	st.execute("DROP TABLE IF EXISTS users;");
 	    	st.execute("DROP TABLE IF EXISTS dishes");
+            st.execute("DROP TABLE IF EXISTS pending_accounts");
 	    	st.execute(UserTable());
 	    	st.execute(ChefsTable());
 	    	st.execute("CREATE INDEX cname ON chefs(chef_name)");
@@ -54,7 +55,7 @@ public class Connect {
 	}
     private String PendingAccounts() {
         StringBuilder str = new StringBuilder();
-        str.append("CREATE TABLE pending_accounts(email varchar(30), first_name varchar(20), last_name varchar(20), password varchar(20), PRIMARY KEY(email));");
+        str.append("CREATE TABLE pending_accounts(email varchar(30) NOT NULL, first_name varchar(20), last_name varchar(20), password varchar(20), PRIMARY KEY(email));");
         return str.toString();
     }
 	private void CreateDatabase(String DBName)
