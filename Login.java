@@ -24,7 +24,7 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("JavaFX Welcome");
+        primaryStage.setTitle("Login");
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(50);
@@ -50,13 +50,13 @@ public class Login extends Application {
         Button btn = new Button("Sign in");
         Button btn2 = new Button("Register");
         HBox hbBtn = new HBox(10);
-        hbBtn2 = new Hbox(10);
+        HBox hbBtn2 = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
-        hBtn2.getChildren().add(btn2);
+        hbBtn2.getChildren().add(btn2);
         hbBtn.getChildren().add(btn);
         grid.add(hbBtn, 1, 4);
-        grid.add(hBtn2, 1, 5)
+        grid.add(hbBtn2, 1, 5);
 
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
@@ -70,7 +70,7 @@ public class Login extends Application {
             }
         });
 
-        Scene scene = new Scene(grid, 300, 275);
+        Scene scene = new Scene(grid, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

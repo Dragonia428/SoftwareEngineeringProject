@@ -10,16 +10,22 @@ public class DBManage
 		str.append("INSERT INTO users(first_name, last_name, email, password, status) VALUES(?,?,?,?,?)");
 		return str.toString();
 	}
-    
+    private String Chefs()
+    {
+    	StringBuilder str = new StringBuilder();
+    	str.append("INSERT INTO chefs(chef_name, chef_email, title, pay) VALUES(?,?,?,?)");
+    }
 	public void AddToUsersTable(String firstname, String lastName, String email, String password, String status)
 	{
-        String stmnt += "INSERT INTO users(first_name, lastName, email, password, status)"+
-            "VALUES("+firstName+","+lastName+","+email+","+password+","+status")";
-        
         try{
             Connection con = DriverManager.getConnection( Connect.databaselink, "root", "123456" );
-            Statement statement = con.createStatement();
-            statement.executeUpdate(stmnt);
+            ps = con.prepareStatement(Users());
+            ps.setString(1, firstname);
+            ps.setString(2, lastName);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            ps.setString(5, status);
+            ps.executeUpdate();
         }
         catch( SQLExcepation sqlException ) {
             sqlException.printStackTrace();
