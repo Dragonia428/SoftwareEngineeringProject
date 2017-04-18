@@ -45,7 +45,7 @@ public class Connect {
 	{
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
-		str.append("first_name varchar(20), last_name varchar(20), email varchar(30), password varchar(10), status varchar(3), PRIMARY KEY(id));");
+		str.append("first_name varchar(20), last_name varchar(20), email varchar(30), password varchar(10), status varchar(3), PRIMARY KEY(id), UNIQUE(email));");
 		return str.toString();	
 	}
 	private String DishesTable()
@@ -56,7 +56,7 @@ public class Connect {
 	}
     private String PendingAccountsTable() {
         StringBuilder str = new StringBuilder();
-        str.append("CREATE TABLE pending_accounts(email varchar(30) NOT NULL, first_name varchar(20), last_name varchar(20), password varchar(20), PRIMARY KEY(email));");
+        str.append("CREATE TABLE pending_accounts( id int(11) NOT NULL AUTO_INCREMENT, email varchar(30), first_name varchar(20), last_name varchar(20), password varchar(20), PRIMARY KEY(id), UNIQUE(email));");
         return str.toString();
     }
 	private void CreateDatabase(String DBName)
