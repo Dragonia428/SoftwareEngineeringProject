@@ -61,7 +61,7 @@ public class Login extends Application {
         final Text actiontarget = new Text();
         grid.add(actiontarget, 1, 6);
 
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        btn.setOnAction(new EventHandler<ActionEvent>()) {
 
             @Override
             public void handle(ActionEvent e) {

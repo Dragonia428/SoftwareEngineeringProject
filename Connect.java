@@ -5,7 +5,7 @@ public class Connect {
 	public Connect(String databasename)
 	{
 		try {
-			InitializeTables(databasename);
+			//InitializeTables(databasename);
 		}
 		catch(Exception ex)
 		{
