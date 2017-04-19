@@ -15,63 +15,55 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+ import javafx.scene.Parent;
+ import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+import javafx.fxml.FXML;
 public class Login extends Application {
-
+	Stage primaryStage, stage; 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Login");
-        GridPane grid = new GridPane();
-        grid.setAlignment(Pos.CENTER);
-        grid.setHgap(50);
-        grid.setVgap(50);
-        grid.setPadding(new Insets(25, 25, 25, 25));
-
-        Text scenetitle = new Text("Welcome");
-        scenetitle.setFont(Font.font("Tahoma", FontWeight.NORMAL, 20));
-        grid.add(scenetitle, 0, 0, 2, 1);
-
-        Label userName = new Label("User Name:");
-        grid.add(userName, 0, 1);
-
-        TextField userTextField = new TextField();
-        grid.add(userTextField, 1, 1);
-
-        Label pw = new Label("Password:");
-        grid.add(pw, 0, 2);
-
-        PasswordField pwBox = new PasswordField();
-        grid.add(pwBox, 1, 2);
-
-        Button btn = new Button("Sign in");
-        Button btn2 = new Button("Register");
-        HBox hbBtn = new HBox(10);
-        HBox hbBtn2 = new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn2.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn2.getChildren().add(btn2);
-        hbBtn.getChildren().add(btn);
-        grid.add(hbBtn, 1, 4);
-        grid.add(hbBtn2, 1, 5);
-
-        final Text actiontarget = new Text();
-        grid.add(actiontarget, 1, 6);
-
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent e) {
-                actiontarget.setFill(Color.FIREBRICK);
-                actiontarget.setText("Sign in button pressed");
-            }
-        });
-
-        Scene scene = new Scene(grid, 400, 400);
+    public void start(Stage primaryStage) throws IOException {
+    	try {
+    	Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    catch(Exception ex)
+    {
+    	System.out.println("ERROR");
+    }
+    }
+
+    @FXML 
+    private void handleRegistration(ActionEvent e)
+    {
+    	try{
+    	showRegistration();
+    	}
+    	catch(Exception ex)
+    	{
+    	System.out.println("ERROR");
+    	}
+    }
+    private void showRegistration() throws IOException
+    {
+    	try {
+    		Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+    		Scene scene = new Scene(root);
+    		stage.setScene(scene);
+    		stage.show();
+    	}
+    	catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
     }
 }
