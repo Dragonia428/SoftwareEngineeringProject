@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="617.0" prefWidth="653.0" text="Register for an account" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <children>
+            <Button layoutX="539.0" layoutY="456.0" mnemonicParsing="false" text="Register" />
+            <Label layoutX="103.0" layoutY="238.0" text="Username" />
+            <TextField layoutX="251.0" layoutY="233.0" />
+            <PasswordField layoutX="251.0" layoutY="282.0" />
+            <PasswordField layoutX="251.0" layoutY="333.0" />
+            <Label layoutX="105.0" layoutY="287.0" text="Password" />
+            <Label layoutX="105.0" layoutY="338.0" text="Retype Password" />
+            <Label layoutX="101.0" layoutY="144.0" text="First Name" />
+            <Label layoutX="102.0" layoutY="189.0" text="Last Name" />
+            <Label layoutX="36.0" layoutY="37.0" text="Register for an Account">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Label>
+            <TextField layoutX="251.0" layoutY="139.0" />
+            <TextField layoutX="251.0" layoutY="184.0" />
+         </children></AnchorPane>
+  </content>
+</TitledPane>
