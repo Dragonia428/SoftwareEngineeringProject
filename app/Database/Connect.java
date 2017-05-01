@@ -1,30 +1,44 @@
 import java.sql.*;
+import java.lang.System.*;
 public class Connect {
 	public String databasename = "RMS";
 	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
+	private Connection con;
 	public Connect(String databasename)
 	{
 		try {
+<<<<<<< HEAD:Connect.java
 			//InitializeTables(databasename);
+=======
+			if (CanConnect()){
+				System.out.println("Successfully connected");
+				CreateDatabase(databasename);
+				UseDatabase();
+				//InitializeTables(databasename);
+			}
+			else{
+				System.out.println("[-] Could not connect to DB!");
+			}
+>>>>>>> 250102fe34ce532cd053e9546b0f378b8463a1c0:app/Database/Connect.java
 		}
 		catch(Exception ex)
 		{
-			ex.printStackTrace(); 
+			ex.printStackTrace();
 		}
 	}
 	private void InitializeTables(String databasename)
 	{
 		try {
-			 Class.forName("com.mysql.jdbc.Driver");
-	    	Connection con = DriverManager.getConnection(databaselink, "root", "123456");    
+			 	//Class.forName("com.mysql.jdbc.Driver");
+	    	//Connection con = DriverManager.getConnection(databaselink, "root", "");
 	    	Statement st = con.createStatement();
 	    	st.execute("DROP TABLE IF EXISTS chefs;");
 	    	st.execute("DROP TABLE IF EXISTS users;");
 	    	st.execute("DROP TABLE IF EXISTS dishes");
-            st.execute("DROP TABLE IF EXISTS pending_accounts");
+        st.execute("DROP TABLE IF EXISTS pending_accounts");
 	    	st.execute(UserTable());
 	    	st.execute(ChefsTable());
-            st.execute(PendingAccountsTable());
+        st.execute(PendingAccountsTable());
 	    	st.execute("CREATE INDEX cname ON chefs(chef_name)");
 	    	st.execute(DishesTable());
 		}
@@ -38,7 +52,10 @@ public class Connect {
 	private String ChefsTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE chefs(chef_name varchar(20), title varchar(11), pay int(6));");
+		str.append("CREATE TABLE chefs
+			(chef_name varchar(20),
+			 title varchar(11),
+			 pay int(6));");
 		return str.toString();
 	}
 	private String UserTable()
@@ -46,7 +63,7 @@ public class Connect {
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20), last_name varchar(20), email varchar(30), password varchar(10), status varchar(3), PRIMARY KEY(id), UNIQUE(email));");
-		return str.toString();	
+		return str.toString();
 	}
 	private String DishesTable()
 	{
@@ -63,13 +80,12 @@ public class Connect {
 	{
 
     try {
-     
-        Class.forName("com.mysql.jdbc.Driver");
-	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
+      //Class.forName("org.mariadb.jdbc.Driver");
+	    //Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "");
 	    Statement st = con.createStatement();
-	    this.databasename = DBName;
-	    st.execute("DROP DATABASE IF EXISTS " + DBName + ";");
-	    st.execute("CREATE DATABASE " + DBName + ";");
+	    st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
+	    st.execute("CREATE DATABASE " + this.databasename + ";");
+			System.out.println("[+] Database created");
     }
     catch (Exception ex) {
         System.out.println("ERROR OCCURED.");
@@ -80,9 +96,9 @@ public class Connect {
   {
 
     try {
-     
-        Class.forName("com.mysql.jdbc.Driver");
-	    Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "123456");    
+
+      //Class.forName("com.mysql.jdbc.Driver");
+	    //Connection con = DriverManager.getConnection("jdbc:mysql://localhost", "root", "");
 	    Statement st = con.createStatement();
 	   	st.execute("USE RMS;");
 	   }
@@ -90,27 +106,25 @@ public class Connect {
         System.out.println("ERROR OCCURED.");
         ex.printStackTrace();
     }
-  
+
   }
   private boolean CanConnect()
   {
 
     try {
       try {
-         Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("org.mariadb.jdbc.Driver");
         System.out.println("Driver loaded");
       }
       catch (Exception ex) {
         System.out.println(" CLASS NOT FOUND EXCEPTION .");
       }
-      Connection con = DriverManager.getConnection("jdbc:mysql://localhost/", "root", "123456");    
+      con = DriverManager.getConnection("jdbc:mariadb://localhost/?user=root&password=123456");
       return true;
     }
     catch (Exception ex) {
         return false;
     }
-  	}
-  
+	}
 
-	
 }
