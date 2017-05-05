@@ -1,12 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 public class PasswordStrength {
-	
-	public static void main(String[] args)
-	{
-		System.out.println(CheckPassword("HelloWorld123"));
-	}
-	enum Score 
+	enum Score //Enum with the given score
 	{
 		blank(0),
 		poor(1),
@@ -19,12 +14,24 @@ public class PasswordStrength {
 		{
 			this.value = value; 
 		}
+		public int Value(Score score)
+		{
+			return this.value; 
+		}
 	}	
-	public static Score CheckPassword(String password)
+
+	public static Score CheckPassword(String password) 
 	{
-		String pattern1 = "[a-z]";
+			/*This function checks the password and gives it a proper score based on the following characteristics:
+				1. Does it have capital letters?
+				2. Does it have numbers?
+				3. Does it have special characters?
+			Most modern programs have these password checkers built in to prevent easy hacking of the users. 
+			*/
+		//Regular expressions for capital letters, numbers, or special characters
 	    String pattern2 = "[A-Z]";
 	    String pattern3 = "[1-9]";
+	    String pattern4 = "[!@#$%^&*~?]";
 		int score = 0;
 		if(password.length() < 1)
 			return Score.blank; 
@@ -34,25 +41,28 @@ public class PasswordStrength {
 			score++;
 		if(password.length() >= 12)
 			score++;
-		Pattern p1 =  Pattern.compile(pattern1);
-		Matcher match_letters = p1.matcher(password);
 		Pattern p2 = Pattern.compile(pattern2);
 		Matcher match_capitals = p2.matcher(password);
 		Pattern p3 = Pattern.compile(pattern3);
 		Matcher match_numbers = p3.matcher(password);
-		if(match_letters.find())
+		Pattern p4 = Pattern.compile(pattern4);
+		Matcher match_specials = p4.matcher(password);
+		//Uses the regular expressions to find out if the given expression contains specials/numbers/capital
+		if(match_capitals.find())
 		{
 			score++;
-			if(match_capitals.find())
+			if(match_numbers.find())
 			{
-				score++;
-				if(match_numbers.find())
+				score ++;
+				if(match_specials.find())
 				{
-					score ++;
+						score++;
 				}
 			}
 
 		}
+
+		
 		if(score > 5) score = 5;
 		switch(score)
 		{
