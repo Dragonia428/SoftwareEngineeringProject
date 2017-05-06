@@ -1,114 +1,124 @@
 import java.sql.*;
-import java.util.ArrayList;
+import java.lang.System.*;
 
 
-public class DBManage
-{
-    public String databasename = "RMS";
+public class Connect {
+    
+	public String databasename = "RMS";
 	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
+	private Connection con;
     
-
-    public DBManage() {}
+	public Connect()
+	{
+		try{
+			if (CanConnect()){
+				System.out.println("Successfully connected");
+				CreateDatabase(databasename);
+				UseDatabase();
+				InitializeTables(databasename);
+			}
+			else
+				System.out.println("[-] Could not connect to DB!");
+		}
+		catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
     
-	    
-    private String Chefs()
-    {
-    	StringBuilder str = new StringBuilder();
-    	str.append("INSERT INTO chefs(chef_name, chef_email, title, pay) VALUES(?,?,?,?)");
-        return str.toString();
-    }
-
-    private String insertIntoUsersQuery()
+	private void InitializeTables(String databasename)
+	{
+		try {
+	    	Statement st = con.createStatement();
+	    	st.execute("DROP TABLE IF EXISTS chefs;");
+	    	st.execute("DROP TABLE IF EXISTS users;");
+	    	st.execute("DROP TABLE IF EXISTS dishes");
+        	st.execute("DROP TABLE IF EXISTS pending_accounts");
+	    	st.execute(UserTable());
+	    	st.execute(ChefsTable());
+        	st.execute(PendingAccountsTable());
+	    	st.execute("CREATE INDEX cname ON chefs(chef_name)");
+	    	st.execute(DishesTable());
+		}
+		catch(Exception ex) {
+			System.out.println("ERROR OCCURED");
+			ex.printStackTrace();
+		}
+	}
+    
+	private String ChefsTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("INSERT INTO users(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)");
+		str.append("CREATE TABLE chefs(chef_name varchar(20), title varchar(11), pay int(6));");
 		return str.toString();
 	}
     
-    private String insertIntoPendingQuery() {
-        String str = "INSERT INTO pending_accounts(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)";
-        return str;
-    }
-
-    private String removeFromPendingQuery() {
-        String str = "DELETE FROM pending_accounts WHERE id = ?";
-        return str;
-    }
-        
-	public void AddUser(String firstname, String lastName, String email, String username, String password)
+	private String UserTable()
 	{
-        try{
-            Connection con = DriverManager.getConnection(databaselink, "root", "123456");
-            PreparedStatement ps = con.prepareStatement(insertIntoUsersQuery());
-            ps.setString(1, firstname);
-            ps.setString(2, lastName);
-            ps.setString(3, email);
-            ps.setString(4, username);            
-            ps.setString(5, password);
-            ps.executeUpdate();
-        }
-        catch( SQLException sqlException ) {
-            sqlException.printStackTrace();
-        }
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
+		str.append("first_name varchar(20), last_name varchar(20), email varchar(30),");
+        str.append("username varchar(30), password varchar(10), status varchar(3), PRIMARY KEY(id), UNIQUE(email));");
+		return str.toString();
 	}
     
-    public void addToPendingAccounts(String firstName, String lastName, String email, String password) {
-        try{
-            Connection con = DriverManager.getConnection(databaselink, "root", "123456");
-            PreparedStatement st = con.prepareStatement(insertIntoPendingQuery());
-            st.setString(1, firstName);
-            st.setString(2, lastName);
-            st.setString(3, email);
-            st.setString(4, password);
-            st.executeUpdate();
-        }
-        catch( SQLException sqlException ) {
-            sqlException.printStackTrace();
-        }
-    }
-
-    public void removeFromPendingAccounts(ArrayList<Integer> id_list) {
-		
-    }
-
-    public void authorizeAccounts(ArrayList<Integer> authorizeList) {
-        String select_query = "SELECT first_name, last_name, email, username, password FROM pending_accounts WHERE id=?";
-        
-        try{
-            Connection con = DriverManager.getConnection(databaselink, "root", "123456");
-            PreparedStatement queryST = con.prepareStatement(select_query);
-            PreparedStatement insertST = con.prepareStatement(insertIntoUsersQuery());
-            PreparedStatement deleteST = con.prepareStatement(removeFromPendingQuery());
-            ResultSet results;
-            
-            for(int i = authorizeList.size()-1; i >= 0; i--) {
-                queryST.setInt(1, authorizeList.get(i));
-                ResultSet resultSet = queryST.executeQuery();
-                if( resultSet.next() ) {
-                    setInsertStatementFields(resultSet, insertST);		// set the fields of the insert statement with the results of the query
-                    insertST.executeUpdate();
-                    deleteST.setInt(1, authorizeList.get(i));
-                    deleteST.executeUpdate();
-                }
-            }
-        }
-        catch( SQLException sqlException ) {
-            sqlException.printStackTrace();
-        }   
-    } // end authorizeAcounts
-
+	private String DishesTable()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE dishes(chef_name varchar(20), dish_name varchar(20),");
+        str.append("price int(5), type varchar(10), FOREIGN KEY(chef_name) REFERENCES chefs(chef_name));");
+		return str.toString();
+	}
     
-    private void setInsertStatementFields(ResultSet results, PreparedStatement pst) {
-        try{
-            pst.setString(1, results.getObject(1).toString());
-            pst.setString(2, results.getObject(2).toString());
-            pst.setString(3, results.getObject(3).toString());
-            pst.setString(4, results.getObject(4).toString());
-            pst.setString(5, results.getObject(5).toString());
+    private String PendingAccountsTable() {
+        StringBuilder str = new StringBuilder();
+        str.append("CREATE TABLE pending_accounts( id int(11) NOT NULL AUTO_INCREMENT,");
+        str.append("first_name varchar(20), last_name varchar(20), email varchar(30), username varchar(30),");
+        str.append("password varchar(20), PRIMARY KEY(id), UNIQUE(email));");
+        return str.toString();
+    }
+    
+	private void CreateDatabase(String DBName)
+	{
+        try {
+            Statement st = con.createStatement();
+            st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
+            st.execute("CREATE DATABASE " + this.databasename + ";");
+			System.out.println("[+] Database created");
         }
-        catch( SQLException sqlException ) {
-            sqlException.printStackTrace();
+        catch (Exception ex) {
+            System.out.println("ERROR OCCURED.");
+            ex.printStackTrace();
         }
-    } // end fillStatement
+    }
+    
+    private void UseDatabase()
+    {
+        try {
+	    Statement st = con.createStatement();
+	   	st.execute("USE RMS;");
+	   }
+        catch (Exception ex) {
+            System.out.println("ERROR OCCURED.");
+            ex.printStackTrace();
+        }
+  }
+    
+  private boolean CanConnect()
+  {
+    try {
+      try {
+        Class.forName("com.jdbc.Driver");
+        System.out.println("Driver loaded");
+      }
+      catch (Exception ex) {
+        System.out.println(" CLASS NOT FOUND EXCEPTION .");
+      }
+      con = DriverManager.getConnection(databaselink, "root", "123456");
+      return true;
+    }
+    catch (Exception ex) {
+        return false;
+    }
+  }
 
-} // end class DBManage
+} // end class Connect

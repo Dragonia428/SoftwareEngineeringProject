@@ -52,14 +52,15 @@ public class DBManage
         }
 	}
     
-    public void addToPendingAccounts(String firstName, String lastName, String email, String password) {
+    public void addToPendingAccounts(String firstName, String lastName, String email, String username, String password) {
         try{
             Connection con = DriverManager.getConnection(databaselink, "root", "123456");
             PreparedStatement st = con.prepareStatement(insertIntoPendingQuery());
             st.setString(1, firstName);
             st.setString(2, lastName);
             st.setString(3, email);
-            st.setString(4, password);
+            st.setString(4, username);
+            st.setString(5, password);
             st.executeUpdate();
         }
         catch( SQLException sqlException ) {
