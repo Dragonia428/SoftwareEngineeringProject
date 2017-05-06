@@ -10,7 +10,7 @@ public class Connect {
     
 	public Connect()
 	{
-		try{
+		/*try{
 			if (CanConnect()){
 				System.out.println("Successfully connected");
 				CreateDatabase(databasename);
@@ -22,7 +22,7 @@ public class Connect {
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
-		}
+            }*/
 	}
     
 	private void InitializeTables(String databasename)
