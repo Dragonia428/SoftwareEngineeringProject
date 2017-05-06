@@ -4,7 +4,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
-class gui  extends Application {
+
+class gui extends Application {
 	public static void main(String[] args)
 	{
 		Application.launch(gui.class, args);
