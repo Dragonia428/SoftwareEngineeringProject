@@ -22,7 +22,7 @@ public class Connect {
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
-		}
+        }
 	}
     
 	private void InitializeTables(String databasename)
@@ -107,7 +107,7 @@ public class Connect {
   {
     try {
       try {
-        Class.forName("com.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Driver loaded");
       }
       catch (Exception ex) {
