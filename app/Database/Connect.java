@@ -8,7 +8,7 @@ public class Connect {
 	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
 	private Connection con;
     
-	public Connect(String databasename)
+	public Connect()
 	{
 		try{
 			if (CanConnect()){
@@ -28,8 +28,6 @@ public class Connect {
 	private void InitializeTables(String databasename)
 	{
 		try {
-			 	//Class.forName("com.mysql.jdbc.Driver");
-	    	//Connection con = DriverManager.getConnection(databaselink, "root", "");
 	    	Statement st = con.createStatement();
 	    	st.execute("DROP TABLE IF EXISTS chefs;");
 	    	st.execute("DROP TABLE IF EXISTS users;");
@@ -45,16 +43,12 @@ public class Connect {
 			System.out.println("ERROR OCCURED");
 			ex.printStackTrace();
 		}
-
 	}
     
 	private String ChefsTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE chefs
-			(chef_name varchar(20),
-			 title varchar(11),
-			 pay int(6));");
+		str.append("CREATE TABLE chefs(chef_name varchar(20), title varchar(11), pay int(6));");
 		return str.toString();
 	}
     
@@ -113,13 +107,13 @@ public class Connect {
   {
     try {
       try {
-        Class.forName("org.mariadb.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Driver loaded");
       }
       catch (Exception ex) {
         System.out.println(" CLASS NOT FOUND EXCEPTION .");
       }
-      con = DriverManager.getConnection("jdbc:mariadb://localhost/?user=root&password=123456");
+      con = DriverManager.getConnection(databaselink, "root", "123456");
       return true;
     }
     catch (Exception ex) {
