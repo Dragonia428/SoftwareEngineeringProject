@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 import javafx.scene.Scene; 
 import java.io.IOException;
-import javafx.scene.layout.AnchorPane; 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -23,10 +22,17 @@ public class GUIController implements Initializable {
     */
     @FXML PasswordField passwordfield;
     @FXML TextField textfield;
-    /* For the registration page 
-    These represent the passwordfield, reg*/
-    @FXML PasswordField regpasswordfield;
-    @FXML PasswordField verifypasswordfield; 
+    /* ----------------------------------------------------------
+    For the registration page 
+    These represent the passwordfield for registration, 
+    its verification field, the email field, 
+    and the first name and last name fields.
+    The label is for a notification message, which fires whenever we get an error 
+    i.e., unverified passwords, blacklisted user, or a password whose strength is weak. 
+    -------------------------------------------------------------
+    */
+     @FXML PasswordField regpasswordfield;
+     @FXML PasswordField verifypasswordfield; 
      @FXML TextField regemailfield; 
      @FXML TextField firstnamefield;
      @FXML TextField lastnamefield; 
@@ -82,10 +88,7 @@ public class GUIController implements Initializable {
     {
         String email = regemailfield.getText();
         String password = regpasswordfield.getText();
-        String firstName = firstnamefield.getText();
-        String lastName = lastnamefield.getText();
         String verify = verifypasswordfield.getText();
-        System.out.println(PasswordStrength.CheckPassword(password));
         if(!password.equals(verify))
         {
             notificationmessage.setText("Passwords are not the same.");
@@ -95,12 +98,14 @@ public class GUIController implements Initializable {
             {
                 notificationmessage.setText("");
                 System.out.println("Adding to pending accounts");
-                dbmanager.addToPendingAccountsTable(email, firstName, lastName, password);
-  
+                dbmanager.addToPendingAccountsTable(email, firstnamefield.getText(), lastnamefield.getText(), password);
+                curr_stage.close();
             }
-            else {
+            else if(PasswordStrength.CheckPassword(password) < 3) 
+            {
                 notificationmessage.setText("Password is not very strong");
             }
+
         }
     }
 }
