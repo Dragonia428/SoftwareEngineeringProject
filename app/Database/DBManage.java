@@ -10,8 +10,7 @@ public class DBManage
   public DBManage(){
     try{
       if(canConnect()){
-        System.out.println("[+] Successfully logged into Database");
-        useDatabate();
+        useDatabase();
       }
       else{
         System.out.println("[-] Could not connect to DB!");
@@ -57,15 +56,15 @@ public class DBManage
       StringBuilder str = new StringBuilder();
   	  str.append("INSERT INTO chefs(chef_fname, chef_lname, email, password, title, pay, locked, ");
       str.append("standing, managed_by) VALUES(?,?,?,?,?,?,?,?,?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
       ps.setString(2, lname);
       ps.setString(3, email);
       ps.setString(4, password);
       ps.setString(5, title);
       ps.setFloat(6, pay);
-      ps.setBoolean(7, 0);
-      ps.setString(8, 0);
+      ps.setBoolean(7, false);
+      ps.setInt(8, 0);
       ps.setString(9, managed_by);
       ps.executeUpdate();
     }
@@ -79,20 +78,20 @@ public class DBManage
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO customer(first_name, last_name, email, password, ");
       str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?);");
-      ps = con.prepareStatement(str);
-      ps.setString(1, first_name);
-      ps.setString(2, last_name);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.setString(1, fname);
+      ps.setString(2, lname);
       ps.setString(3, email);
       ps.setString(4, password);
-      ps.setBoolean(5, 0);
+      ps.setBoolean(5, false);
       ps.setInt(6, 0);
       ps.setInt(7, 0);
       ps.setFloat(8, 0);
-      ps.setBoolean(9, 0);
+      ps.setBoolean(9, false);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
-      sqlException.printStackTrace()
+      sqlException.printStackTrace();
     }
   }
 
@@ -100,7 +99,7 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO manager(email, password, fname, lname) VALUES(?,?,?,?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(3, email);
       ps.setString(4, password);
       ps.setString(1, fname);
@@ -116,7 +115,7 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO delivery(email, password, fname, lname) VALUES(?,?,?,?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
       ps.setString(2, lname);
       ps.setString(3, email);
@@ -132,10 +131,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO orders(customer_id, order_date, delivered, dish_id, delivery_id) VALUES(?,?,?,?.?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setInt(1, customer_id);
       ps.setDate(2, order_date);
-      ps.setString(3, 0)
+      ps.setBoolean(3, false);
       ps.setInt(4, dish_id);
       ps.setInt(5, delivery_id);
       ps.executeUpdate();
@@ -150,7 +149,7 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, dish_name);
       ps.setInt(2, chef_by);
       ps.setFloat(3, price);
@@ -168,7 +167,7 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO reviews(stars, review, dish_id, chef_id) VALUES(?,?,?,?);");
-      ps = con.prepareStatement(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setInt(1, stars);
       ps.setString(2, review);
       ps.setInt(3, dish_id);
@@ -180,15 +179,15 @@ public class DBManage
     }
   }
 
-  public void addToPendingAccountsTable( String email, String firstName, String lastName, String password,
+  public void addToPendingAccountsTable( String email, String fName, String lName, String password,
   String manager_email){
-      String stmnt += "INSERT INTO pending_accounts(email, firstName, lastName, password)"+
+      String stmnt = "INSERT INTO pending_accounts(email, firstName, lastName, password, manager_email) "+
           "VALUES("+email+","+fName+","+lName+","+password+","+manager_email+");";
         try{
           Statement statement = con.createStatement();
           statement.executeUpdate(stmnt);
       }
-      catch( SQLExcepation sqlException ) {
+      catch(SQLException sqlException) {
           sqlException.printStackTrace();
       }
   }
@@ -197,10 +196,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM chefs WHERE email=\'"+email+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -209,10 +208,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM customer WHERE email=\'"+email+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -221,10 +220,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM manager WHERE email=\'"+email+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -232,10 +231,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM delivery WHERE email=\'"+email+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -244,22 +243,22 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM dishes WHERE dish_name=\'"+dish_name+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
 
-  public void deleteFromPenAccTable(String dish_name){
+  public void deleteFromPenAccTable(String email){
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM pending_accounts WHERE email=\'"+email+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -268,10 +267,10 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM reviews WHERE review_id=\'"+review_id+"\';");
-      ps = con.prepareStatement(str);
-      ps.executeUpdate(str);
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
     }
   }
@@ -285,13 +284,12 @@ public class DBManage
       }
       else{
         System.out.println("[-] That SQL statement does not query");
+        return null;
       }
     }
-    catch(SQLExcepation sqlException){
+    catch(SQLException sqlException){
       sqlException.printStackTrace();
+      return null;
     }
   }
-
-
-
 } // end class DBManage
