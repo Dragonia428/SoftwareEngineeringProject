@@ -10,7 +10,7 @@ public class Connect {
     
 	public Connect()
 	{
-		/*try{
+		try{
 			if (CanConnect()){
 				System.out.println("Successfully connected");
 				CreateDatabase(databasename);
@@ -22,7 +22,7 @@ public class Connect {
 		}
 		catch(Exception ex) {
 			ex.printStackTrace();
-            }*/
+        }
 	}
     
 	private void InitializeTables(String databasename)
@@ -48,32 +48,32 @@ public class Connect {
 	private String ChefsTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE chefs(chef_name varchar(20), title varchar(11), pay int(6));");
+		str.append("CREATE TABLE chefs(chef_name VARCHAR(20), title VARCHAR(11), pay int(6));");
 		return str.toString();
 	}
     
 	private String UserTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT,");
-		str.append("first_name varchar(20), last_name varchar(20), email varchar(30),");
-        str.append("username varchar(30), password varchar(10), status varchar(3), PRIMARY KEY(id), UNIQUE(email));");
+		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT, first_name VARCHAR(20),");
+		str.append("last_name VARCHAR(20), email VARCHAR(30), username VARCHAR(30), ");
+        str.append("password VARCHAR(10), status BOOLEAN DEFAULT false, PRIMARY KEY(id), UNIQUE(username));");
 		return str.toString();
 	}
     
 	private String DishesTable()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE dishes(chef_name varchar(20), dish_name varchar(20),");
-        str.append("price int(5), type varchar(10), FOREIGN KEY(chef_name) REFERENCES chefs(chef_name));");
+		str.append("CREATE TABLE dishes(chef_name VARCHAR(20), dish_name VARCHAR(20),");
+        str.append("price int(5), type VARCHAR(10), FOREIGN KEY(chef_name) REFERENCES chefs(chef_name));");
 		return str.toString();
 	}
     
     private String PendingAccountsTable() {
         StringBuilder str = new StringBuilder();
-        str.append("CREATE TABLE pending_accounts( id int(11) NOT NULL AUTO_INCREMENT,");
-        str.append("first_name varchar(20), last_name varchar(20), email varchar(30), username varchar(30),");
-        str.append("password varchar(20), PRIMARY KEY(id), UNIQUE(email));");
+        str.append("CREATE TABLE pending_accounts(id int(11) NOT NULL AUTO_INCREMENT,");
+        str.append("first_name VARCHAR(20), last_name VARCHAR(20), email VARCHAR(30), username VARCHAR(30),");
+        str.append("password VARCHAR(20), PRIMARY KEY(id), UNIQUE(username));");
         return str.toString();
     }
     
@@ -93,7 +93,7 @@ public class Connect {
     
     private void UseDatabase()
     {
-        try {
+        try{
 	    Statement st = con.createStatement();
 	   	st.execute("USE RMS;");
 	   }
