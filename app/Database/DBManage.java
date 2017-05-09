@@ -51,23 +51,12 @@ public class DBManage
     }
   }
 
-
-	private String Users(){
-		StringBuilder str = new StringBuilder();
-		str.append("INSERT INTO users(first_name, last_name, email, password, status) VALUES(?,?,?,?,?)");
-		return str.toString();
-	}
-  private String Chefs(){
-  	StringBuilder str = new StringBuilder();
-  	str.append("INSERT INTO chefs(chef_name, chef_email, title, pay) VALUES(?,?,?,?)");
-  }
-
   public void addCheftoTable(String fname, String lname, String email, String password, String title,
   float pay, String managed_by){
     try{
       StringBuilder str = new StringBuilder();
   	  str.append("INSERT INTO chefs(chef_fname, chef_lname, email, password, title, pay, locked, ");
-      str.append("standing, managed_by) VALUES(?,?,?,?,?,?,?,?,?)");
+      str.append("standing, managed_by) VALUES(?,?,?,?,?,?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setString(1, fname);
       ps.setString(2, lname);
@@ -89,7 +78,7 @@ public class DBManage
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO customer(first_name, last_name, email, password, ");
-      str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?)");
+      str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setString(1, first_name);
       ps.setString(2, last_name);
@@ -110,7 +99,7 @@ public class DBManage
   public void addtoManagerTable(String email, String password, String fname, String lname){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO manager(email, password, fname, lname) VALUES(?,?,?,?)");
+      str.append("INSERT INTO manager(email, password, fname, lname) VALUES(?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setString(3, email);
       ps.setString(4, password);
@@ -126,7 +115,7 @@ public class DBManage
   public void addtoDeliveryTable(String email, String password, String fname, String lname){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO delivery(email, password, fname, lname) VALUES(?,?,?,?)");
+      str.append("INSERT INTO delivery(email, password, fname, lname) VALUES(?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setString(1, fname);
       ps.setString(2, lname);
@@ -142,7 +131,7 @@ public class DBManage
   public void addtoOrdersTable(int customer_id, Date order_date, int dish_id, int delivery_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO delivery(email, password, fname, lname) VALUES(?,?,?,?)");
+      str.append("INSERT INTO orders(customer_id, order_date, delivered, dish_id, delivery_id) VALUES(?,?,?,?.?);");
       ps = con.prepareStatement(str);
       ps.setInt(1, customer_id);
       ps.setDate(2, order_date);
@@ -160,7 +149,7 @@ public class DBManage
   String pic_location){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?)");
+      str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setString(1, dish_name);
       ps.setInt(2, chef_by);
@@ -178,7 +167,7 @@ public class DBManage
   public void addtoReviewsTable(int stars, String review, int dish_id, int chef_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO reviews(stars, review, dish_id, chef_id) VALUES(?,?,?,?)");
+      str.append("INSERT INTO reviews(stars, review, dish_id, chef_id) VALUES(?,?,?,?);");
       ps = con.prepareStatement(str);
       ps.setInt(1, stars);
       ps.setString(2, review);
@@ -194,7 +183,7 @@ public class DBManage
   public void addToPendingAccountsTable( String email, String firstName, String lastName, String password,
   String manager_email){
       String stmnt += "INSERT INTO pending_accounts(email, firstName, lastName, password)"+
-          "VALUES("+email+","+fName+","+lName+","+password+","+manager_email+")";
+          "VALUES("+email+","+fName+","+lName+","+password+","+manager_email+");";
         try{
           Statement statement = con.createStatement();
           statement.executeUpdate(stmnt);
@@ -203,5 +192,90 @@ public class DBManage
           sqlException.printStackTrace();
       }
   }
+
+  public void deleteFromChefTable(String email){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM chefs WHERE email=\'"+email+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromCustomerTable(String email){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM customer WHERE email=\'"+email+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromMangerTable(String email){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM manager WHERE email=\'"+email+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+  public void deleteFromDeliverTable(String email){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM delivery WHERE email=\'"+email+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromDishesTable(String dish_name){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM dishes WHERE dish_name=\'"+dish_name+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromPenAccTable(String dish_name){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM pending_accounts WHERE email=\'"+email+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromReviewsTable(int review_id){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM reviews WHERE review_id=\'"+review_id+"\';");
+      ps = con.prepareStatement(str);
+      ps.executeUpdate(str);
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+
 
 } // end class DBManage
