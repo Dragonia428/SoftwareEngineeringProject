@@ -1,7 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 public class PasswordStrength {
-	enum Score //Enum with the given score
+	public enum Score //Enum with the given score
 	{
 		blank(0),
 		poor(1),
@@ -20,7 +20,7 @@ public class PasswordStrength {
 		}
 	}	
 
-	public static Score CheckPassword(String password) 
+	public static int CheckPassword(String password) 
 	{
 			/*This function checks the password and gives it a proper score based on the following characteristics:
 				1. Does it have capital letters?
@@ -34,9 +34,9 @@ public class PasswordStrength {
 	    String pattern4 = "[!@#$%^&*~?]";
 		int score = 0;
 		if(password.length() < 1)
-			return Score.blank; 
+			return 0;
 		if(password.length() < 4)
-			return Score.poor;
+			return 1;
 		if(password.length() >= 8)
 			score++;
 		if(password.length() >= 12)
@@ -67,18 +67,18 @@ public class PasswordStrength {
 		switch(score)
 		{
 			case 0:
-				return Score.blank;
+				return 0;
 			case 1:
-				return Score.poor;
+				return 1;
 			case 2:
-				return Score.weak;
+				return 2;
 			case 3:
-				return Score.medium;
+				return 3;
 			case 4:
-				return Score.strong;
+				return 4;
 			case 5: 
-				return Score.very_strong;
+				return 5;
 		}
-		return Score.blank;
+		return 0;
 	}
 }
