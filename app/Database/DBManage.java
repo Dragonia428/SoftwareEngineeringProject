@@ -276,6 +276,22 @@ public class DBManage
     }
   }
 
+  public ResultSet queryDatabase(String query){
+    try{
+      if(query.substring(0,5) == "select" || query.substring(0,5) == "SELECT"){
+        Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        ResultSet rs = stmt.executeQuery(query);
+        return rs;
+      }
+      else{
+        System.out.println("[-] That SQL statement does not query");
+      }
+    }
+    catch(SQLExcepation sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
 
 
 } // end class DBManage
