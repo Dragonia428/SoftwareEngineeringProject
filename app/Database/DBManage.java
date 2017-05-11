@@ -114,12 +114,13 @@ public class DBManage
   public void addtoDeliveryTable(String email, String password, String fname, String lname){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO delivery(email, password, fname, lname) VALUES(?,?,?,?);");
+      str.append("INSERT INTO delivery(email, password, fname, lname, locked) VALUES(?,?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
-      ps.setString(1, fname);
-      ps.setString(2, lname);
-      ps.setString(3, email);
-      ps.setString(4, password);
+      ps.setString(1, email);
+      ps.setString(2, password);
+      ps.setString(3, fname);
+      ps.setString(4, lname);
+      ps.setBoolean(5, false);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
@@ -127,16 +128,17 @@ public class DBManage
     }
   }
 
-  public void addtoOrdersTable(int customer_id, Date order_date, int dish_id, int delivery_id){
+  public void addtoOrdersTable(int customer_id, String order_date, float total_price, int dish_id, int delivery_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO orders(customer_id, order_date, delivered, dish_id, delivery_id) VALUES(?,?,?,?.?);");
+      str.append("INSERT INTO orders(customer_id, order_date, total_price, delivered, dish_id, delivery_id) VALUES(?,?,?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setInt(1, customer_id);
-      ps.setDate(2, order_date);
-      ps.setBoolean(3, false);
-      ps.setInt(4, dish_id);
-      ps.setInt(5, delivery_id);
+      ps.setDate(2, java.sql.Date.valueOf(order_date));
+      ps.setFloat(3, total_price);
+      ps.setBoolean(4, false);
+      ps.setInt(5, dish_id);
+      ps.setInt(6, delivery_id);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
@@ -192,10 +194,10 @@ public class DBManage
       }
   }
 
-  public void deleteFromChefTable(String email){
+  public void deleteFromChefTable(int chef_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM chefs WHERE email=\'"+email+"\';");
+      str.append("DELETE FROM chefs WHERE chef_id=\'"+chef_id+"\';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -204,10 +206,10 @@ public class DBManage
     }
   }
 
-  public void deleteFromCustomerTable(String email){
+  public void deleteFromCustomerTable(int customer_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM customer WHERE email=\'"+email+"\';");
+      str.append("DELETE FROM customer WHERE customer_id=\'"+customer_id+"\';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -227,10 +229,11 @@ public class DBManage
       sqlException.printStackTrace();
     }
   }
-  public void deleteFromDeliverTable(String email){
+
+  public void deleteFromDeliverTable(int delivery_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM delivery WHERE email=\'"+email+"\';");
+      str.append("DELETE FROM delivery WHERE delivery_id=\'"+delivery_id+"\';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -239,10 +242,10 @@ public class DBManage
     }
   }
 
-  public void deleteFromDishesTable(String dish_name){
+  public void deleteFromOrdersTable(int order_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM dishes WHERE dish_name=\'"+dish_name+"\';");
+      str.append("DELETE FROM orders WHERE order_id=\'"+order_id+"\';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -251,10 +254,22 @@ public class DBManage
     }
   }
 
-  public void deleteFromPenAccTable(String email){
+  public void deleteFromDishesTable(int dish_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM pending_accounts WHERE email=\'"+email+"\';");
+      str.append("DELETE FROM dishes WHERE dish_id=\'"+dish_id+"\';");
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
+    }
+    catch(SQLException sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void deleteFromPenAccTable(int pen_acc_id){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM pending_accounts WHERE pen_acc_id=\'"+pen_acc_id+"\';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -277,7 +292,7 @@ public class DBManage
 
   public ResultSet queryDatabase(String query){
     try{
-      if(query.substring(0,5) == "select" || query.substring(0,5) == "SELECT"){
+      if(query.substring(0,6).equals("select") || query.substring(0,6).equals("SELECT")){
         Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
         ResultSet rs = stmt.executeQuery(query);
         return rs;

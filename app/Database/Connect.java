@@ -82,7 +82,7 @@ public class Connect {
 		str.append("standing int,");
 		str.append("managed_by varchar(30),");
 		str.append("PRIMARY KEY(chef_id),");
-		str.append("FOREIGN KEY(managed_by) REFERENCES manager(email));");
+		str.append("FOREIGN KEY(managed_by) REFERENCES manager(email) ON DELETE CASCADE);");
 		return str.toString();
 	}
 
@@ -124,6 +124,7 @@ public class Connect {
 		str.append("lname varchar(20),");
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(30) NOT NULL,");
+		str.append("locked tinyint(1) NOT NULL,");
 		str.append("PRIMARY KEY(delivery_id),");
 		str.append("UNIQUE(email));");
 		return str.toString();
@@ -135,13 +136,14 @@ public class Connect {
 			str.append("order_id int NOT NULL AUTO_INCREMENT,");
 			str.append("customer_id int,");
 			str.append("order_date datetime NOT NULL,");
+			str.append("total_price float NOT NULL,");
 			str.append("delivered tinyint(1),");
 			str.append("dish_id int,");
 			str.append("delivery_id int,");
 			str.append("PRIMARY KEY(order_id),");
-			str.append("FOREIGN KEY(customer_id) REFERENCES customer(customer_id),");
-			str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id),");
-			str.append("FOREIGN KEY(delivery_id) REFERENCES delivery(delivery_id));");
+			str.append("FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,");
+			str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE SET NULL,");
+			str.append("FOREIGN KEY(delivery_id) REFERENCES delivery(delivery_id) ON DELETE SET NULL);");
 			return str.toString();
 	}
 
@@ -155,7 +157,7 @@ public class Connect {
 		str.append("type varchar(10) NOT NULL,");
 		str.append("description varchar(100),");
 		str.append("pic_location varchar(50) NOT NULL,");
-		str.append("FOREIGN KEY(chef_by) REFERENCES chefs(chef_id),");
+		str.append("FOREIGN KEY(chef_by) REFERENCES chefs(chef_id) ON DELETE CASCADE,");
 		str.append("PRIMARY KEY(dish_id),");
 		str.append("UNIQUE(dish_name));");
 		return str.toString();
@@ -171,7 +173,7 @@ public class Connect {
 			str.append("password varchar(20),");
 			str.append("manager_email varchar(50),");
 			str.append("PRIMARY KEY(pen_acc_id),");
-			str.append("FOREIGN KEY(manager_email) REFERENCES manager(email),");
+			str.append("FOREIGN KEY(manager_email) REFERENCES manager(email) ON DELETE CASCADE,");
 			str.append("UNIQUE(email));");
       return str.toString();
   }
@@ -185,8 +187,8 @@ public class Connect {
 		str.append("dish_id int,");
 		str.append("chef_id int,");
 		str.append("PRIMARY KEY(review_id),");
-		str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id),");
-		str.append("FOREIGN KEY(chef_id) REFERENCES chefs(chef_id));");
+		str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE CASCADE,");
+		str.append("FOREIGN KEY(chef_id) REFERENCES chefs(chef_id) ON DELETE CASCADE);");
 		return str.toString();
 	}
 
