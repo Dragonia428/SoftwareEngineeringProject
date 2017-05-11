@@ -100,10 +100,10 @@ public class DBManage
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO manager(email, password, fname, lname) VALUES(?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
-      ps.setString(3, email);
-      ps.setString(4, password);
-      ps.setString(1, fname);
-      ps.setString(2, lname);
+      ps.setString(1, email);
+      ps.setString(2, password);
+      ps.setString(3, fname);
+      ps.setString(4, lname);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
@@ -181,8 +181,8 @@ public class DBManage
 
   public void addToPendingAccountsTable( String email, String fName, String lName, String password,
   String manager_email){
-      String stmnt = "INSERT INTO pending_accounts(email, firstName, lastName, password, manager_email) "+
-          "VALUES("+email+","+fName+","+lName+","+password+","+manager_email+");";
+      String stmnt = "INSERT INTO pending_accounts(email, first_Name, last_Name, password, manager_email) "+
+          "VALUES('"+email+"','"+fName+"','"+lName+"','"+password+"','"+manager_email+"');";
         try{
           Statement statement = con.createStatement();
           statement.executeUpdate(stmnt);

@@ -60,6 +60,7 @@ public class Connect {
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
+				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@manager.com', '123456', 'Mana', 'Ger')");
 		}
 		catch(Exception ex){
 			System.out.println("ERROR OCCURED");
@@ -75,7 +76,7 @@ public class Connect {
 		str.append("chef_lname varchar(20),");
 		str.append("email varchar(50) NOT NULL,");
 		str.append("password varchar(45) NOT NULL,");
-		str.append("title varchar(11),");
+		str.append("title varchar(20),");
 		str.append("pay decimal(6),");
 		str.append("locked tinyint(1),");
 		str.append("standing int,");
