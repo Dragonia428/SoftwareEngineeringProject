@@ -270,7 +270,7 @@ public class DBManage
 	{
         try{
             //Connection con = DriverManager.getConnection(databaselink, "root", "123456");
-            PreparedStatement ps = con.prepareStatement(insertIntoUsersQuery());
+            PreparedStatement ps = con.prepareStatement(insertIntoCustomersQuery());
             ps.setString(1, firstname);
             ps.setString(2, lastName);
             ps.setString(3, email);
@@ -342,7 +342,7 @@ public class DBManage
 
         try{
             PreparedStatement selectST = con.prepareStatement(select_query);
-            PreparedStatement insertST = con.prepareStatement(insertIntoUsersQuery());
+            PreparedStatement insertST = con.prepareStatement(insertIntoCustomersQuery());
             PreparedStatement deleteST = con.prepareStatement(deletePendingAccountQuery());
             ResultSet results;
             for(int i = authorizeList.size()-1; i >= 0; i--) {
