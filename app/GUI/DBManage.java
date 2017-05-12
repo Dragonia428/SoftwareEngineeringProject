@@ -81,18 +81,19 @@ public class DBManage
   public void addtoCustomerTable(String fname, String lname, String email, String password){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO customer(first_name, last_name, email, password, ");
-      str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?);");
+      str.append("INSERT INTO customer(first_name, last_name, funds, email, password, ");
+      str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
       ps.setString(2, lname);
-      ps.setString(3, email);
-      ps.setString(4, password);
-      ps.setBoolean(5, false);
-      ps.setInt(6, 0);
+      ps.setFloat(3, funds);
+      ps.setString(4, email);
+      ps.setString(5, password);
+      ps.setBoolean(6, false);
       ps.setInt(7, 0);
-      ps.setFloat(8, 0);
-      ps.setBoolean(9, false);
+      ps.setInt(8, 0);
+      ps.setFloat(9, 0);
+      ps.setBoolean(10, false);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
