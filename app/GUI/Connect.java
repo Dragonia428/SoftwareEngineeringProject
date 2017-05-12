@@ -22,7 +22,7 @@ import java.lang.StringBuilder;
 
 
 public class Connect {
-    
+
 	public String databasename = "RMS";
 	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
 	private Connection con;
@@ -48,7 +48,7 @@ public class Connect {
 			ex.printStackTrace();
         }
 	}
-    
+
 
 	private void InitializeTables(String databasename){
 		try {
@@ -78,8 +78,8 @@ public class Connect {
 			ex.printStackTrace();
 		}
 	}
-  
-   
+
+
 	private String ChefsTable(){
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE chefs(");
@@ -218,7 +218,6 @@ public class Connect {
         }
     }
 
-    
   private void UseDatabase(){
     try {
 
@@ -231,8 +230,6 @@ public class Connect {
         }
   }
 
-    
-  
   private boolean CanConnect(){
 
     try {
@@ -252,8 +249,8 @@ public class Connect {
 
   }
 
+  public void closeDB(){
+    con.close();
+  }
+
 } // end class Connect
-
-	
-
-
