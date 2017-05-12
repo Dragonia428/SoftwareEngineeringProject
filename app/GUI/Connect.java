@@ -24,7 +24,7 @@ import java.lang.StringBuilder;
 public class Connect {
 
 	public String databasename = "RMS";
-	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
+	public final String databaselink = "jdbc:mariadb://localhost/" + databasename;
 	private Connection con;
 
 
@@ -66,7 +66,6 @@ public class Connect {
 			  st.execute(ManagerTable());
 				st.execute(ChefsTable());
         st.execute(PendingAccountsTable());
-
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
@@ -235,7 +234,7 @@ public class Connect {
 
     try {
       try {
-        Class.forName("com.mysql.jdbc.Driver");
+        Class.forName("org.mariadb.jdbc.Driver");
         System.out.println("Driver loaded");
       }
       catch (Exception ex) {
