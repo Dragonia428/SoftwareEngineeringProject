@@ -103,7 +103,7 @@ public class Connect {
 		str.append("customer_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20),");
 		str.append("last_name varchar(20),");
-    str.append("funds float,")
+    str.append("funds float,");
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(10) NOT NULL,");
 		str.append("is_vip tinyint(1),");
