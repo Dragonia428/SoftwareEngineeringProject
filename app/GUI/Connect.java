@@ -100,7 +100,7 @@ public class Connect {
 
 	private String CustomerTable(){
 		StringBuilder str = new StringBuilder();
-		str.append("CREATE TABLE customer(");
+		str.append("CREATE TABLE customers(");
 		str.append("customer_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20),");
 		str.append("last_name varchar(20),");

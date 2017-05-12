@@ -81,7 +81,7 @@ public class DBManage
   public void addtoCustomerTable(String fname, String lname, String email, String password){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO customer(first_name, last_name, funds, email, password, ");
+      str.append("INSERT INTO customers(first_name, last_name, funds, email, password, ");
       str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
