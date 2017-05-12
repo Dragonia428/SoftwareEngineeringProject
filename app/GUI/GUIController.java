@@ -142,7 +142,7 @@ public class GUIController implements Initializable {
             {
                 notificationmessage.setText("");
                 System.out.println("Adding to pending accounts");
-                dbmanager.addToPendingAccounts(firstname, lastname, email, "test", password);
+                dbmanager.addToPendingAccountsTable(email, firstname, lastname, password, "manager@manager.com");
                 //Node node = (Node) e.getSource(); 
                 //Stage stage = (Stage) node.getScene().getWindow();
                 //stage.close();
