@@ -183,9 +183,7 @@ public class Connect {
 			str.append("first_name varchar(20),");
 			str.append("last_name varchar(20),");
 			str.append("password varchar(20),");
-			str.append("manager_email varchar(50),");
 			str.append("PRIMARY KEY(pen_acc_id),");
-			str.append("FOREIGN KEY(manager_email) REFERENCES manager(email) ON DELETE CASCADE,");
 			str.append("UNIQUE(email));");
       return str.toString();
   }
