@@ -126,7 +126,7 @@
             <Font name="AR BERKLEY" size="37.0" />
          </font>
       </Label>
-      <Hyperlink layoutX="620.0" layoutY="16.0" text="Login" />
+      <Hyperlink layoutX="620.0" layoutY="16.0" onAction="#GoToLogin" text="Login" />
       <Button layoutX="659.0" layoutY="408.0" mnemonicParsing="false" onAction="#Order" prefHeight="76.0" prefWidth="166.0" text="Order">
          <font>
             <Font name="AR BERKLEY" size="38.0" />
@@ -185,5 +185,8 @@
       <Label fx:id="menuitem12" layoutX="686.0" layoutY="325.0" text="Burger" />
       <Label layoutX="18.0" layoutY="100.0" text="Chef Name: " />
       <Label fx:id="chef_name" layoutX="116.0" layoutY="100.0" />
+      <ChoiceBox layoutX="119.0" layoutY="95.0" prefWidth="150.0" />
+      <ChoiceBox layoutX="266.0" layoutY="456.0" prefWidth="150.0" />
+      <Label layoutX="153.0" layoutY="461.0" text="Search Type" />
    </children>
 </Pane>
