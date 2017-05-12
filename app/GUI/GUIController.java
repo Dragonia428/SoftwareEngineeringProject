@@ -10,9 +10,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.Node; 
 import java.io.IOException;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 public class GUIController implements Initializable {
@@ -40,6 +38,7 @@ public class GUIController implements Initializable {
      @FXML TextField firstnamefield;
      @FXML TextField lastnamefield; 
      @FXML Label notificationmessage; 
+     @FXML Button registerbutton;
      /* End the registration stuff */
 
      /*--------- Main Menu stuff------------------ 
@@ -66,6 +65,7 @@ public class GUIController implements Initializable {
      @FXML Label menuitem2;
      @FXML Label menuitem1;
      Label[] menuitemlabels = {menuitem1, menuitem2, menuitem3, menuitem4, menuitem5, menuitem6, menuitem7, menuitem8, menuitem9, menuitem10, menuitem11, menuitem12};
+
      /* End menu item labels */
 
 
@@ -138,19 +138,18 @@ public class GUIController implements Initializable {
             notificationmessage.setText("Passwords are not the same.");
         }
         else {
-            if(PasswordStrength.CheckPassword(password) == 5 || PasswordStrength.CheckPassword(password) == 4)
-            {
+           // if(PasswordStrength.CheckPassword(password) == 5 || PasswordStrength.CheckPassword(password) == 4)
+           // {
                 notificationmessage.setText("");
                 System.out.println("Adding to pending accounts");
                 dbmanager.addToPendingAccountsTable(firstname, lastname, email, password);
-                //Node node = (Node) e.getSource(); 
-                //Stage stage = (Stage) node.getScene().getWindow();
-                curr_stage.close();
-            }
-            else if(PasswordStrength.CheckPassword(password) < 3) 
-            {
-                notificationmessage.setText("Password is not very strong");
-            }
+                Stage stage = (Stage) registerbutton.getScene().getWindow();
+                stage.close();
+           // }
+            //else if(PasswordStrength.CheckPassword(password) < 3) 
+            //{
+             //   notificationmessage.setText("Password is not very strong");
+            //}
 
         }
     }
