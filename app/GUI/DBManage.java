@@ -247,8 +247,8 @@ public class DBManage
     }
   }
 
-  
-    
+
+
     private String insertIntoChefsQuery()
     {
     	StringBuilder str = new StringBuilder();
@@ -262,7 +262,7 @@ public class DBManage
 		str.append("INSERT INTO users(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)");
 		return str.toString();
 	}
-    
+
     private String insertIntoPendingQuery() {
         String str = "INSERT INTO pending_accounts(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)";
         return str;
@@ -277,7 +277,7 @@ public class DBManage
         String str = "DELETE FROM users WHERE id = ?";
         return str;
     }
-        
+
 	public void AddUser(String firstname, String lastName, String email, String username, String password)
 	{
         try{
@@ -286,7 +286,7 @@ public class DBManage
             ps.setString(1, firstname);
             ps.setString(2, lastName);
             ps.setString(3, email);
-            ps.setString(4, username);            
+            ps.setString(4, username);
             ps.setString(5, password);
             ps.executeUpdate();
         }
@@ -315,7 +315,7 @@ public class DBManage
         }
         return result;
     }
-    
+
     public int addToPendingAccounts(String firstName, String lastName, String email, String username, String password) {
         int err_code = 0;
         try{
@@ -349,7 +349,7 @@ public class DBManage
              sqlException.printStackTrace();
          }
     }
-    
+
     public void authorizeAccounts(ArrayList<Integer> authorizeList) {
         String select_query = "SELECT first_name, last_name, email, username, password FROM pending_accounts WHERE id=?";
 
@@ -384,7 +384,7 @@ public class DBManage
 
     } // end authorizeAcounts
 
-    
+
     private void setInsertStatementFields(ResultSet results, PreparedStatement pst) {
         try{
             pst.setString(1, results.getObject(1).toString());
@@ -461,5 +461,9 @@ public class DBManage
       sqlException.printStackTrace();
       return null;
     }
+  }
+
+  public void closeDB(){
+    con.close();
   }
 } // end class DBManage
