@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 public class GUIController implements Initializable {
     private Parent root;
     public Stage curr_stage = new Stage();
+    public static boolean logged_in = false; 
     /* 
     For the login page 
     These represent the values for the password and the username
@@ -70,14 +71,14 @@ public class GUIController implements Initializable {
 
 
      /*DB Manager -> Manages the database */
-     DBManage dbmanager = new DBManage();
+     //DBManage dbmanager = new DBManage();
 
     @Override 
     public void initialize(URL url, ResourceBundle rb)
     {
 
     }
-    public void GoToMainMenu(Stage primaryStage)
+    public void GoToMainMenu(Stage primaryStage) throws IOException
     {
         curr_stage = primaryStage;
         curr_stage.setTitle("Welcome");
@@ -87,9 +88,9 @@ public class GUIController implements Initializable {
         curr_stage.setScene(scene);
         curr_stage.show();
     }
-    @FXML private void Order()
+    @FXML private void Order() throws IOException
     {
-
+        if(!logged_in) GoToLogin();
     }
     @FXML private void GoToLogin() throws IOException
     {
@@ -108,7 +109,7 @@ public class GUIController implements Initializable {
     @FXML 
     private void OnLogin()
     {
-        System.out.println(textfield.getText());
+        logged_in = true;
     }
     @FXML private void GoToRegistration() throws IOException
     {   
@@ -141,7 +142,7 @@ public class GUIController implements Initializable {
             {
                 notificationmessage.setText("");
                 System.out.println("Adding to pending accounts");
-                dbmanager.addToPendingAccounts(firstname, lastname, email, "test", password);
+              //  dbmanager.addToPendingAccounts(firstname, lastname, email, "test", password);
                 //Node node = (Node) e.getSource(); 
                 //Stage stage = (Stage) node.getScene().getWindow();
                 //stage.close();

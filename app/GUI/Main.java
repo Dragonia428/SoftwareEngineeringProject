@@ -11,7 +11,7 @@ public class Main extends Application {
 	public static Stage mainStage; 
 	
 	public static void main(String[] args) {
-        new Connect("RMS");
+       new Connect("RMS");
         launch(args);
     }
 
@@ -19,6 +19,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws IOException {
      	mainStage = primaryStage;
      	GUIController gui = new GUIController();
-        gui.GoToLogin(mainStage);
+        gui.GoToMainMenu(primaryStage);
     }
 }
