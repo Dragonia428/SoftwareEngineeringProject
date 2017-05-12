@@ -78,7 +78,7 @@ public class DBManage
     }
   }
 
-  public void addtoCustomerTable(String fname, String lname, String email, String password){
+  public void addtoCustomerTable(String fname, String lname, float funds, String email, String password){
     try{
       StringBuilder str = new StringBuilder();
       str.append("INSERT INTO customers(first_name, last_name, funds, email, password, ");
@@ -464,7 +464,7 @@ public class DBManage
     }
   }
 
-  public void closeDB(){
+  public void closeDB() throws SQLException {
     con.close();
   }
 } // end class DBManage

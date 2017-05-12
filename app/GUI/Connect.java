@@ -153,7 +153,7 @@ public class Connect {
 			str.append("dish_id int,");
 			str.append("delivery_id int,");
 			str.append("PRIMARY KEY(order_id),");
-			str.append("FOREIGN KEY(customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE,");
+			str.append("FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE,");
 			str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE SET NULL,");
 			str.append("FOREIGN KEY(delivery_id) REFERENCES delivery(delivery_id) ON DELETE SET NULL);");
 			return str.toString();
@@ -249,7 +249,7 @@ public class Connect {
 
   }
 
-  public void closeDB(){
+  public void closeDB() throws SQLException {
     con.close();
   }
 
