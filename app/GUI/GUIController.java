@@ -1,12 +1,14 @@
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.scene.input.InputEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent; 
 import javafx.stage.Stage;
-import javafx.scene.Scene; 
+import javafx.scene.Scene;
+import javafx.scene.Node; 
 import java.io.IOException;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -40,7 +42,7 @@ public class GUIController implements Initializable {
      /* End the registration stuff */
 
      /*DB Manager -> Manages the database */
-     DBManage dbmanager = new DBManage(Connect.databaselink);
+     DBManage dbmanager = new DBManage();
 
     @Override 
     public void initialize(URL url, ResourceBundle rb)
@@ -84,10 +86,12 @@ public class GUIController implements Initializable {
          }
       
     }
-    @FXML private void Register(ActionEvent e)
+    @FXML private void Register()
     {
         String email = regemailfield.getText();
         String password = regpasswordfield.getText();
+        String firstname = firstnamefield.getText();
+        String lastname = lastnamefield.getText();
         String verify = verifypasswordfield.getText();
         if(!password.equals(verify))
         {
@@ -98,8 +102,10 @@ public class GUIController implements Initializable {
             {
                 notificationmessage.setText("");
                 System.out.println("Adding to pending accounts");
-                dbmanager.addToPendingAccountsTable(email, firstnamefield.getText(), lastnamefield.getText(), password);
-                curr_stage.close();
+                dbmanager.addToPendingAccounts(firstname, lastname, email, "test", password);
+                //Node node = (Node) e.getSource(); 
+                //Stage stage = (Stage) node.getScene().getWindow();
+                //stage.close();
             }
             else if(PasswordStrength.CheckPassword(password) < 3) 
             {

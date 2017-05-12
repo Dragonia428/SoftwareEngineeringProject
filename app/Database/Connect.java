@@ -1,5 +1,8 @@
 import java.sql.*;
 import java.lang.System.*;
+<<<<<<< HEAD
+
+=======
 import java.lang.StringBuilder;
 
 // This program plus main creates the mariaDB database on your localhost machine.
@@ -18,28 +21,55 @@ import java.lang.StringBuilder;
 // Command to run in quotes
 // "javac Connect.java Main.java"
 // "java Main Connect"
+>>>>>>> master
 
 public class Connect {
+    
 	public String databasename = "RMS";
 	public final String databaselink = "jdbc:mysql://localhost/" + databasename;
 	private Connection con;
+<<<<<<< HEAD
+    
+	public Connect()
+	{
+		try{
+=======
 
 	public Connect(String databasename){
 		try {
+>>>>>>> master
 			if (CanConnect()){
 				System.out.println("Successfully connected");
 				CreateDatabase(databasename);
 				UseDatabase();
 				InitializeTables(databasename);
 			}
-			else{
+			else
 				System.out.println("[-] Could not connect to DB!");
-			}
 		}
+<<<<<<< HEAD
+		catch(Exception ex) {
+=======
 		catch(Exception ex){
+>>>>>>> master
 			ex.printStackTrace();
-		}
+        }
 	}
+<<<<<<< HEAD
+    
+	private void InitializeTables(String databasename)
+	{
+		try {
+	    	Statement st = con.createStatement();
+	    	st.execute("DROP TABLE IF EXISTS chefs;");
+	    	st.execute("DROP TABLE IF EXISTS users;");
+	    	st.execute("DROP TABLE IF EXISTS dishes");
+        	st.execute("DROP TABLE IF EXISTS pending_accounts");
+	    	st.execute(UserTable());
+	    	st.execute(ChefsTable());
+        	st.execute(PendingAccountsTable());
+	    	st.execute("CREATE INDEX cname ON chefs(chef_name)");
+=======
 
 	private void InitializeTables(String databasename){
 		try {
@@ -57,11 +87,58 @@ public class Connect {
 			  st.execute(ManagerTable());
 				st.execute(ChefsTable());
         st.execute(PendingAccountsTable());
+>>>>>>> master
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
 				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@manager.com', '123456', 'Mana', 'Ger')");
 		}
+<<<<<<< HEAD
+		catch(Exception ex) {
+			System.out.println("ERROR OCCURED");
+			ex.printStackTrace();
+		}
+	}
+    
+	private String ChefsTable()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE chefs(chef_name VARCHAR(20), title VARCHAR(11), pay int(6));");
+		return str.toString();
+	}
+    
+	private String UserTable()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE users(id int(11) NOT NULL AUTO_INCREMENT, first_name VARCHAR(20),");
+		str.append("last_name VARCHAR(20), email VARCHAR(30), username VARCHAR(30), ");
+        str.append("password VARCHAR(10), status BOOLEAN DEFAULT false, PRIMARY KEY(id), UNIQUE(username));");
+		return str.toString();
+	}
+    
+	private String DishesTable()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("CREATE TABLE dishes(chef_name VARCHAR(20), dish_name VARCHAR(20),");
+        str.append("price int(5), type VARCHAR(10), FOREIGN KEY(chef_name) REFERENCES chefs(chef_name));");
+		return str.toString();
+	}
+    
+    private String PendingAccountsTable() {
+        StringBuilder str = new StringBuilder();
+        str.append("CREATE TABLE pending_accounts(id int(11) NOT NULL AUTO_INCREMENT,");
+        str.append("first_name VARCHAR(20), last_name VARCHAR(20), email VARCHAR(30), username VARCHAR(30),");
+        str.append("password VARCHAR(20), PRIMARY KEY(id), UNIQUE(username));");
+        return str.toString();
+    }
+    
+	private void CreateDatabase(String DBName)
+	{
+        try {
+            Statement st = con.createStatement();
+            st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
+            st.execute("CREATE DATABASE " + this.databasename + ";");
+=======
 		catch(Exception ex){
 			System.out.println("ERROR OCCURED");
 			ex.printStackTrace();
@@ -197,8 +274,20 @@ public class Connect {
 	    Statement st = con.createStatement();
 	    st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
 	    st.execute("CREATE DATABASE " + this.databasename + ";");
+>>>>>>> master
 			System.out.println("[+] Database created");
+        }
+        catch (Exception ex) {
+            System.out.println("ERROR OCCURED.");
+            ex.printStackTrace();
+        }
     }
+<<<<<<< HEAD
+    
+    private void UseDatabase()
+    {
+        try{
+=======
     catch (Exception ex) {
         System.out.println("ERROR OCCURED.");
         ex.printStackTrace();
@@ -207,30 +296,42 @@ public class Connect {
 
   private void UseDatabase(){
     try {
+>>>>>>> master
 	    Statement st = con.createStatement();
 	   	st.execute("USE RMS;");
 	   }
-    catch (Exception ex) {
-        System.out.println("ERROR OCCURED.");
-        ex.printStackTrace();
-    }
-
+        catch (Exception ex) {
+            System.out.println("ERROR OCCURED.");
+            ex.printStackTrace();
+        }
   }
+<<<<<<< HEAD
+    
+  private boolean CanConnect()
+  {
+=======
 
   private boolean CanConnect(){
+>>>>>>> master
     try {
       try {
-        Class.forName("org.mariadb.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         System.out.println("Driver loaded");
       }
       catch (Exception ex) {
         System.out.println(" CLASS NOT FOUND EXCEPTION .");
       }
-      con = DriverManager.getConnection("jdbc:mariadb://localhost/?user=root&password=123456");
+      con = DriverManager.getConnection(databaselink, "root", "123456");
       return true;
     }
     catch (Exception ex) {
         return false;
     }
+<<<<<<< HEAD
+  }
+
+} // end class Connect
+=======
 	}
 }
+>>>>>>> master
