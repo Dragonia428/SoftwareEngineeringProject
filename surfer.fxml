@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Hyperlink layoutX="194.0" layoutY="339.0" text="4/5" textFill="#1b0303">
          <font>
@@ -119,21 +119,25 @@
          </image>
       </ImageView>
       <Label layoutX="484.0" layoutY="19.0" />
-      <TextField layoutX="334.0" layoutY="58.0" />
-      <Button layoutX="528.0" layoutY="58.0" mnemonicParsing="false" text="Search" />
+      <TextField layoutX="100.0" layoutY="408.0" />
+      <Button layoutX="354.0" layoutY="408.0" mnemonicParsing="false" text="Search" />
       <Label layoutX="28.0" layoutY="30.0" text="Thin Mint">
          <font>
             <Font name="AR BERKLEY" size="37.0" />
          </font>
       </Label>
       <Hyperlink layoutX="620.0" layoutY="16.0" text="Login" />
-      <Button layoutX="746.0" layoutY="395.0" mnemonicParsing="false" text="Order" />
+      <Button layoutX="659.0" layoutY="408.0" mnemonicParsing="false" onAction="#Order" prefHeight="76.0" prefWidth="166.0" text="Order">
+         <font>
+            <Font name="AR BERKLEY" size="38.0" />
+         </font>
+      </Button>
       <Separator layoutY="202.0" prefWidth="850.0" />
       <Separator layoutY="138.0" prefWidth="850.0" />
       <Separator layoutY="262.0" prefWidth="850.0" />
       <Separator layoutY="321.0" prefWidth="850.0" />
       <Separator layoutY="380.0" prefWidth="850.0" />
-      <Separator layoutX="458.0" layoutY="138.0" orientation="VERTICAL" prefHeight="245.0" prefWidth="5.0" />
+      <Separator layoutX="236.0" layoutY="137.0" orientation="VERTICAL" prefHeight="245.0" prefWidth="5.0" />
       <Hyperlink layoutX="686.0" layoutY="16.0" onAction="#GoToRegistration" text="Create Account" />
       <ImageView fitHeight="59.0" fitWidth="64.0" layoutX="592.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -165,5 +169,21 @@
             <Image url="@app/GUI/Images/img-large-burger.jpg" />
          </image>
       </ImageView>
+      <Separator layoutX="585.0" layoutY="137.0" orientation="VERTICAL" prefHeight="245.0" prefWidth="5.0" />
+      <Label fx:id="menuitem1" layoutX="111.0" layoutY="143.0" text="Burger" />
+      <Label fx:id="menuitem2" layoutX="111.0" layoutY="205.0" text="Burger" />
+      <Label fx:id="menuitem3" layoutX="111.0" layoutY="266.0" text="Burger" />
+      <Label fx:id="menuitem4" layoutX="111.0" layoutY="325.0" text="Burger" />
+      <Label fx:id="menuitem5" layoutX="413.0" layoutY="143.0" text="Burger" />
+      <Label fx:id="menuitem6" layoutX="413.0" layoutY="209.0" text="Burger" />
+      <Label fx:id="menuitem7" layoutX="413.0" layoutY="266.0" text="Burger" />
+      <Label fx:id="menuitem8" layoutX="413.0" layoutY="325.0" text="Burger" />
+      <Label fx:id="menuitem9" layoutX="679.0" layoutY="143.0" text="Burger" />
+      <Label layoutX="324.0" layoutY="56.0" text="Please Order from Our Menu Below" />
+      <Label fx:id="menuitem10" layoutX="679.0" layoutY="209.0" text="Burger" />
+      <Label fx:id="menuitem11" layoutX="679.0" layoutY="270.0" text="Burger" />
+      <Label fx:id="menuitem12" layoutX="686.0" layoutY="325.0" text="Burger" />
+      <Label layoutX="18.0" layoutY="100.0" text="Chef Name: " />
+      <Label fx:id="chef_name" layoutX="116.0" layoutY="100.0" />
    </children>
 </Pane>

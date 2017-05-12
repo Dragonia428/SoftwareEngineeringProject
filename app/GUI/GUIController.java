@@ -41,6 +41,34 @@ public class GUIController implements Initializable {
      @FXML Label notificationmessage; 
      /* End the registration stuff */
 
+     /*--------- Main Menu stuff------------------ 
+        This stuff will handle items on the main menu. 
+
+
+
+
+
+
+     */
+
+     /* Menu item labels -- for all the menu items */
+     @FXML Label menuitem12;
+     @FXML Label menuitem11;
+     @FXML Label menuitem10;
+     @FXML Label menuitem9;
+     @FXML Label menuitem8;
+     @FXML Label menuitem7;
+     @FXML Label menuitem6;
+     @FXML Label menuitem5;
+     @FXML Label menuitem4;
+     @FXML Label menuitem3;
+     @FXML Label menuitem2;
+     @FXML Label menuitem1;
+     Label[] menuitemlabels = {menuitem1, menuitem2, menuitem3, menuitem4, menuitem5, menuitem6, menuitem7, menuitem8, menuitem9, menuitem10, menuitem11, menuitem12};
+     /* End menu item labels */
+
+
+
      /*DB Manager -> Manages the database */
      DBManage dbmanager = new DBManage();
 
@@ -49,12 +77,23 @@ public class GUIController implements Initializable {
     {
 
     }
-    public void GoToLogin(Stage primaryStage) throws IOException
+    public void GoToMainMenu(Stage primaryStage)
     {
-        try{
-        
         curr_stage = primaryStage;
         curr_stage.setTitle("Welcome");
+        Parent root = FXMLLoader.load(getClass().getResource("surfer.fxml"));
+        Scene scene = new Scene(root);
+      //  textfield = new TextField();
+        curr_stage.setScene(scene);
+        curr_stage.show();
+    }
+    @FXML private void Order()
+    {
+
+    }
+    @FXML private void GoToLogin() throws IOException
+    {
+        try{
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(root);
       //  textfield = new TextField();
