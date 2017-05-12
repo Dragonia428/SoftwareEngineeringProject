@@ -187,19 +187,6 @@ public class DBManage
     }
   }
 
-  public void addToPendingAccountsTable( String email, String fName, String lName, String password,
-  String manager_email){
-      String stmnt = "INSERT INTO pending_accounts(email, first_Name, last_Name, password, manager_email) "+
-          "VALUES('"+email+"','"+fName+"','"+lName+"','"+password+"','"+manager_email+"');";
-        try{
-          Statement statement = con.createStatement();
-          statement.executeUpdate(stmnt);
-      }
-      catch(SQLException sqlException) {
-          sqlException.printStackTrace();
-      }
-  }
-
   public void deleteFromChefTable(int chef_id){
     try{
       StringBuilder str = new StringBuilder();
@@ -257,25 +244,25 @@ public class DBManage
         return str.toString();
     }
 
-    private String insertIntoUsersQuery()
+    private String insertIntoCustomersQuery()
 	{
 		StringBuilder str = new StringBuilder();
-		str.append("INSERT INTO users(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)");
+		str.append("INSERT INTO customers(first_name, last_name, email, password) VALUES(?,?,?,?)");
 		return str.toString();
 	}
 
     private String insertIntoPendingQuery() {
-        String str = "INSERT INTO pending_accounts(first_name, last_name, email, username, password) VALUES(?,?,?,?,?)";
+        String str = "INSERT INTO pending_accounts(first_name, last_name, email, password) VALUES(?,?,?,?)";
         return str;
     }
 
     private String deletePendingAccountQuery() {
-        String str = "DELETE FROM pending_accounts WHERE id = ?";
+        String str = "DELETE FROM pending_accounts WHERE pen_acc_id = ?";
         return str;
     }
 
-    private String deleteUserAccountQuery() {
-        String str = "DELETE FROM users WHERE id = ?";
+    private String deleteCustomersAccountQuery() {
+        String str = "DELETE FROM customers WHERE customer_id = ?";
         return str;
     }
 
@@ -300,11 +287,11 @@ public class DBManage
         }
 	}
 
-    private Boolean usernameExists(String uname) {
+    private Boolean emailExists(String email) {
         Boolean result = false;
         try{
-            PreparedStatement ps = con.prepareStatement("SELECT id FROM users WHERE username=?");
-            ps.setString(1, uname);
+            PreparedStatement ps = con.prepareStatement("SELECT customer_id FROM customers WHERE email=?");
+            ps.setString(1, email);
             ResultSet resultSet = ps.executeQuery();
             if( resultSet.next() )
                 result = true;
@@ -317,16 +304,15 @@ public class DBManage
         return result;
     }
 
-    public int addToPendingAccounts(String firstName, String lastName, String email, String username, String password) {
+    public int addToPendingAccountsTable(String firstName, String lastName, String email, String password) {
         int err_code = 0;
         try{
-            if( !usernameExists(username) ) {
+            if( !emailExists(email) ) {
                 PreparedStatement st = con.prepareStatement(insertIntoPendingQuery());
                 st.setString(1, firstName);
                 st.setString(2, lastName);
                 st.setString(3, email);
-                st.setString(4, username);
-                st.setString(5, password);
+                st.setString(4, password);
                 st.executeUpdate();
             }
             else
@@ -352,7 +338,7 @@ public class DBManage
     }
 
     public void authorizeAccounts(ArrayList<Integer> authorizeList) {
-        String select_query = "SELECT first_name, last_name, email, username, password FROM pending_accounts WHERE id=?";
+        String select_query = "SELECT first_name, last_name, email, password FROM pending_accounts WHERE pen_acc_id=?";
 
         try{
             PreparedStatement selectST = con.prepareStatement(select_query);
@@ -392,7 +378,6 @@ public class DBManage
             pst.setString(2, results.getObject(2).toString());
             pst.setString(3, results.getObject(3).toString());
             pst.setString(4, results.getObject(4).toString());
-            pst.setString(5, results.getObject(5).toString());
         }
         catch( SQLException sqlException ) {
             sqlException.printStackTrace();
