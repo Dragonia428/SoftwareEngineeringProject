@@ -69,7 +69,11 @@ public class Connect {
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
-				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@manager.com', '123456', 'Mana', 'Ger')");
+				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger')");
+        st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Miguelrodriguez@thinmint.com', '123456', 'Miguel', 'Rodriguez')");
+        st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Galvinburgos@thinmint.com', '123456', 'Galvin', 'Burgos')");
+        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena')");
+        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina')");
 		}
 
 		catch(Exception ex) {
@@ -91,7 +95,7 @@ public class Connect {
 		str.append("salary int DEFAULT 500000,");
 		str.append("locked tinyint(1),");
 		str.append("standing int DEFAULT 0,");
-		str.append("managed_by varchar(30) DEFAULT 'manager@manager.com',");
+		str.append("managed_by varchar(30) DEFAULT 'manager@thinmint.com',");
 		str.append("PRIMARY KEY(chef_id),");
 		str.append("FOREIGN KEY(managed_by) REFERENCES manager(email) ON DELETE CASCADE);");
 		return str.toString();
