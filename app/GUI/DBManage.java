@@ -59,18 +59,12 @@ public class DBManage
   float pay, String managed_by){
     try{
       StringBuilder str = new StringBuilder();
-  	  str.append("INSERT INTO chefs(chef_fname, chef_lname, email, password, title, pay, locked, ");
-      str.append("standing, managed_by) VALUES(?,?,?,?,?,?,?,?,?);");
+  	  str.append("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES(?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
       ps.setString(2, lname);
       ps.setString(3, email);
       ps.setString(4, password);
-      ps.setString(5, title);
-      ps.setFloat(6, pay);
-      ps.setBoolean(7, false);
-      ps.setInt(8, 0);
-      ps.setString(9, managed_by);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
@@ -78,22 +72,15 @@ public class DBManage
     }
   }
 
-  public void addtoCustomerTable(String fname, String lname, float funds, String email, String password){
+  public void addtoCustomerTable(String fname, String lname, String email, String password){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO customers(first_name, last_name, funds, email, password, ");
-      str.append("is_vip, warnings, num_ords_placed, dollars_spent, locked) VALUES(?,?,?,?,?,?,?,?,?,?);");
+      str.append("INSERT INTO customers(first_name, last_name, email, password VALUES(?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, fname);
       ps.setString(2, lname);
-      ps.setFloat(3, funds);
       ps.setString(4, email);
       ps.setString(5, password);
-      ps.setBoolean(6, false);
-      ps.setInt(7, 0);
-      ps.setInt(8, 0);
-      ps.setFloat(9, 0);
-      ps.setBoolean(10, false);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
