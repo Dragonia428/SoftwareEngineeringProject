@@ -24,16 +24,13 @@ import java.lang.StringBuilder;
 public class Connect {
 
 	public String databasename = "RMS";
-	public final String databaselink = "jdbc:mariadb://localhost/" + databasename;
+	public final String databaselink = "jdbc:mariadb://localhost/";
 	private Connection con;
 
 
-
-
-	public Connect(String databasename){
+	public Connect(String databasename) {
 		try {
-
-			if (CanConnect()){
+			if (CanConnect()) {
 				System.out.println("Successfully connected");
 				CreateDatabase(databasename);
 				UseDatabase();
@@ -42,13 +39,10 @@ public class Connect {
 			else
 				System.out.println("[-] Could not connect to DB!");
 		}
-
-		catch(Exception ex){
-
+		catch(Exception ex) {
 			ex.printStackTrace();
         }
 	}
-
 
 	private void InitializeTables(String databasename){
 		try {
@@ -56,26 +50,25 @@ public class Connect {
 	    	st.execute("DROP TABLE IF EXISTS customer;");
 	    	st.execute("DROP TABLE IF EXISTS manager;");
 	    	st.execute("DROP TABLE IF EXISTS delivery");
-				st.execute("DROP TABLE IF EXISTS chef");
-				st.execute("DROP TABLE IF EXISTS dishes");
-				st.execute("DROP TABLE IF EXISTS orders");
-				st.execute("DROP TABLE IF EXISTS review");
-        st.execute("DROP TABLE IF EXISTS pending_accounts");
+            st.execute("DROP TABLE IF EXISTS chef");
+            st.execute("DROP TABLE IF EXISTS dishes");
+            st.execute("DROP TABLE IF EXISTS orders");
+            st.execute("DROP TABLE IF EXISTS review");
+            st.execute("DROP TABLE IF EXISTS pending_accounts");
 	    	st.execute(CustomerTable());
 	    	st.execute(DeliveryTable());
-			  st.execute(ManagerTable());
-				st.execute(ChefsTable());
-        st.execute(PendingAccountsTable());
+            st.execute(ManagerTable());
+            st.execute(ChefsTable());
+            st.execute(PendingAccountsTable());
 	    	st.execute(DishesTable());
-				st.execute(OrderTable());
-				st.execute(reviewsTable());
-				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger')");
-        st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Miguelrodriguez@thinmint.com', '123456', 'Miguel', 'Rodriguez')");
-        st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Galvinburgos@thinmint.com', '123456', 'Galvin', 'Burgos')");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena')");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina')");
+            st.execute(OrderTable());
+            st.execute(reviewsTable());
+            st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger')");
+            st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Miguelrodriguez@thinmint.com', '123456', 'Miguel', 'Rodriguez')");
+            st.execute("INSERT INTO chefs(email, password, fname, lname) VALUES('Galvinburgos@thinmint.com', '123456', 'Galvin', 'Burgos')");
+            st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena')");
+            st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina')");
 		}
-
 		catch(Exception ex) {
 			System.out.println("ERROR OCCURED");
 			ex.printStackTrace();
@@ -84,7 +77,7 @@ public class Connect {
 
 
 	private String ChefsTable(){
-		StringBuilder str = new StringBuilder();
+		StringBuilder str =n new StringBuilder();
 		str.append("CREATE TABLE chefs(");
 		str.append("chef_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("chef_fname varchar(20),");
@@ -107,7 +100,7 @@ public class Connect {
 		str.append("customer_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20),");
 		str.append("last_name varchar(20),");
-    str.append("funds float DEFAULT 500.0,");
+        str.append("funds float DEFAULT 500.0,");
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(10) NOT NULL,");
 		str.append("is_vip tinyint(1) DEFAULT false,");
@@ -147,20 +140,20 @@ public class Connect {
 	}
 
 	private String OrderTable(){
-			StringBuilder str = new StringBuilder();
-			str.append("CREATE TABLE orders(");
-			str.append("order_id int NOT NULL AUTO_INCREMENT,");
-			str.append("customer_id int,");
-			str.append("order_date datetime NOT NULL,");
-			str.append("total_price float NOT NULL,");
-			str.append("delivered tinyint(1),");
-			str.append("dish_id int,");
-			str.append("delivery_id int,");
-			str.append("PRIMARY KEY(order_id),");
-			str.append("FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE,");
-			str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE SET NULL,");
-			str.append("FOREIGN KEY(delivery_id) REFERENCES delivery(delivery_id) ON DELETE SET NULL);");
-			return str.toString();
+        StringBuilder str = new StringBuilder();
+        str.append("CREATE TABLE orders(");
+        str.append("order_id int NOT NULL AUTO_INCREMENT,");
+        str.append("customer_id int,");
+        str.append("order_date datetime NOT NULL,");
+        str.append("total_price float NOT NULL,");
+        str.append("delivered tinyint(1),");
+        str.append("dish_id int,");
+        str.append("delivery_id int,");
+        str.append("PRIMARY KEY(order_id),");
+        str.append("FOREIGN KEY(customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE,");
+        str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE SET NULL,");
+        str.append("FOREIGN KEY(delivery_id) REFERENCES delivery(delivery_id) ON DELETE SET NULL);");
+        return str.toString();
 	}
 
 	private String DishesTable(){
@@ -179,20 +172,20 @@ public class Connect {
 		return str.toString();
 	}
 
-  private String PendingAccountsTable(){
-      StringBuilder str = new StringBuilder();
-      str.append("CREATE TABLE pending_accounts(");
-			str.append("pen_acc_id int(11) NOT NULL AUTO_INCREMENT,");
-			str.append("email varchar(30),");
-			str.append("first_name varchar(20),");
-			str.append("last_name varchar(20),");
-			str.append("password varchar(20),");
-			str.append("PRIMARY KEY(pen_acc_id),");
-			str.append("UNIQUE(email));");
-      return str.toString();
-  }
+    private String PendingAccountsTable() {
+        StringBuilder str = new StringBuilder();
+        str.append("CREATE TABLE pending_accounts(");
+        str.append("pen_acc_id int(11) NOT NULL AUTO_INCREMENT,");
+        str.append("email varchar(30),");
+        str.append("first_name varchar(20),");
+        str.append("last_name varchar(20),");
+        str.append("password varchar(20),");
+        str.append("PRIMARY KEY(pen_acc_id),");
+        str.append("UNIQUE(email));");
+        return str.toString();
+    }
 
-	private String reviewsTable(){
+	private String reviewsTable() {
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE reviews(");
 		str.append("review_id int(11) NOT NULL AUTO_INCREMENT,");
@@ -206,13 +199,12 @@ public class Connect {
 		return str.toString();
 	}
 
-	private void CreateDatabase(String DBName){
-    try {
-	    Statement st = con.createStatement();
-	    st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
-	    st.execute("CREATE DATABASE " + this.databasename + ";");
-
-			System.out.println("[+] Database created");
+	private void CreateDatabase(String DBName) {
+        try {
+            Statement st = con.createStatement();
+            st.execute("DROP DATABASE IF EXISTS " + this.databasename + ";");
+            st.execute("CREATE DATABASE " + this.databasename + ";");
+            System.out.println("[+] Database created");
         }
         catch (Exception ex) {
             System.out.println("ERROR OCCURED.");
@@ -220,39 +212,38 @@ public class Connect {
         }
     }
 
-  private void UseDatabase(){
-    try {
-
-	    Statement st = con.createStatement();
-	   	st.execute("USE RMS;");
-	   }
+    private void UseDatabase() {
+        try {
+            Statement st = con.createStatement();
+            st.execute("USE RMS;");
+        }
         catch (Exception ex) {
             System.out.println("ERROR OCCURED.");
             ex.printStackTrace();
         }
-  }
-
-  private boolean CanConnect(){
-
-    try {
-      try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        System.out.println("Driver loaded");
-      }
-      catch (Exception ex) {
-        System.out.println(" CLASS NOT FOUND EXCEPTION .");
-      }
-      con = DriverManager.getConnection(databaselink, "root", "123456");
-      return true;
-    }
-    catch (Exception ex) {
-        return false;
     }
 
-  }
+    private boolean CanConnect() {
+        try {
+            try {
+                Class.forName("org.mariadb.jdbc.Driver");
+                System.out.println("Driver loaded");
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+                System.out.println(" CLASS NOT FOUND EXCEPTION .");
+            }
+            con = DriverManager.getConnection(databaselink, "root", "123456");
+            return true;
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
-  public void closeDB() throws SQLException {
-    con.close();
-  }
+    public void closeDB() throws SQLException {
+        con.close();
+    }
 
 } // end class Connect

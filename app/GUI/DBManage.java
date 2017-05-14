@@ -29,11 +29,11 @@ public class DBManage
   private boolean canConnect(){
     try {
       try {
-        Class.forName("org.mariadb.jdbc.Driver");
-        System.out.println("Driver loaded");
+          Class.forName("org.mariadb.jdbc.Driver");
+          System.out.println("Driver loaded");
       }
       catch (Exception ex) {
-        System.out.println(" CLASS NOT FOUND EXCEPTION .");
+          System.out.println(" CLASS NOT FOUND EXCEPTION .");
       }
       con = DriverManager.getConnection("jdbc:mariadb://localhost/?user=root&password=123456");
       return true;
@@ -41,14 +41,14 @@ public class DBManage
     catch (Exception ex) {
         return false;
     }
-	}
+  }
 
   private void useDatabase(){
     try {
 	    Statement st = con.createStatement();
 	   	st.execute("USE RMS;");
-      System.out.println("[+] Successfully logged into Database RMS");
-	   }
+        System.out.println("[+] Successfully logged into Database RMS");
+    }
     catch (Exception ex) {
         System.out.println("ERROR OCCURED.");
         ex.printStackTrace();
@@ -253,7 +253,7 @@ public class DBManage
         return str;
     }
 
-	public void AddUser(String firstname, String lastName, String email, String username, String password)
+	public void AddUser(String firstname, String lastName, String email, String password)
 	{
         try{
             //Connection con = DriverManager.getConnection(databaselink, "root", "123456");
@@ -261,32 +261,40 @@ public class DBManage
             ps.setString(1, firstname);
             ps.setString(2, lastName);
             ps.setString(3, email);
-            ps.setString(4, username);
-            ps.setString(5, password);
+            ps.setString(4, password);
             ps.executeUpdate();
         }
-        catch( SQLException sqlException ) {
-            switch( sqlException.getErrorCode() ) {
-            	case ERR_DUP_ENTRY:
-                    System.out.printf("%s\n", sqlException.getMessage());
-                    break;
-            }
+        catch(SQLException sqlEx) {
+            sqlEx.printStackTrace();
         }
 	}
 
-    private Boolean emailExists(String email) {
-        Boolean result = false;
+    private boolean customerEmailExists(String email) {
+        boolean result = false;
         try{
             PreparedStatement ps = con.prepareStatement("SELECT customer_id FROM customers WHERE email=?");
             ps.setString(1, email);
-            ResultSet resultSet = ps.executeQuery();
+            ResultSet resultSet = ps.executeUpdate();
             if( resultSet.next() )
                 result = true;
-            else
-                result = false;
         }
-        catch(SQLException sqlException) {
-            sqlException.printStackTrace();
+        catch(SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        }
+        return result;
+    }
+
+    private boolean pendingEmailExists(String email) {
+        boolean result = false;
+        try{
+            PreparedStatement ps = con.prepareStatement("SELECT pen_acc_id FROM pending_accounts WHERE email=?");
+            ps.setString(1, email);
+            ResultSet resultSet = ps.executeUpdate();
+            if( resultSet.next() )
+                result = true;
+        }
+        catch(SQLException sqlEx) {
+            sqlEx.printStackTrace();
         }
         return result;
     }
@@ -294,13 +302,17 @@ public class DBManage
     public int addToPendingAccountsTable(String firstName, String lastName, String email, String password) {
         int err_code = 0;
         try{
-            if( !emailExists(email) ) {
-                PreparedStatement st = con.prepareStatement(insertIntoPendingQuery());
-                st.setString(1, firstName);
-                st.setString(2, lastName);
-                st.setString(3, email);
-                st.setString(4, password);
-                st.executeUpdate();
+            if( !customerEmailExists(email) ) {
+                if( !pendingEmailExists(email) ) {
+                    PreparedStatement st = con.prepareStatement(insertIntoPendingQuery());
+                    st.setString(1, firstName);
+                    st.setString(2, lastName);
+                    st.setString(3, email);
+                    st.setString(4, password);
+                    st.executeUpdate();
+                }
+                else
+                    err_code = ERR_DUP_ENTRY;
             }
             else
                 err_code = ERR_DUP_ENTRY;
