@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.OrderListController">
+   <children>
+      <TableView fx:id="cart" layoutX="55.0" layoutY="87.0" prefHeight="200.0" prefWidth="484.0">
+        <columns>
+          <TableColumn fx:id="foodcol" prefWidth="309.0" text="Food Item" />
+          <TableColumn fx:id="pricecol" minWidth="0.0" prefWidth="174.0" text="Price" />
+        </columns>
+      </TableView>
+      <Label layoutX="44.0" layoutY="14.0" text="Shopping Cart">
+         <font>
+            <Font name="AR BERKLEY" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="219.0" layoutY="316.0" text="Total:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="total_price" layoutX="322.0" layoutY="316.0" text="Total">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="474.0" layoutY="318.0" mnemonicParsing="false" onAction="#OrderFood" text="Order" />
+   </children>
+</AnchorPane>

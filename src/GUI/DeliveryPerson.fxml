@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.DeliveryPersonController">
+   <children>
+      <Label layoutX="21.0" layoutY="14.0" text="Delivery Menu">
+         <font>
+            <Font name="AR BERKLEY" size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="221.0" layoutY="100.0" mnemonicParsing="false" onAction="#CheckRecentOrders" text="Check Recent Orders" />
+      <Button layoutX="266.0" layoutY="318.0" mnemonicParsing="false" onAction="#LogOut" text="Logout" />
+      <Button layoutX="216.0" layoutY="169.0" mnemonicParsing="false" text="Check/File Complaints" />
+      <Button layoutX="248.0" layoutY="243.0" mnemonicParsing="false" text="Check Route" />
+   </children>
+</AnchorPane>

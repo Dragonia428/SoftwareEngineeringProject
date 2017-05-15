@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="619.0" prefWidth="801.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.MenuController">
+   <children>
+      <Label layoutX="7.0" layoutY="32.0" text="Thin Mint Menu">
+         <font>
+            <Font name="AR BERKLEY" size="36.0" />
+         </font>
+      </Label>
+      <MenuBar prefHeight="32.0" prefWidth="801.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Chef">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Check Chef" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Status">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Check Status" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ListView fx:id="dishes" layoutX="14.0" layoutY="146.0" prefHeight="459.0" prefWidth="269.0" />
+      <ImageView fx:id="Menu_img" fitHeight="219.0" fitWidth="299.0" layoutX="335.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="Description" layoutX="335.0" layoutY="322.0" prefHeight="219.0" prefWidth="299.0" text="Label" />
+      <TextField fx:id="SearchBar" layoutX="96.0" layoutY="103.0" />
+      <Label layoutX="14.0" layoutY="105.0" text="Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="Price" layoutX="648.0" layoutY="105.0" text="Price">
+          
+      </Label>
+      <Button layoutX="648.0" layoutY="57.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Add To Cart">
+         <font>
+            <Font name="AR BERKLEY" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
