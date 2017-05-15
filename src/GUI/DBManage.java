@@ -188,7 +188,7 @@ public class DBManage
       str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?);");
       Statement st = con.createStatement();
       ResultSet rs = st.executeQuery("select chef_id from chefs where email="+chef_email);
-      rs.next(); 
+      rs.next();
       int chef_by = rs.getInt("chef_id");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setString(1, dish_name);
@@ -213,6 +213,21 @@ public class DBManage
       ps.setString(2, review);
       ps.setInt(3, dish_id);
       ps.setInt(4, chef_id);
+      ps.executeUpdate();
+    }
+    catch(SQLException sqlException){
+      sqlException.printStackTrace();
+    }
+  }
+
+  public void addtoBlacklistTable(String fname, String lname, String email){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("INSERT INTO manager(email, password, fname, lname) VALUES(?,?,?);");
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.setString(1, fname);
+      ps.setString(2, lname);
+      ps.setString(3, email);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
@@ -269,7 +284,17 @@ public class DBManage
     }
   }
 
-
+  public void deleteFromBlacklistTable(int blacklist_id){
+    try{
+      StringBuilder str = new StringBuilder();
+      str.append("DELETE FROM blacklist WHERE blacklist_id=\'"+blacklist_id+"\';");
+      PreparedStatement ps = con.prepareStatement(str.toString());
+      ps.executeUpdate(str.toString());
+    }
+    catch(SQLException sqlException){
+      sqlException.printStackTrace();
+    }
+  }
 
     private String insertIntoChefsQuery()
     {
@@ -538,9 +563,8 @@ public class DBManage
       {
         ex.printStackTrace();
       }
-      return temp;  
+      return temp;
     }
     return temp;
   }
 } // end class DBManage
-

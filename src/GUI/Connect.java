@@ -76,6 +76,7 @@ public class Connect {
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
+				st.execute(blacklistTable());
 				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger')");
         st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Miguel', 'Rodriguez','Miguelrodriguez@thinmint.com', '123456')");
         st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Galvin', 'Burgos', 'Galvinburgos@thinmint.com', '123456')");
@@ -200,6 +201,7 @@ public class Connect {
 			str.append("UNIQUE(email));");
       return str.toString();
   }
+
     private String ShoppingCart()
     {
         StringBuilder str = new StringBuilder();
@@ -208,6 +210,7 @@ public class Connect {
         str.append("dish_price decimal(5));");
         return str.toString();
     }
+
 	private String reviewsTable(){
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE reviews(");
@@ -220,6 +223,18 @@ public class Connect {
 		str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE CASCADE,");
 		str.append("FOREIGN KEY(chef_id) REFERENCES chefs(chef_id) ON DELETE CASCADE);");
 		return str.toString();
+	}
+
+	private String blacklistTable()
+	{
+			StringBuilder str = new StringBuilder();
+			str.append("CREATE TABLE blacklist(");
+			str.append("blacklist_id int NOT NULL AUTO_INCREMENT,");
+			str.append("fname varchar(15),");
+			str.append("lname varchar(20),");
+			str.append("email varchar(50),");
+			str.append("PRIMARY KEY(blacklist_id)));");
+			return str.toString();
 	}
 
 	private void CreateDatabase(String DBName){
@@ -272,4 +287,3 @@ public class Connect {
   }
 
 } // end class Connect
-
