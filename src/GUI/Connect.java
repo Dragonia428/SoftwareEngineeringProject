@@ -183,8 +183,8 @@ public class Connect {
 		str.append("chef_by int,");
 		str.append("price decimal(5,2) NOT NULL,");
 		str.append("type varchar(10) NOT NULL,");
-		str.append("description varchar(100),");
-		str.append("pic_location varchar(50) NOT NULL,");
+		str.append("description varchar(500),");
+		str.append("pic_location varchar(250) NOT NULL,");
 		str.append("FOREIGN KEY(chef_by) REFERENCES chefs(chef_id) ON DELETE CASCADE,");
 		str.append("PRIMARY KEY(dish_id),");
 		str.append("UNIQUE(dish_name));");
