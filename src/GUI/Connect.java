@@ -76,11 +76,13 @@ public class Connect {
 	    	st.execute(DishesTable());
 				st.execute(OrderTable());
 				st.execute(reviewsTable());
-				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger')");
-        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Miguel', 'Rodriguez','Miguelrodriguez@thinmint.com', '123456')");
-        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Galvin', 'Burgos', 'Galvinburgos@thinmint.com', '123456')");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena')");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina')");
+				st.execute(blacklistTable());
+				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger');");
+        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Miguel', 'Rodriguez','Miguelrodriguez@thinmint.com', '123456');");
+        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Galvin', 'Burgos', 'Galvinburgos@thinmint.com', '123456');");
+        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena');");
+        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina');");
+				st.execute("INSERT INTO customers(first_name, last_name, email, password) VALUES('Garody', 'Jean Charles', 'garody@customer.com', '1234');");
         st.execute(ShoppingCart());
 		}
 
@@ -115,7 +117,7 @@ public class Connect {
 		str.append("customer_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20),");
 		str.append("last_name varchar(20),");
-                str.append("funds float DEFAULT 500.0,");
+    str.append("funds float DEFAULT 500.0,");
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(10) NOT NULL,");
 		str.append("is_vip tinyint(1) DEFAULT false,");
@@ -149,6 +151,7 @@ public class Connect {
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(30) NOT NULL,");
 		str.append("locked tinyint(1) NOT NULL DEFAULT false,");
+		str.append("standing int(11) DEFAULT 0,");
 		str.append("PRIMARY KEY(delivery_id),");
 		str.append("UNIQUE(email));");
 		return str.toString();
@@ -162,7 +165,7 @@ public class Connect {
 			str.append("order_date datetime NOT NULL,");
 			str.append("total_price float NOT NULL,");
 			str.append("delivered tinyint(1),");
-                        str.append("address varchar(20),");
+      str.append("address varchar(500),");
 			str.append("dish_id int,");
 			str.append("delivery_id int,");
 			str.append("PRIMARY KEY(order_id),");
@@ -178,7 +181,7 @@ public class Connect {
 		str.append("dish_id int NOT NULL AUTO_INCREMENT,");
 		str.append("dish_name varchar(20) NOT NULL,");
 		str.append("chef_by int,");
-		str.append("price decimal(5) NOT NULL,");
+		str.append("price decimal(5,2) NOT NULL,");
 		str.append("type varchar(10) NOT NULL,");
 		str.append("description varchar(100),");
 		str.append("pic_location varchar(50) NOT NULL,");
@@ -200,6 +203,7 @@ public class Connect {
 			str.append("UNIQUE(email));");
       return str.toString();
   }
+
     private String ShoppingCart()
     {
         StringBuilder str = new StringBuilder();
@@ -208,6 +212,7 @@ public class Connect {
         str.append("dish_price decimal(5));");
         return str.toString();
     }
+
 	private String reviewsTable(){
 		StringBuilder str = new StringBuilder();
 		str.append("CREATE TABLE reviews(");
@@ -220,6 +225,18 @@ public class Connect {
 		str.append("FOREIGN KEY(dish_id) REFERENCES dishes(dish_id) ON DELETE CASCADE,");
 		str.append("FOREIGN KEY(chef_id) REFERENCES chefs(chef_id) ON DELETE CASCADE);");
 		return str.toString();
+	}
+
+	private String blacklistTable()
+	{
+			StringBuilder str = new StringBuilder();
+			str.append("CREATE TABLE blacklist(");
+			str.append("blacklist_id int NOT NULL AUTO_INCREMENT,");
+			str.append("fname varchar(15),");
+			str.append("lname varchar(20),");
+			str.append("email varchar(50),");
+			str.append("PRIMARY KEY(blacklist_id));");
+			return str.toString();
 	}
 
 	private void CreateDatabase(String DBName){
@@ -272,4 +289,3 @@ public class Connect {
   }
 
 } // end class Connect
-

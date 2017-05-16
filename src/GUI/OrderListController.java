@@ -14,7 +14,12 @@ import java.sql.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+
 import javafx.scene.control.cell.PropertyValueFactory;
+import java.util.Random;
+import java.util.ArrayList;
+import java.util.*;
+
 /**
  * FXML Controller class
  *
@@ -23,9 +28,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class OrderListController implements Initializable {
     @FXML Label total_price;
+
     @FXML TableColumn<Shopping, String> pricecol;
     @FXML TableColumn<Shopping, String> foodcol;
     @FXML TableView<Shopping> cart; 
+  
     /**
      * Initializes the controller class.
      */
@@ -33,6 +40,7 @@ public class OrderListController implements Initializable {
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
           pricecol.setCellValueFactory(new PropertyValueFactory<Shopping,String>("price"));
           foodcol.setCellValueFactory(new PropertyValueFactory<Shopping,String>("item"));
           initializeshoppingcart();
@@ -60,13 +68,46 @@ public class OrderListController implements Initializable {
         {
             
         }
+
     }
     @FXML private void OrderFood()
     {
-        double price = Float.parseFloat(total_price.getText());
-        UpdateCustomerTable(UserInfo.email, price);
-        
+      try{
+        DBManage dbmanage = new DBManage();
+        ArrayList<Integer> deliveryarray = new ArrayList<Integer>();
+        ArrayList<Integer> disharray = new ArrayList<Integer>();
+        int customer_id, dptoDeliver, total_price;
+        Random rand = new Random();
+        ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+UserInfo.email+";");
+        ResultSet delivery_rs = dbmanage.queryDatabase("select delivery_id from delivery;");
+        ResultSet shopping_rs = dbmanage.queryDatabase("select dish_name from shopping_cart;");
+        customerid_rs.next();
+        customer_id = customerid_rs.getInt("customer_id");
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
+        total_price = 0;
+        String address = "Insert address here";
+
+        while(delivery_rs.next()){
+          deliveryarray.add(delivery_rs.getInt("delivery_id"));
+        }
+
+        dptoDeliver = deliveryarray.get(rand.nextInt());
+
+        while(shopping_rs.next()){
+          ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString("dish_name")+";");
+          dish_rs.next();
+          disharray.add(dish_rs.getInt("dish_id"));
+        }
+
+        for(int i = 0; i < disharray.size(); i++){
+          dbmanage.addtoOrdersTable(customer_id, date, total_price, address, disharray.get(i), dptoDeliver);
+        }
+      }
+      catch(SQLException sqlException){
+        sqlException.printStackTrace();
+      }
     }
+
     private void UpdateCustomerTable(String email, double total_price)
     {
      
@@ -74,14 +115,14 @@ public class OrderListController implements Initializable {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             st.executeUpdate("update customers set funds = funds - " + total_price + " where email =" + "'" + email + "'");
-            
-            
+
         }
         catch(SQLException ex)
         {
-            
+
         }
     }
+
     private void SendToOrders()
     {
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
@@ -95,5 +136,5 @@ public class OrderListController implements Initializable {
         }
         
     }
-    
+
 }
