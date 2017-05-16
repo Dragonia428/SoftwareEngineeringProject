@@ -78,7 +78,7 @@ public class OrderListController implements Initializable {
         ArrayList<Integer> disharray = new ArrayList<Integer>();
         int customer_id, dptoDeliver, total_price;
         Random rand = new Random();
-        ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+UserInfo.email+";");
+        ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+"'" + UserInfo.email+ "'" +";");
         ResultSet delivery_rs = dbmanage.queryDatabase("select delivery_id from delivery;");
         ResultSet shopping_rs = dbmanage.queryDatabase("select dish_name from shopping_cart;");
         customerid_rs.next();
@@ -91,7 +91,7 @@ public class OrderListController implements Initializable {
           deliveryarray.add(delivery_rs.getInt("delivery_id"));
         }
 
-        dptoDeliver = deliveryarray.get(rand.nextInt());
+        dptoDeliver = deliveryarray.get(rand.nextInt(deliveryarray.size()-1));
 
         while(shopping_rs.next()){
           ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString("dish_name")+";");
@@ -102,19 +102,22 @@ public class OrderListController implements Initializable {
         for(int i = 0; i < disharray.size(); i++){
           dbmanage.addtoOrdersTable(customer_id, date, total_price, address, disharray.get(i), dptoDeliver);
         }
+        
+        UpdateCustomerTable(customer_id, total_price);
       }
+
       catch(SQLException sqlException){
         sqlException.printStackTrace();
       }
     }
 
-    private void UpdateCustomerTable(String email, double total_price)
+    private void UpdateCustomerTable(int id, double total_price)
     {
      
         try {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            st.executeUpdate("update customers set funds = funds - " + total_price + " where email =" + "'" + email + "'");
+            st.executeUpdate("update customers set funds = funds - " + total_price + " where customer_id =" + "'" + id + "'");
 
         }
         catch(SQLException ex)
