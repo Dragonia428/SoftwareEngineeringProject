@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -14,6 +15,9 @@ import java.sql.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,6 +38,7 @@ public class MenuController implements Initializable {
     @FXML Label Price; 
     ObservableList<String> data = FXCollections.observableArrayList();
     static String currentitemselected; 
+    static String currentprice;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gather_menu_items();
@@ -56,11 +61,16 @@ public class MenuController implements Initializable {
                     {
                         Description.setText("This is spaghetti");
                         Price.setText("12.95");
+                        currentprice = Price.getText();
+                        Image image = new Image("file:penneallavodka.png");
+                        img.setImage(image);
+                        
                     }
                     else if(newValue.equals("Penne alla vodka"))
                     {
                         Description.setText("This is penne");
                         Price.setText("11.95");
+                        currentprice = Price.getText();
                         
                     }
                 }
@@ -79,8 +89,25 @@ public class MenuController implements Initializable {
     }
     @FXML private void AddToCart()
          {
+             try{
+               Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+               PreparedStatement ps = con.prepareStatement("INSERT into shopping_cart(dish_name, dish_price) values(?, ?)");
+               ps.setString(1, currentitemselected);
+               ps.setFloat(2, Float.parseFloat(currentprice));
+               ps.executeUpdate();
+             }
+             catch(SQLException ex)
+             {
+                 
+             }
                
          }
-    
+    @FXML private void ShowCart() throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OrderList.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Main.x.setScene(scene);
+    }
     
 }

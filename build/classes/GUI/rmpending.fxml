@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RmPendingController">
+   <children>
+      <ScrollPane layoutX="3.0" layoutY="69.0" prefHeight="262.0" prefWidth="594.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="598.0">
+               <children>
+                  <TableView fx:id="ptable" layoutY="-3.0" prefHeight="262.0" prefWidth="594.0">
+                    <columns>
+                      <TableColumn fx:id="rmfirst" editable="false" prefWidth="92.0" text="First Name" />
+                      <TableColumn fx:id="rmlast" editable="false" prefWidth="109.0" text="Last Name" />
+                        <TableColumn fx:id="rmemail" editable="false" prefWidth="198.0" text="Email" />
+                        <TableColumn fx:id="rmapprove" prefWidth="91.0" text="Approve" />
+                        <TableColumn fx:id="deny" prefWidth="96.0" text="Disprove" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Button layoutX="48.0" layoutY="355.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
+      <Button layoutX="344.0" layoutY="355.0" mnemonicParsing="false" onAction="#CheckUsers" text="Check Users" />
+      <Button layoutX="485.0" layoutY="355.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" text="Check Chefs" />
+      <Label layoutX="3.0" layoutY="7.0" text="Pending Accounts">
+         <font>
+            <Font name="AR BERKLEY" size="38.0" />
+         </font>
+      </Label>
+      <Button layoutX="185.0" layoutY="355.0" mnemonicParsing="false" onAction="#GoToMenu" text="Return to Menu" />
+   </children>
+</AnchorPane>

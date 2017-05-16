@@ -36,7 +36,7 @@ public class DeliveryPersonController implements Initializable {
     }
     @FXML private void CheckRecentOrders() throws IOException
     {
-         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("recentorders.fxml"));
+         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("recent.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
             Main.x.setScene(scene);

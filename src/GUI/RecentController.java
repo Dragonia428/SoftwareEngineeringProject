@@ -36,20 +36,20 @@ public class RecentController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    @FXML TableColumn orderZIP;
-    @FXML TableColumn orderemail;
-    @FXML TableColumn orderaddress;
+    @FXML TableColumn<Orders,String> orderzip;
+    @FXML TableColumn<Orders,String> orderemail;
+    @FXML TableColumn<Orders, String> orderaddress;
     @FXML TableColumn getdirections;
     @FXML TableColumn Done; 
-    @FXML TableView ordertable; 
+    @FXML TableView<Orders> ordertable; 
     static ObservableList<Orders> data = FXCollections.observableArrayList();
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          orderZIP.setCellValueFactory(new PropertyValueFactory<Orders,String>("ZIP"));
-          orderemail.setCellValueFactory(new PropertyValueFactory<Orders,String>("email"));
-          orderaddress.setCellValueFactory(new PropertyValueFactory<Orders,String>("address"));
-          //rmapprove.setCellValueFactory(new PropertyValueFactory<Pending, Boolean>("approve"));
+         orderzip.setCellValueFactory(new PropertyValueFactory<Orders,String>("ZIP"));
+         orderemail.setCellValueFactory(new PropertyValueFactory<Orders,String>("email"));
+         orderaddress.setCellValueFactory(new PropertyValueFactory<Orders,String>("address"));
+          
          // buildorderstable();
           
     }
@@ -167,7 +167,7 @@ class DeleteCell extends TableCell<Record, Boolean> {
     }
 class Direction extends TableCell<Record, Boolean>
 {
-     final Button cellButton2 = new Button("Deny");
+     final Button cellButton2 = new Button("Direction");
     public Direction() {
      cellButton2.setOnAction(new EventHandler<ActionEvent>(){
 
@@ -181,11 +181,11 @@ class Direction extends TableCell<Record, Boolean>
     }
     private void DenyCustomer()
         {
-            Pending currentPerson;
-            currentPerson = (Pending) ButtonCell2.this.getTableView().getItems().get(ButtonCell2.this.getIndex());
+            Orders currentPerson;
+            currentPerson = (Orders) Direction.this.getTableView().getItems().get(Direction.this.getIndex());
             RmPendingController.data.remove(currentPerson);
             DBManage dbmanager = new DBManage();
-            dbmanager.deleteFromPenAccTable(currentPerson.getEmail());
+            dbmanager.deleteFromPenAccTable(currentPerson.GetEmail());
         }
       @Override
         protected void updateItem(Boolean t, boolean empty) {
