@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.deliveryController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.deliveryController">
   <tabs>
     <Tab text="Your Info">
       <content>
@@ -14,6 +14,10 @@
                   <Label layoutX="35.0" layoutY="69.0" prefHeight="34.0" prefWidth="75.0" text="Last Name:" />
                   <Label layoutX="35.0" layoutY="120.0" prefHeight="31.0" prefWidth="69.0" text="Email:" />
                   <Label layoutX="34.0" layoutY="176.0" prefHeight="25.0" prefWidth="66.0" text="Standing:" />
+                  <Label fx:id="fname_label" layoutX="117.0" layoutY="30.0" text="place_holder" />
+                  <Label fx:id="lname_label" layoutX="117.0" layoutY="78.0" text="place_holder" />
+                  <Label fx:id="email_label" layoutX="117.0" layoutY="128.0" text="place_holder" />
+                  <Label fx:id="standing_label" layoutX="117.0" layoutY="181.0" text="place_holder" />
                </children></AnchorPane>
       </content>
     </Tab>

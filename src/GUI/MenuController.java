@@ -110,7 +110,14 @@ public class MenuController implements Initializable {
     }
     
     @FXML private void ShowReviews() throws IOException{
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reviews.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("showreviews.fxml"));
+        //Parent root = (Parent) fxmlLoader.load();
+        //Scene scene = new Scene(root);
+        //Main.x.setScene(scene);
+    }
+    
+    @FXML private void WriteReview() throws IOException{
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("writereviews.fxml"));
         //Parent root = (Parent) fxmlLoader.load();
         //Scene scene = new Scene(root);
         //Main.x.setScene(scene);

@@ -60,9 +60,13 @@ public class LoginController implements Initializable {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("SELECT email FROM blacklist");
-            rs.next();
-            String em = rs.getString("email");
-            return email.equals(em);
+            if(rs.next()){
+                String em = rs.getString("email");
+                return email.equals(em);
+            }
+            else{
+                return false;
+            }
         }
         catch(SQLException ex){
             ex.printStackTrace();
