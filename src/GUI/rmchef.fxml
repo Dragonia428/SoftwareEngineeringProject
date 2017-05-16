@@ -1,11 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RmchefController">
-    
-</AnchorPane>
+<TabPane id="chefpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="790.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chef.FXMLDocumentController">
+  <tabs>
+    <Tab id="personalTab" fx:id="personalTab" text="Personal">
+      <content>
+        <AnchorPane id="personalAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label id="chefTitleLabel" layoutX="40.0" layoutY="90.0" text="Title:">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label id="chefName" fx:id="chefName" layoutX="28.0" layoutY="35.0" text="Label">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <Label id="chefTitle" fx:id="chefTitle" layoutX="135.0" layoutY="90.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label id="chefEmail" fx:id="chefEmail" layoutX="135.0" layoutY="120.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label id="chefSalary" fx:id="chefSalary" layoutX="135.0" layoutY="150.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="40.0" layoutY="120.0" text="Email:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="40.0" layoutY="150.0" text="Salary:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab id="addMenuItemTab" fx:id="addMenuItemsTab" text="Add Menu Items">
+      <content>
+        <AnchorPane id="addMenuItemsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="691.0">
+               <children>
+                  <TextField id="dishNameField" fx:id="dishNameField" layoutX="101.0" layoutY="35.0" prefHeight="25.0" prefWidth="230.0" />
+                  <Label id="dishPriceLabel" layoutX="614.0" layoutY="40.0" text="Price  $">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField id="dishTypeField" fx:id="dishTypeField" layoutX="420.0" layoutY="35.0" prefHeight="25.0" prefWidth="144.0" />
+                  <TextField id="dishPriceField" fx:id="dishPriceField" layoutX="667.0" layoutY="35.0" prefHeight="25.0" prefWidth="103.0" />
+                  <Label id="dishImageFileLabel" layoutX="20.0" layoutY="90.0" text="Image file">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextField id="fileField" fx:id="dishImageFileField" layoutX="101.0" layoutY="85.0" prefHeight="25.0" prefWidth="384.0" />
+                  <Label id="dishDescriptionLabel" layoutX="20.0" layoutY="150.0" text="Dish description">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <TextArea fx:id="dishDescriptionArea" layoutX="20.0" layoutY="171.0" prefHeight="169.0" prefWidth="492.0">
+                     <effect>
+                        <Glow />
+                     </effect>
+                  </TextArea>
+                  <Button id="addDishButton" fx:id="addDishButton" layoutX="20.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleAddDishButton" prefHeight="35.0" prefWidth="140.0" text="Add Dish" />
+                  <Button fx:id="browseButton" layoutX="492.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleBrowseButton" prefHeight="25.0" prefWidth="80.0" text="Browse" />
+                  <Label layoutX="371.0" layoutY="40.0" text="Type">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <Label layoutX="20.0" layoutY="40.0" text="Dish Name">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="resultLabel" layoutX="492.0" layoutY="373.0" prefHeight="15.0" prefWidth="274.0" textFill="#e40404">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="clearFieldsButton" layoutX="196.0" layoutY="355.0" mnemonicParsing="false" onAction="#handleClearFieldsButton" prefHeight="35.0" prefWidth="140.0" text="Clear" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+      <Tab id="removemenuitemTab" fx:id="removeMenuItemsTab" onSelectionChanged="#onSelectRemoveMenuItemTab" text="Remove Menu Item">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="450.0" prefWidth="770.0">
+               <children>
+                  <ListView fx:id="menuItemsListView" layoutX="43.0" layoutY="14.0" prefHeight="377.0" prefWidth="343.0" />
+                  <Button fx:id="removeDishesButton" layoutX="431.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleRemoveDishesButton" prefHeight="48.0" prefWidth="181.0" text="Remove">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

@@ -13,6 +13,8 @@ import java.sql.*;
 import java.lang.System.*;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 
@@ -182,27 +184,25 @@ public class DBManage
     }
   }
 
-  public void addtoDishesTable(String dish_name, String chef_email, float price, String type, String description,
-  String pic_location){
-    try{
-      StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?);");
-      Statement st = con.createStatement();
-      ResultSet rs = st.executeQuery("select chef_id from chefs where email="+chef_email);
-      rs.next();
-      int chef_by = rs.getInt("chef_id");
-      PreparedStatement ps = con.prepareStatement(str.toString());
-      ps.setString(1, dish_name);
-      ps.setInt(2, chef_by);
-      ps.setFloat(3, price);
-      ps.setString(4, type);
-      ps.setString(5, description);
-      ps.setString(6, pic_location);
-      ps.executeUpdate();
-    }
-    catch(SQLException sqlException){
-      sqlException.printStackTrace();
-    }
+  public boolean addtoDishesTable(String dish_name, int chef_by, float price, String type, String description, String pic_location){
+      boolean result = true;
+      try{
+          StringBuilder str = new StringBuilder();
+          str.append("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES(?,?,?,?,?,?);");
+          PreparedStatement ps = con.prepareStatement(str.toString());
+          ps.setString(1, dish_name);
+          ps.setInt(2, chef_by);
+          ps.setFloat(3, price);
+          ps.setString(4, type);
+          ps.setString(5, description);
+          ps.setString(6, pic_location);
+          ps.executeUpdate();
+      }
+      catch(SQLException sqlException){
+          result = false;
+          sqlException.printStackTrace();
+      }
+      return result;
   }
 
   public void addtoReviewsTable(int stars, String review, int dish_id, int chef_id){
@@ -455,7 +455,8 @@ public class DBManage
     }
   }
 
-  public void deleteFromDishesTable(int dish_id){
+  public boolean deleteFromDishesTable(int dish_id){
+      boolean result = true;
     try{
       StringBuilder str = new StringBuilder();
       str.append("DELETE FROM dishes WHERE dish_id=\'"+dish_id+"\';");
@@ -463,8 +464,10 @@ public class DBManage
       ps.executeUpdate(str.toString());
     }
     catch(SQLException sqlException){
+        result = false;
       sqlException.printStackTrace();
     }
+    return result;
   }
 
   public void deleteFromPenAccTable(String email){
@@ -567,5 +570,19 @@ public class DBManage
       return temp;
     }
     return temp;
+  }
+  
+  public ObservableList<String> getMenuItemNames() {
+      ObservableList<String> dishNames = FXCollections.observableArrayList();
+      try{
+          Statement namesQuery = con.createStatement();
+          ResultSet resultSet = namesQuery.executeQuery("SELECT dish_name FROM dishes;");
+          while( resultSet.next() )
+              dishNames.add(resultSet.getString("dish_name"));
+      }
+      catch(SQLException sqlEx){
+          sqlEx.printStackTrace();
+      }
+      return dishNames;
   }
 } // end class DBManage
