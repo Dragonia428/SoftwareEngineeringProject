@@ -46,6 +46,7 @@ public class LoginController implements Initializable {
     {
         String email = textfield.getText();
         String password = passwordfield.getText();
+        //if(isBlacklist(email)) 
         if(isManager(email, password)) GoToRM();
         else if(isChef(email, password)) GoToChefs();
         else if(isDP(email, password)) GoToDP();
@@ -74,12 +75,13 @@ public class LoginController implements Initializable {
         try {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("SELECT email, password FROM chefs");
+            ResultSet rs = st.executeQuery("SELECT email, password, locked FROM chefs");
             while(rs.next())
             {
                 String em = rs.getString("email");
                 String pass = rs.getString("password");
-                if(email.equals(em) && password.equals(pass)) return true;
+                boolean locked = rs.getBoolean("locked");
+                if(email.equals(em) && password.equals(pass) && locked == false) return true;
             }
             return false; 
         }
@@ -94,12 +96,13 @@ public class LoginController implements Initializable {
         try {
         Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT email, password FROM delivery");
+        ResultSet rs = st.executeQuery("SELECT email, password, locked FROM delivery");
            while(rs.next())
             {
                 String em = rs.getString("email");
                 String pass = rs.getString("password");
-                if(email.equals(em) && password.equals(pass)) return true;
+                boolean locked = rs.getBoolean("locked");
+                if(email.equals(em) && password.equals(pass) && locked == false) return true;
             }
             return false;
         }
@@ -115,12 +118,13 @@ public class LoginController implements Initializable {
         try {
         Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery("SELECT email, password FROM customers");
+        ResultSet rs = st.executeQuery("SELECT email, password, locked FROM customers");
            while(rs.next())
             {
                 String em = rs.getString("email");
                 String pass = rs.getString("password");
-                if(email.equals(em) && password.equals(pass)) return true;
+                boolean locked = rs.getBoolean("locked");
+                if(email.equals(em) && password.equals(pass) && locked == false) return true;
             }
             return false;
         }
