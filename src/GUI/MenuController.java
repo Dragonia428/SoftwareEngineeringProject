@@ -110,4 +110,10 @@ public class MenuController implements Initializable {
             Main.x.setScene(scene);
     }
     
+    @FXML private void LogOut() throws IOException
+    {
+        LoginController login = new LoginController();
+        login.GoToLogin();
+    }
+    
 }

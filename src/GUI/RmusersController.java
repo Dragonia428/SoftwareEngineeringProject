@@ -170,6 +170,7 @@ class StatusCell extends TableCell<Record, Boolean> {
             });
             
         }
+        
         private void CheckStatus()
         {
             try {
@@ -185,6 +186,7 @@ class StatusCell extends TableCell<Record, Boolean> {
             }
             
         }
+        
         @Override
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);
@@ -210,6 +212,7 @@ class RemoveCell extends TableCell<Record, Boolean> {
             });
             
         }
+        
         private void Remove()
         {
              Users curruser;
@@ -218,6 +221,7 @@ class RemoveCell extends TableCell<Record, Boolean> {
              RmusersController.data.remove(curruser);
              dbmanager.deleteFromCustomerTable(curruser.getEmail());
         }
+        
         @Override
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);

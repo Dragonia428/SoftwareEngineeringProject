@@ -8,15 +8,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="619.0" prefWidth="801.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.MenuController">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="619.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuController">
    <children>
       <Label layoutX="7.0" layoutY="32.0" text="Thin Mint Menu">
          <font>
             <Font name="AR BERKLEY" size="36.0" />
          </font>
       </Label>
-      <MenuBar prefHeight="32.0" prefWidth="801.0">
+      <MenuBar layoutY="-2.0" prefHeight="32.0" prefWidth="801.0">
         <menus>
           <Menu mnemonicParsing="false" text="Chef">
             <items>
@@ -44,7 +43,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="Price" layoutX="648.0" layoutY="135.0" text="Price">
+      <Label fx:id="Price" layoutX="648.0" layoutY="146.0" text="Price">
           
       </Label>
       <Button layoutX="648.0" layoutY="57.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Add To Cart">
@@ -57,5 +56,6 @@
             <Font name="AR BERKLEY" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="686.0" layoutY="523.0" mnemonicParsing="false" onMouseClicked="#LogOut" prefHeight="44.0" prefWidth="90.0" text="Log Out" />
    </children>
 </AnchorPane>

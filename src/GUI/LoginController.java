@@ -109,6 +109,7 @@ public class LoginController implements Initializable {
             return false;
         }
     }
+     
      private boolean isUser(String email, String password)
     {
         try {
@@ -129,6 +130,7 @@ public class LoginController implements Initializable {
             return false;
         }
     }
+     
     @FXML private void GoToRegistration() throws IOException
     {
           try {
