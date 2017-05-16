@@ -10,7 +10,6 @@ package GUI;
  * @author setti
  */
 import java.sql.*;
-import java.lang.System.*;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -67,6 +66,7 @@ public class DBManage
         ex.printStackTrace();
     }
   }
+  
   public int GetCustomerID(String email)
   {
       try
@@ -83,6 +83,7 @@ public class DBManage
           return 0;
       }
   }
+  
   public int GetOrderID(String email)
   {
       try
@@ -99,6 +100,19 @@ public class DBManage
           return 0;
       }
   }
+  
+   public ResultSet getChefStatus() {
+        ResultSet resultSet = null;
+        try{
+            Statement st = con.createStatement();
+            resultSet = st.executeQuery("SELECT fname, lname, title, email, salary FROM chefs WHERE chef_id=1;");
+        }
+        catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultSet;
+    }
+  
   public void addCheftoTable(String fname, String lname, String email, String password, String title,
   float pay, String managed_by){
     try{
@@ -455,13 +469,28 @@ public class DBManage
     }
   }
 
+  public boolean deleteFromDishesTable(String dish_name){
+      boolean result = true;
+    try{
+      String str = "DELETE FROM dishes WHERE dish_id=?;";
+      PreparedStatement ps = con.prepareStatement(str);
+      ps.setString(1, dish_name);
+      ps.executeUpdate();
+    }
+    catch(SQLException sqlException){
+        result = false;
+      sqlException.printStackTrace();
+    }
+    return result;
+  }
+  
   public boolean deleteFromDishesTable(int dish_id){
       boolean result = true;
     try{
-      StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM dishes WHERE dish_id=\'"+dish_id+"\';");
-      PreparedStatement ps = con.prepareStatement(str.toString());
-      ps.executeUpdate(str.toString());
+      String str = "DELETE FROM dishes WHERE dish_id=?;";
+      PreparedStatement ps = con.prepareStatement(str);
+      ps.setInt(1, dish_id);
+      ps.executeUpdate();
     }
     catch(SQLException sqlException){
         result = false;

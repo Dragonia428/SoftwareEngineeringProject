@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package chef;
+package GUI;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,7 +24,7 @@ import java.util.ListIterator;
  *
  * @author gurbos
  */
-public class FXMLDocumentController implements Initializable {
+public class RmchefController implements Initializable {
     
     private DBManage dbm;
     @FXML
@@ -44,9 +44,9 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        dbm = new DBManage();
         menuItemsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         try{
-            dbm = new DBManage();
             ResultSet resultSet = dbm.getChefStatus();
             if( resultSet.next() ) {
                 chefName.setText(resultSet.getNString("fname") + " "  + resultSet.getNString("lname"));
@@ -64,7 +64,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void handleAddDishButton(ActionEvent event) {
         try{
-            dbm = new DBManage();
             String dishName, dishType, dishImageFile, dishDescription;
             float dishPrice;
             dishName = dishNameField.getText();
