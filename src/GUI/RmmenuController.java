@@ -48,5 +48,12 @@ public class RmmenuController implements Initializable {
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
     }
+    @FXML private void CheckChefs() throws IOException
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmchef.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Main.x.setScene(scene);
+    }
     
 }

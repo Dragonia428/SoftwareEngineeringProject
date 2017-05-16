@@ -25,6 +25,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.util.Callback;
+import com.lynden.gmapsfx.GoogleMapView;
 /**
  * FXML Controller class
  *
@@ -174,19 +175,15 @@ class Direction extends TableCell<Record, Boolean>
                 @Override
                 public void handle(ActionEvent t) {
                     // get Selected Item
-                        DenyCustomer();
+                        
                         
                 }
             });
     }
-    private void DenyCustomer()
-        {
-            Orders currentPerson;
-            currentPerson = (Orders) Direction.this.getTableView().getItems().get(Direction.this.getIndex());
-            RmPendingController.data.remove(currentPerson);
-            DBManage dbmanager = new DBManage();
-            dbmanager.deleteFromPenAccTable(currentPerson.GetEmail());
-        }
+    private void GetDirections()
+    {
+        
+    }
       @Override
         protected void updateItem(Boolean t, boolean empty) {
             super.updateItem(t, empty);

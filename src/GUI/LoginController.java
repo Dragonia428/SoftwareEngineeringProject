@@ -177,9 +177,14 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
     }
-    private void GoToChefs()
+    private void GoToChefs() throws IOException
     {
         logged_in = true; 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmchef.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root);
+            Main.x.setScene(scene);
+        
     }
     private void GoToDP() throws IOException
     {

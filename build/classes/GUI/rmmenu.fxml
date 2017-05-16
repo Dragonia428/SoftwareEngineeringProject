@@ -12,7 +12,7 @@
    
       <Button layoutX="252.0" layoutY="298.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
       <Button layoutX="250.0" layoutY="245.0" mnemonicParsing="false" onAction="#CheckUsers" text="Check Users" />
-      <Button layoutX="250.0" layoutY="185.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="101.0" text="Check Chefs" />
+      <Button layoutX="250.0" layoutY="185.0" mnemonicParsing="false" onAction="#CheckChefs" prefHeight="31.0" prefWidth="101.0" text="Check Chefs" />
       <Label layoutX="3.0" layoutY="7.0" text="Restaurant Manager Menu">
          <font>
             <Font name="AR BERKLEY" size="38.0" />

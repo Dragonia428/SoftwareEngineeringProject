@@ -169,6 +169,10 @@ GUI.ButtonCell$1
 GUI.ButtonCell
 javafx.event.EventHandler
 javafx.event.ActionEvent
+||:GUI.Shopping
+java.lang.Object
+javafx.beans.property.SimpleStringProperty
+GUI.Shopping
 ||:GUI.RemoveCell
 GUI.RemoveCell$1
 GUI.Users
@@ -182,10 +186,6 @@ javafx.collections.ObservableList
 com.sun.prism.impl.Disposer
 com.sun.prism.impl.Disposer$Record
 javafx.scene.control.Button
-||:GUI.Shopping
-java.lang.Object
-javafx.beans.property.SimpleStringProperty
-GUI.Shopping
 ||:GUI.RmusersController
 javafx.fxml.Initializable
 java.sql.SQLException
