@@ -98,7 +98,7 @@ public class MenuController implements Initializable {
              }
              catch(SQLException ex)
              {
-                 
+                 ex.printStackTrace();
              }
                
          }

@@ -46,7 +46,7 @@
       <Label fx:id="Price" layoutX="648.0" layoutY="146.0" text="Price">
           
       </Label>
-      <Button layoutX="648.0" layoutY="57.0" mnemonicParsing="false" onAction="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Add To Cart">
+      <Button layoutX="648.0" layoutY="57.0" mnemonicParsing="false" onAction="#AddToCart" onMouseClicked="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Add To Cart">
          <font>
             <Font name="AR BERKLEY" size="18.0" />
          </font>

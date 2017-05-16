@@ -87,8 +87,7 @@ public class RmusersController implements Initializable {
                  String last = rs.getString("last_name");
                  String email = rs.getString("email");
                 
-                 data.add(new Users(first, last, email));
-                 
+                 data.add(new Users(first, last, email));  
             }
             utable.setItems(data);
            status.setCellValueFactory(
