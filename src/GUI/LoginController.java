@@ -46,11 +46,28 @@ public class LoginController implements Initializable {
     {
         String email = textfield.getText();
         String password = passwordfield.getText();
-        //if(isBlacklist(email)) 
-        if(isManager(email, password)) GoToRM();
+        if(isBlacklist(email)){
+            //update label to say "Sorry your account is locked. Please consult with the manager."
+        }
+        else if(isManager(email, password)) GoToRM();
         else if(isChef(email, password)) GoToChefs();
         else if(isDP(email, password)) GoToDP();
         else if(isUser(email, password)) GoToMenu();
+    }
+    
+    private boolean isBlacklist(String email) throws IOException{
+        try{
+            Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT email FROM blacklist");
+            rs.next();
+            String em = rs.getString("email");
+            return email.equals(em);
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     private boolean isManager(String email, String password)
@@ -177,4 +194,5 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
     }
+    
 }
