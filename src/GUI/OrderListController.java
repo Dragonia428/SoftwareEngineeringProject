@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import java.sql.*;
 import javafx.scene.control.*;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.*;
 /**
  * FXML Controller class
  *
@@ -34,38 +36,40 @@ public class OrderListController implements Initializable {
     {
       try{
         DBManage dbmanage = new DBManage();
-        ArrayList<int> deliveryarray, disharray;
-        int customer_id, dptoDeliver;
-        Random rand;
-        ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+userinfo.email+";");
+        ArrayList<Integer> deliveryarray = new ArrayList<Integer>();
+        ArrayList<Integer> disharray = new ArrayList<Integer>();
+        int customer_id, dptoDeliver, total_price;
+        Random rand = new Random();
+        ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+UserInfo.email+";");
         ResultSet delivery_rs = dbmanage.queryDatabase("select delivery_id from delivery;");
         ResultSet shopping_rs = dbmanage.queryDatabase("select dish_name from shopping_cart;");
-        customrid_rs.next();
+        customerid_rs.next();
         customer_id = customerid_rs.getInt("customer_id");
-        java.sql.Date date = new java.sql.Date(currentDate.getTime());
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
         total_price = 0;
+        String address = "Insert address here";
 
         while(delivery_rs.next()){
-          deliveryarray.add(delivery_rs.getInt);
+          deliveryarray.add(delivery_rs.getInt("delivery_id"));
         }
 
-        dptoDeliver = deliveryarray.get(rand.getInt());
+        dptoDeliver = deliveryarray.get(rand.nextInt());
 
         while(shopping_rs.next()){
-          ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString()+";");
+          ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString("dish_name")+";");
           dish_rs.next();
-          disharray.add(dish_rs.getInt());
+          disharray.add(dish_rs.getInt("dish_id"));
         }
 
-        for(int i = 0; i < disharray.size; i++){
-          dbmanage.addtoOrdersTable(customer_id, date, disharray.get(i), dptoDeliver);
+        for(int i = 0; i < disharray.size(); i++){
+          dbmanage.addtoOrdersTable(customer_id, date, total_price, address, disharray.get(i), dptoDeliver);
         }
       }
       catch(SQLException sqlException){
         sqlException.printStackTrace();
       }
     }
-    
+
     private void UpdateCustomerTable(String email, double total_price)
     {
         java.sql.Date date = new java.sql.Date(System.currentTimeMillis());

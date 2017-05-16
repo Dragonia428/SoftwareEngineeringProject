@@ -163,17 +163,18 @@ public class DBManage
     }
   }
 
-  public void addtoOrdersTable(int customer_id, String order_date, float total_price, int dish_id, int delivery_id){
+  public void addtoOrdersTable(int customer_id, java.sql.Date order_date, float total_price, String address, int dish_id, int delivery_id){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("INSERT INTO orders(customer_id, order_date, total_price, delivered, dish_id, delivery_id) VALUES((select customer_id from customers where email=?),?,?,?,?,?);");
+      str.append("INSERT INTO orders(customer_id, order_date, total_price, address, delivered, dish_id, delivery_id) VALUES(?,?,?,?,?,?,?);");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.setInt(1, customer_id);
-      ps.setDate(2, java.sql.Date.valueOf(order_date));
+      ps.setDate(2, order_date);
       ps.setFloat(3, total_price);
-      ps.setBoolean(4, false);
-      ps.setInt(5, dish_id);
-      ps.setInt(6, delivery_id);
+      ps.setString(4, address);
+      ps.setBoolean(5, false);
+      ps.setInt(6, dish_id);
+      ps.setInt(7, delivery_id);
       ps.executeUpdate();
     }
     catch(SQLException sqlException){
