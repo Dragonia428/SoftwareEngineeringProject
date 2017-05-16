@@ -78,12 +78,11 @@ public class MenuController implements Initializable {
             });
  //           Image image = new Image("file:penneallavodka.png");
 //            img.setImage(image);
-            
         }
          
         catch(SQLException ex)
         {
-            
+            ex.printStackTrace();
         }
          
     }
@@ -108,6 +107,13 @@ public class MenuController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
+    }
+    
+    @FXML private void ShowReviews() throws IOException{
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reviews.fxml"));
+        //Parent root = (Parent) fxmlLoader.load();
+        //Scene scene = new Scene(root);
+        //Main.x.setScene(scene);
     }
     
     @FXML private void LogOut() throws IOException
