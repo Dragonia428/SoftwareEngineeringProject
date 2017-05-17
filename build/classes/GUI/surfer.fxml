@@ -8,8 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="GUI.MenuController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MenuController">
    <children>
       <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="619.0" prefWidth="801.0">
          <children>
@@ -58,7 +57,7 @@
             </Button>
             <Button layoutX="343.0" layoutY="532.0" mnemonicParsing="false" onAction="#ShowReviews" prefHeight="37.0" prefWidth="106.0" text="Show Reviews" />
             <Button layoutX="472.0" layoutY="532.0" mnemonicParsing="false" onAction="#WriteReview" prefHeight="37.0" prefWidth="106.0" text="Write Review" />
-            <Button fx:id="search_button" layoutX="277.0" layoutY="103.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="58.0" text="enter" />
+            <Button fx:id="search_button" layoutX="277.0" layoutY="103.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="58.0" text="enter" />
          </children>
       </AnchorPane>
    </children>

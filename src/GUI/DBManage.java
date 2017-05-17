@@ -9,6 +9,8 @@ package GUI;
  *
  * @author setti
  */
+import static GUI.MenuController.currentitemselected;
+import static GUI.MenuController.currentprice;
 import java.sql.*;
 import java.lang.StringBuilder;
 import java.util.ArrayList;
@@ -536,7 +538,19 @@ public class DBManage
       sqlException.printStackTrace();
     }
   }
-
+  public void AddToCart()
+  {
+       try{
+            PreparedStatement ps = con.prepareStatement("INSERT into shopping_cart(dish_name, dish_price) values(?, ?)");
+            ps.setString(1, currentitemselected);
+            ps.setFloat(2, Float.parseFloat(currentprice));
+            ps.executeUpdate();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+  }
   public ResultSet queryDatabase(String query){
     try{
       if(query.substring(0,6).equals("select") || query.substring(0,6).equals("SELECT")){

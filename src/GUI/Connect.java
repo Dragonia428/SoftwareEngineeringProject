@@ -185,7 +185,7 @@ public class Connect {
 		str.append("dish_id int NOT NULL AUTO_INCREMENT,");
 		str.append("dish_name varchar(20) NOT NULL,");
 		str.append("chef_by int,");
-		str.append("price decimal(5,2) NOT NULL,");
+		str.append("price decimal(5,3) NOT NULL,");
 		str.append("type varchar(10) NOT NULL,");
 		str.append("description varchar(500),");
 		str.append("pic_location varchar(250) NOT NULL,");
@@ -213,7 +213,7 @@ public class Connect {
         StringBuilder str = new StringBuilder();
         str.append("CREATE TABLE shopping_cart(");
         str.append("dish_name varchar(20),");
-        str.append("dish_price decimal(5));");
+        str.append("dish_price decimal(5,3))");
         return str.toString();
     }
 

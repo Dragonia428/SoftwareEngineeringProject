@@ -18,9 +18,11 @@ javafx.collections.FXCollections
 java.sql.PreparedStatement
 java.lang.Class
 java.io.PrintStream
+GUI.MenuController
 java.sql.Statement
 javafx.collections.ObservableList
 java.lang.Boolean
+java.lang.Float
 GUI.DBManage
 java.lang.Exception
 java.sql.ResultSet
@@ -77,6 +79,7 @@ GUI.Connect
 java.util.Calendar
 GUI.OrderListController
 GUI.DBManage
+javafx.scene.control.Label
 java.sql.ResultSet
 javafx.scene.control.TableColumn
 java.lang.Integer
@@ -474,7 +477,6 @@ javafx.collections.ObservableList
 java.lang.Object
 GUI.MenuController$1
 java.lang.String
-GUI.DishInfo
 java.lang.Exception
 ||:GUI.Connect
 java.lang.StringBuilder
@@ -682,11 +684,10 @@ GUI.MenuController
 GUI.MenuController$1
 java.sql.Statement
 javafx.collections.ObservableList
-GUI.Connect
 GUI.LoginController
+GUI.Connect
 javafx.fxml.FXMLLoader
 java.io.IOException
-java.lang.Float
 GUI.DBManage
 javafx.scene.control.Label
 javafx.beans.property.ReadOnlyObjectProperty

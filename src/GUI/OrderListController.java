@@ -52,17 +52,24 @@ public class OrderListController implements Initializable {
            
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select dish_name, dish_price from shopping_cart");
+            ResultSet rs = st.executeQuery("select * from shopping_cart");
             while(rs.next())
             {
                  String dish = rs.getString("dish_name");
-                 System.out.println(dish);
+               //  System.out.println(dish);
                  Double price = rs.getDouble("dish_price");
-                 System.out.println(price.toString());
+                 
+                // System.out.println(price.toString());
                  data.add(new Shopping(dish, price.toString()));
                  
             }
-            cart.setItems(data);
+                cart.getItems().setAll(data);
+            ResultSet rs2 = st.executeQuery("select sum(dish_price) from shopping_cart");
+            rs2.next();
+            Double value = rs2.getDouble(1);
+            total_price.setText(value.toString());
+//            System.out.println(data.get(0).getPrice());
+        
         }
         catch(SQLException ex)
         {
@@ -80,7 +87,7 @@ public class OrderListController implements Initializable {
         Random rand = new Random();
         ResultSet customerid_rs = dbmanage.queryDatabase("select customer_id from customers where email="+"'" + UserInfo.email+ "'" +";");
         ResultSet delivery_rs = dbmanage.queryDatabase("select delivery_id from delivery;");
-        ResultSet shopping_rs = dbmanage.queryDatabase("select dish_name from shopping_cart;");
+        ResultSet shopping_rs = dbmanage.queryDatabase("select dish_name as dn from shopping_cart;");
         customerid_rs.next();
         customer_id = customerid_rs.getInt("customer_id");
         java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTimeInMillis());
@@ -94,7 +101,7 @@ public class OrderListController implements Initializable {
         dptoDeliver = deliveryarray.get(rand.nextInt(deliveryarray.size()-1));
 
         while(shopping_rs.next()){
-          ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString("dish_name")+";");
+          ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ="+shopping_rs.getString("dn")+";");
           dish_rs.next();
           disharray.add(dish_rs.getInt("dish_id"));
         }

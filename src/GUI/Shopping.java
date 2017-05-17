@@ -14,8 +14,8 @@ import javafx.beans.property.SimpleDoubleProperty;
  */
 
 public class Shopping {
-    SimpleStringProperty item = new SimpleStringProperty("");
-    SimpleStringProperty price = new SimpleStringProperty("");
+    final SimpleStringProperty item = new SimpleStringProperty();
+    final SimpleStringProperty price = new SimpleStringProperty();
     public Shopping()
     {
         new Shopping("", "");

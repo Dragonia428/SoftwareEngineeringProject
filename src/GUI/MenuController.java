@@ -73,19 +73,22 @@ public class MenuController implements Initializable {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     ObservableList<String> temp = FXCollections.observableArrayList();
                     temp.addAll(data);
+                    currentitemselected = newValue;
                     for(int i = 0; i < temp.size(); i++)
                     {
                         if(newValue.equals(temp.get(i)))
                         {
+                            
                                 try {
                                     ResultSet rs3 = st.executeQuery("select price, description from dishes where dish_name=" + "'" + newValue + "'");
                                     rs3.next();
                                     String descr = rs3.getString("description");
-                                    Double price = DishInfo.round(rs3.getDouble("price"), 2);
+                                    Double price = rs3.getDouble("price");
+                                    currentprice = price.toString();
+                                    
+                                    //System.out.println(String.format("%.2f", price.toString()));
                                     Description.setText(descr);
-                                    DecimalFormat df = new DecimalFormat("0.00##");
-                                    String pr = df.format(price.toString());
-                                    Price.setText(pr);
+                                    Price.setText(currentprice);
                                     
                                
                                 }
@@ -107,33 +110,44 @@ public class MenuController implements Initializable {
     }
     @FXML private void AddToCart()
     {
-        try{
-            Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
-            PreparedStatement ps = con.prepareStatement("INSERT into shopping_cart(dish_name, dish_price) values(?, ?)");
-            ps.setString(1, currentitemselected);
-            ps.setFloat(2, Float.parseFloat(currentprice));
-            ps.executeUpdate();
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
-        }
+       DBManage dbmanager = new DBManage();
+       dbmanager.AddToCart();
                
     }
     
-    @FXML private void search() throws IOException{
-        try{
+    @FXML private void search(){
+        
             DBManage dbmanage = new DBManage();
             String search = SearchBar.getText();
-            if(search == "")
+            try {
+                  Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+            data.clear();
+            if(search.isEmpty())
             {
-                gather_menu_items();
+              
+                Statement st = con.createStatement();
+                ResultSet regular = st.executeQuery("select dish_name from dishes");
+                while(regular.next())
+                {
+                    String reg = regular.getString("dish_name");
+                    data.add(reg);
+                }
+                dishes.getItems().setAll(data);
             }
-            ResultSet rs = dbmanage.queryDatabase("SELECT dish_name from dishes where dish_name ="+search+";");
-            if(rs.next()){
+            else {
                 
+                PreparedStatement ps = con.prepareStatement("select dish_name from dishes where type =? or dish_name=?");
+                ps.setString(1, search);
+                ps.setString(2, search);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next())
+                {
+                    String dish = rs.getString("dish_name");
+                    data.add(dish);
+                }
+                dishes.getItems().setAll(data);
             }
-        
+           
         }
         catch(SQLException ex){
             ex.printStackTrace();
