@@ -67,7 +67,8 @@ public class RMTabController implements Initializable {
     
     @FXML private void buildpendingtable()
     {
-        
+        if(ptable.getItems().isEmpty())
+        {
         try {
            
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
@@ -80,6 +81,8 @@ public class RMTabController implements Initializable {
                  String email = rs.getString("email");
                 
                 pendingdata.add(new Pending(first, last, email));
+            }
+               ptable.setItems(pendingdata);
                 rmapprove.setCellValueFactory(
                         new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, 
                         ObservableValue<Boolean>>() {
@@ -93,11 +96,11 @@ public class RMTabController implements Initializable {
                 //Adding the Button to the cell
                 rmapprove.setCellFactory
                 (
-                  new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
+                  new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Record, Boolean>>() {
 
                     @Override
                     public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                        return new ButtonCell();
+                        return new Approve();
                     }
 
                 });
@@ -117,20 +120,21 @@ public class RMTabController implements Initializable {
 
                     @Override
                     public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                        return new ButtonCell2();
+                        return new Deny();
                     }
 
                 });
 
             }
-            ptable.setItems(pendingdata);
+      
            
         
         
-        }
+        
         catch(SQLException ex)
         {
             ex.printStackTrace();
+        }
         }
     }
      @FXML private void buildusertable()
@@ -170,7 +174,7 @@ public class RMTabController implements Initializable {
 
             @Override
             public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                return new StatusCell();
+                return new StatCell();
             }
         
         });
@@ -192,7 +196,7 @@ public class RMTabController implements Initializable {
 
             @Override
             public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                return new RemoveCell();
+                return new RemCell();
             }
         
         });
@@ -289,7 +293,7 @@ class RemCell extends TableCell<Disposer.Record, Boolean> {
              curruser = (Users) RemCell.this.getTableView().getItems().get(RemCell.this.getIndex());
              int index = RemCell.this.getTableRow().getIndex();
              DBManage dbmanager = new DBManage();
-             RmusersController.data.remove(index);
+             RMTabController.userdata.remove(index);
              dbmanager.deleteFromCustomerTable(curruser.getEmail());
         }
         
@@ -334,7 +338,7 @@ class Approve extends TableCell<Disposer.Record, Boolean> {
                         String password = rs.getString("password");
                         dbmanager.addtoCustomerTable(currentPerson.getFirstName(), currentPerson.getLastName(), currentPerson.getEmail(), password);
                         dbmanager.deleteFromPenAccTable(currentPerson.getEmail());
-                	RmPendingController.data.remove(currentPerson);
+                	RMTabController.pendingdata.remove(currentPerson);
                 }
                catch(SQLException ex)
                     {
@@ -369,7 +373,7 @@ class Deny extends TableCell<Record, Boolean>
         {
             Pending currentPerson;
             currentPerson = (Pending) Deny.this.getTableView().getItems().get(Deny.this.getIndex());
-            RmPendingController.data.remove(currentPerson);
+            RMTabController.pendingdata.remove(currentPerson);
             DBManage dbmanager = new DBManage();
             dbmanager.deleteFromPenAccTable(currentPerson.getEmail());
         }
