@@ -76,7 +76,7 @@
         </AnchorPane>
       </content>
     </Tab>
-      <Tab fx:id="chefstable" text="Chefs">
+      <Tab fx:id="chefstable" onSelectionChanged="#buildcheftable" text="Chefs">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
              <children>
@@ -123,6 +123,41 @@
              </children>
           </AnchorPane>
         </content>
+      </Tab>
+      <Tab fx:id="chefstable1" onSelectionChanged="#builddeliverytable" text="Delivery">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+                     <children>
+                        <ScrollPane layoutX="3.0" layoutY="69.0" prefHeight="262.0" prefWidth="594.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="598.0">
+                                 <children>
+                                    <TableView fx:id="dtable" layoutY="-3.0" prefHeight="262.0" prefWidth="594.0">
+                                       <columns>
+                                          <TableColumn fx:id="dfirst" editable="false" prefWidth="92.0" text="First Name" />
+                                          <TableColumn fx:id="dlast" editable="false" prefWidth="109.0" text="Last Name" />
+                                          <TableColumn fx:id="demail" editable="false" prefWidth="198.0" text="Email" />
+                                          <TableColumn fx:id="dstatus" prefWidth="91.0" text="Status" />
+                                          <TableColumn fx:id="dremove" prefWidth="96.0" text="Remove" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                        <Button layoutX="482.0" layoutY="18.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
+                        <Label layoutX="3.0" layoutY="7.0" text="Delivery">
+                           <font>
+                              <Font name="AR BERKLEY" size="38.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
   </tabs>
 </TabPane>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="goback_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView layoutX="33.0" layoutY="70.0" prefHeight="287.0" prefWidth="203.0" />
+      <Label layoutX="269.0" layoutY="20.0" prefHeight="29.0" prefWidth="62.0" text="Complain" />
+      <Button fx:id="placecomplaint_button" layoutX="392.0" layoutY="174.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="127.0" text="Place Complaint" />
+      <Button fx:id="goback_button" layoutX="392.0" layoutY="235.0" mnemonicParsing="false" onAction="#goBack" prefHeight="41.0" prefWidth="127.0" text="Go Back to Menu" />
+   </children>
+</AnchorPane>

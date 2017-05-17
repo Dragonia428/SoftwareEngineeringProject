@@ -120,7 +120,7 @@ public class DBManage
         ResultSet resultSet = null;
         try{
             Statement st = con.createStatement();
-            resultSet = st.executeQuery("SELECT delivery_id , fname, lname, email, standing FROM delivery WHERE email='"+DeliveryInfo.email+"';");
+            resultSet = st.executeQuery("SELECT delivery_id , fname, lname, email, standing FROM delivery WHERE email='"+DeliveryInfo.demail+"';");
         }
         catch(SQLException ex){
             System.out.println(ex.getMessage());
@@ -265,10 +265,10 @@ public class DBManage
     }
   }
 
-  public void deleteFromChefTable(int chef_id){
+  public void deleteFromChefTable(String email){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM chefs WHERE chef_id=\'"+chef_id+"\';");
+      str.append("DELETE FROM chefs WHERE email='"+email+"';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }
@@ -302,10 +302,10 @@ public class DBManage
     }
   }
 
-  public void deleteFromDeliverTable(int delivery_id){
+  public void deleteFromDeliverTable(String email){
     try{
       StringBuilder str = new StringBuilder();
-      str.append("DELETE FROM delivery WHERE delivery_id=\'"+delivery_id+"\';");
+      str.append("DELETE FROM delivery WHERE email='"+email+"';");
       PreparedStatement ps = con.prepareStatement(str.toString());
       ps.executeUpdate(str.toString());
     }

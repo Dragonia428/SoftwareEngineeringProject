@@ -191,7 +191,7 @@ public class LoginController implements Initializable {
             Chefs.chef_id = rs.getInt("chef_id");
             Chefs.chef_fname = rs.getString("chef_fname");
             Chefs.chef_lname = rs.getString("chef_lname");
-            Chefs.email = rs.getString("email");
+            Chefs.chef_email = rs.getString("email");
             Chefs.title = rs.getString("title");
             Chefs.salary = rs.getInt("salary");
             Chefs.standing = rs.getInt("standing");
@@ -216,7 +216,7 @@ public class LoginController implements Initializable {
             rs.next();
             DeliveryInfo.fname = rs.getString("fname");
             DeliveryInfo.lname = rs.getString("lname");
-            DeliveryInfo.email = rs.getString("email");
+            DeliveryInfo.demail = rs.getString("email");
             DeliveryInfo.standing = rs.getInt("standing");
             DeliveryInfo.locked = rs.getBoolean("locked");
         }
