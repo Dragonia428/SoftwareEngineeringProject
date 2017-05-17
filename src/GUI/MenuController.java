@@ -56,36 +56,41 @@ public class MenuController implements Initializable {
             ResultSet rs = dbmanager.queryDatabase("select warnings from customers where email='"+UserInfo.email+"';");
             rs.next();
             warning_label.setText(Integer.toString(rs.getInt("warnings")));
-            data.add("Penne alla vodka");
-            data.add("Spaghetti");
-            dishes.getItems().addAll(data);
+            ResultSet rs2 = st.executeQuery("select dish_name from dishes");
+            while(rs2.next())
+            {
+                String dish = rs2.getString("dish_name");
+                data.add(dish);
+            }
+            dishes.setItems(data);
             dishes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
              @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     currentitemselected = newValue; 
-                    if(newValue.equals("Spaghetti"))
+                    for(int i = 0; i < data.size(); i++)
                     {
-                        Description.setText("This is spaghetti");
-                        Price.setText("12.95");
-                        currentprice = Price.getText();
-                        File file = new File("C:\\Users\\setti\\Documents\\NetBeansProjects\\JavaFXApplication1\\src\\GUI\\penneallavodka.png");
-                        Image image = new Image(file.toURI().toString());
-                        System.out.println(image);
-                        Menu_img.setImage(image);
+                        if(newValue.equals(data.get(i)))
+                        {
+                                try {
+                                    ResultSet rs3 = st.executeQuery("select price, description from dishes where dish_name=" + "'" + newValue + "'");
+                                    rs3.next();
+                                    String descr = rs3.getString("description");
+                                    Double price = rs3.getDouble("price");
+                                    Description.setText(descr);
+                                    Price.setText(price.toString());
+                                    
+                               
+                                }
+                                catch(Exception ex)
+                                {
+                                    
+                                }
+                        }
                     }
-                    else if(newValue.equals("Penne alla vodka"))
-                    {
-                        Description.setText("This is penne");
-                        Price.setText("11.95");
-                        currentprice = Price.getText();
-                        
+                    
                     }
-                }
- 
             });
- //           Image image = new Image("file:penneallavodka.png");
-//            img.setImage(image);
-        }
+                    }
         catch(SQLException ex)
         {
             ex.printStackTrace();
