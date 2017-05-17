@@ -189,8 +189,7 @@ public class RMTabController implements Initializable {
                  userdata.add(new Users(first, last, email));  
             }
             
-            
-                utable.setItems(userdata);
+           utable.setItems(userdata);
            TableColumn<Users, Users> rem = remove;
            rem.setCellValueFactory(
                     param -> new ReadOnlyObjectWrapper<>(param.getValue())
