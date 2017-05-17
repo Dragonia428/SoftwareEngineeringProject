@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +35,7 @@ public class MenuController implements Initializable {
      * Initializes the controller class.
      */
     @FXML ListView<String> dishes; 
-    @FXML ImageView img;
+    @FXML ImageView Menu_img;
     @FXML Label Description; 
     @FXML Label Price;
     @FXML Label warning_label;
@@ -66,9 +68,10 @@ public class MenuController implements Initializable {
                         Description.setText("This is spaghetti");
                         Price.setText("12.95");
                         currentprice = Price.getText();
-                        Image image = new Image("file:penneallavodka.png");
-                        img.setImage(image);
-                        
+                        File file = new File("src/penneallavodka.png");
+                        Image image = new Image(file.toURI().toString());
+                        System.out.println(image);
+                        Menu_img.setImage(image);
                     }
                     else if(newValue.equals("Penne alla vodka"))
                     {

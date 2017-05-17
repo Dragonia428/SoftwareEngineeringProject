@@ -18,6 +18,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -158,26 +159,29 @@ public class RMTabController implements Initializable {
             
             
                 utable.setItems(userdata);
-            
+           TableColumn<Pending, Pending> status = new TableColumn<>("Status");
            status.setCellValueFactory(
-           new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, 
-           ObservableValue<Boolean>>() 
-            {
+                    param -> new ReadOnlyObjectWrapper<>(param.getValue())
+            );
+           status.setCellFactory(param -> new TableCell<Pending, Pending>() {
+           private final Button deleteButton = new Button("Unfriend");
+              @Override
+                protected void updateItem(Pending person, boolean empty) {
+                super.updateItem(person, empty);
 
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Disposer.Record, Boolean> p) {
-                return new SimpleBooleanProperty(p.getValue() != null);
-            }
-            });
-            status.setCellFactory(
-                new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
+                        if (person == null) {
+                            setGraphic(null);
+                            return;
+                        }
 
-            @Override
-            public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                return new StatCell();
-            }
-        
-        });
+                        setGraphic(deleteButton);
+                        deleteButton.setOnAction(new EventHandler<ActionEvent>())
+                        {
+                            
+                        });
+                    }
+                });
+           
         
             
             
@@ -262,12 +266,13 @@ class StatCell extends TableCell<Disposer.Record, Boolean> {
         }
         
         @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
+        protected void updateItem(Pending p, boolean empty) {
+            super.updateItem(p, empty);
             if(!empty){
                 setGraphic(cellButton);
                 
             }
+            
         }
 }
 class RemCell extends TableCell<Disposer.Record, Boolean> {

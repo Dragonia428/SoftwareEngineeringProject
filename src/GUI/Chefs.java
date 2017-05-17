@@ -9,10 +9,11 @@ package GUI;
  *
  * @author setti
  */
-public class UserInfo {
-    public static String email;
-    public static String firstname;
-    public static String lastname; 
-    public static boolean isVIP;
-    public static double funds; 
+public class Chefs {
+    public static String chefemail;
+    public static String cheffirst;
+    public static String cheflast;
+    public static String title;
+    public static int salary; 
+    public static int standing; 
 }
