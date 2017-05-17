@@ -195,6 +195,7 @@ public class LoginController implements Initializable {
         catch(SQLException ex){
             ex.printStackTrace();
         }
+        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmchef.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
