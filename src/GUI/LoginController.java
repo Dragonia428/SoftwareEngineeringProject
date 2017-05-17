@@ -230,8 +230,9 @@ public class LoginController implements Initializable {
     }
     private void GoToMenu() throws IOException
     {
+        boolean locked = false; 
         logged_in = true;
-        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email, is_vip, funds from customers where email='"+textfield.getText()+"';");
+        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email, is_vip, locked, warnings, funds from customers where email='"+textfield.getText()+"';");
         try{
             rs.next();
             UserInfo.first_name = rs.getString("first_name");
@@ -241,15 +242,21 @@ public class LoginController implements Initializable {
 
             UserInfo.warnings = rs.getInt("warnings");
             UserInfo.funds = rs.getFloat("funds");
+            locked = rs.getBoolean("locked");
+            if(UserInfo.warnings >= 3) locked = true;
         }
         catch(SQLException ex){
             ex.printStackTrace();
         }
+        if(locked) {
+            error.setText("Your account is locked");
+        }
+        else {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
-              
             Main.x.setScene(scene);
+        }
     }
     @FXML private void GoToSurfer(ActionEvent e) throws IOException
     {

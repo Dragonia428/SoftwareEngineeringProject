@@ -42,9 +42,11 @@ public class MenuController implements Initializable {
     @FXML Label Price;
     @FXML Label warning_label;
     @FXML TextField SearchBar;
+    @FXML MenuItem warning_tab;
     ObservableSet<String> data = FXCollections.observableSet();
     static String currentitemselected; 
     static String currentprice;
+    @FXML Label notification;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gather_menu_items();
@@ -59,7 +61,9 @@ public class MenuController implements Initializable {
             {
             ResultSet rs = dbmanager.queryDatabase("select warnings from customers where email='"+UserInfo.email+"';");
             rs.next();
-            warning_label.setText(Integer.toString(rs.getInt("warnings")));
+            
+                warning_label.setText(Integer.toString(rs.getInt("warnings")));
+            //warning_tab.setText("Warnings :" + Integer.toString(rs.getInt("warnings")));
             }
             ResultSet rs2 = st.executeQuery("select dish_name from dishes");
             while(rs2.next())
@@ -166,10 +170,16 @@ public class MenuController implements Initializable {
     }
     
     @FXML private void Order() throws IOException{
+        if(!LoginController.logged_in) LogOut();
+        else if(currentitemselected.isEmpty()) notification.setText("Please select an item first");
+        else {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddressPlacement.fxml"));
         Parent root = (Parent) fxmlLoader.load();
+        AddressPlacementController control = fxmlLoader.getController();
+        control.write_total_price(currentprice);
         Scene scene = new Scene(root); 
         Main.x.setScene(scene);
+        }
     }
     
     @FXML private void ShowReviews() throws IOException{

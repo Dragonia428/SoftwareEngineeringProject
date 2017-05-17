@@ -26,17 +26,21 @@ import javafx.scene.control.*;
 public class AddressPlacementController implements Initializable {
     @FXML TextField address;
     @FXML TextField ZIP; 
-    @FXML Label total_price; 
+    @FXML Label total; 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        show_total_price();
+
     }    
+    public void write_total_price(String text)
+    {
+        total.setText(text);
+    }
     private void show_total_price()
     {     
-            total_price.setText("$" + MenuController.currentprice);
+           // total_price.setText("$" + MenuController.currentprice);
     }
      @FXML private void OrderFood()
     {
@@ -63,8 +67,8 @@ public class AddressPlacementController implements Initializable {
        
           ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ='"+MenuController.currentitemselected+"';");
           dish_rs.next();
-          disharray.add(dish_rs.getInt("dish_id"));
-          dbmanage.addtoOrdersTable(customer_id, date, total_price, address.getText(), disharray.get(0), dptoDeliver);
+          int dish_id = dish_rs.getInt("dish_id");
+          dbmanage.addtoOrdersTable(customer_id, date, total_price, address.getText(), dish_id, dptoDeliver);
         
         
         UpdateCustomerTable(customer_id, total_price);
