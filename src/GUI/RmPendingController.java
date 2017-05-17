@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.*;
+import java.util.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -49,7 +50,6 @@ public class RmPendingController implements Initializable {
           rmfirst.setCellValueFactory(new PropertyValueFactory<Pending,String>("firstName"));
           rmlast.setCellValueFactory(new PropertyValueFactory<Pending,String>("lastName"));
           rmemail.setCellValueFactory(new PropertyValueFactory<Pending,String>("email"));
-          //rmapprove.setCellValueFactory(new PropertyValueFactory<Pending, Boolean>("approve"));
           buildpendingtable();
           
     }
@@ -60,6 +60,7 @@ public class RmPendingController implements Initializable {
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
     }
+    
     private void buildpendingtable()
     {
         try {

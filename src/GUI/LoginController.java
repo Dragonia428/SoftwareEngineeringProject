@@ -172,7 +172,7 @@ public class LoginController implements Initializable {
     private void GoToRM() throws IOException
     {
             logged_in=true;
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmmenu.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RMTab.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
             Main.x.setScene(scene);

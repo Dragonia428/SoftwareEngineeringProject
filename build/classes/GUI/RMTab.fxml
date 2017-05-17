@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.RMTabController">
+  <tabs>
+    <Tab fx:id="pending_accounts" onSelectionChanged="#buildpendingtable" text="Pending Accounts">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+           <children>
+               <ScrollPane layoutX="3.0" layoutY="67.0" prefHeight="262.0" prefWidth="594.0">
+           <content>
+             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="598.0">
+                  <children>
+                     <TableView fx:id="ptable" layoutY="-3.0" prefHeight="262.0" prefWidth="594.0">
+                       <columns>
+                         <TableColumn fx:id="rmfirst" editable="false" prefWidth="92.0" text="First Name" />
+                         <TableColumn fx:id="rmlast" editable="false" prefWidth="109.0" text="Last Name" />
+                           <TableColumn fx:id="rmemail" editable="false" prefWidth="198.0" text="Email" />
+                           <TableColumn fx:id="rmapprove" prefWidth="91.0" text="Approve" />
+                           <TableColumn fx:id="deny" prefWidth="96.0" text="Disprove" />
+                       </columns>
+                     </TableView>
+                  </children>
+               </AnchorPane>
+           </content>
+         </ScrollPane>
+         <Button layoutX="500.0" layoutY="14.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
+         <Label layoutX="3.0" text="Pending Accounts">
+                     <font>
+                        <Font name="AR BERKLEY" size="36.0" />
+                     </font>
+                  </Label>
+           </children>
+        </AnchorPane>
+        
+      </content>
+    </Tab>
+    <Tab fx:id="users" onSelectionChanged="#buildusertable" text="Users">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+           <children>
+               <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <children>
+               <ScrollPane layoutX="3.0" layoutY="69.0" prefHeight="262.0" prefWidth="594.0">
+                 <content>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="598.0">
+                        <children>
+                           <TableView fx:id="utable" layoutY="-3.0" prefHeight="262.0" prefWidth="594.0">
+                             <columns>
+                               <TableColumn fx:id="ufirst" editable="false" prefWidth="92.0" text="First Name" />
+                               <TableColumn fx:id="ulast" editable="false" prefWidth="109.0" text="Last Name" />
+                                 <TableColumn fx:id="uemail" editable="false" prefWidth="198.0" text="Email" />
+                                 <TableColumn fx:id="status" prefWidth="91.0" text="Status" />
+                                 <TableColumn fx:id="remove" prefWidth="96.0" text="Remove" />
+                             </columns>
+                           </TableView>
+                        </children>
+                     </AnchorPane>
+                 </content>
+               </ScrollPane>
+               <Button layoutX="489.0" layoutY="18.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
+               <Label layoutX="3.0" layoutY="7.0" text="Users">
+                  <font>
+                     <Font name="AR BERKLEY" size="38.0" />
+                  </font>
+               </Label>
+            </children>
+               </AnchorPane>
+           </children>
+        </AnchorPane>
+      </content>
+    </Tab>
+      <Tab fx:id="chefstable" text="Chefs">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+             <children>
+                 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
+            <children>
+               <ScrollPane layoutX="3.0" layoutY="69.0" prefHeight="262.0" prefWidth="594.0">
+                 <content>
+                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="267.0" prefWidth="598.0">
+                        <children>
+                           <TableView fx:id="ctable" layoutY="-3.0" prefHeight="262.0" prefWidth="594.0">
+                             <columns>
+                               <TableColumn fx:id="cfirst" editable="false" prefWidth="92.0" text="First Name" />
+                               <TableColumn fx:id="clast" editable="false" prefWidth="109.0" text="Last Name" />
+                                 <TableColumn fx:id="cemail" editable="false" prefWidth="198.0" text="Email" />
+                                 <TableColumn fx:id="cstatus" prefWidth="91.0" text="Status" />
+                                 <TableColumn fx:id="cremove" prefWidth="96.0" text="Remove" />
+                             </columns>
+                           </TableView>
+                        </children>
+                     </AnchorPane>
+                 </content>
+               </ScrollPane>
+               <Button layoutX="482.0" layoutY="18.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="31.0" prefWidth="97.0" text="Logout" />
+               <Label layoutX="3.0" layoutY="7.0" text="Chefs">
+                  <font>
+                     <Font name="AR BERKLEY" size="38.0" />
+                  </font>
+               </Label>
+   
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+                 
+            </children>
+                 </AnchorPane>
+             </children>
+          </AnchorPane>
+        </content>
+      </Tab>
+  </tabs>
+</TabPane>

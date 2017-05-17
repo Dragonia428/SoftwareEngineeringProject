@@ -16,6 +16,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -51,7 +53,7 @@ public class RmusersController implements Initializable {
          ulast.setCellValueFactory(new PropertyValueFactory<Users,String>("lastName"));
          uemail.setCellValueFactory(new PropertyValueFactory<Users,String>("email"));
           //rmapprove.setCellValueFactory(new PropertyValueFactory<Pending, Boolean>("approve"));
-          
+          removeentries();
           buildusertable();
     }    
      @FXML private void CheckPending() throws IOException
@@ -61,6 +63,12 @@ public class RmusersController implements Initializable {
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
+    }
+      public void removeentries()
+    {
+           
+        
+        
     }
     @FXML private void LogOut() throws IOException
     {
@@ -76,8 +84,11 @@ public class RmusersController implements Initializable {
     }
     private void buildusertable()
     {
+        System.out.println(utable.getItems().size());
+        if(utable.getItems().isEmpty()) 
+        {
          try {
-           
+            
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select first_name, last_name, email from customers");
@@ -89,7 +100,10 @@ public class RmusersController implements Initializable {
                 
                  data.add(new Users(first, last, email));  
             }
-            utable.setItems(data);
+            
+            
+                utable.setItems(data);
+            
            status.setCellValueFactory(
            new Callback<TableColumn.CellDataFeatures<Record, Boolean>, 
            ObservableValue<Boolean>>() 
@@ -140,7 +154,7 @@ public class RmusersController implements Initializable {
          {
              ex.printStackTrace();
          }
-
+        }
     }
 }
 class StatusCell extends TableCell<Record, Boolean> {
@@ -216,8 +230,9 @@ class RemoveCell extends TableCell<Record, Boolean> {
         {
              Users curruser;
              curruser = (Users) RemoveCell.this.getTableView().getItems().get(RemoveCell.this.getIndex());
+             int index = RemoveCell.this.getTableRow().getIndex();
              DBManage dbmanager = new DBManage();
-             RmusersController.data.remove(curruser);
+             RmusersController.data.remove(index);
              dbmanager.deleteFromCustomerTable(curruser.getEmail());
         }
         
