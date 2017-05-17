@@ -112,6 +112,18 @@ public class DBManage
         }
         return resultSet;
     }
+   
+   public ResultSet getDeliveryPersonStatus() {
+        ResultSet resultSet = null;
+        try{
+            Statement st = con.createStatement();
+            resultSet = st.executeQuery("SELECT delivery_id , fname, lname, email, standing FROM delivery WHERE delivery_id=1;");
+        }
+        catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+        return resultSet;
+    }
   
   public void addCheftoTable(String fname, String lname, String email, String password, String title,
   float pay, String managed_by){
@@ -545,6 +557,23 @@ public class DBManage
   public void closeDB() throws SQLException {
     con.close();
   }
+  
+  public String getStanding(int standing){
+      String standingResults = "";
+      
+      if(standing == 0)
+          standingResults = "Neutral";
+      else if(standing < 0)
+          standingResults = "Poor Standing";
+      else if(standing > 0)
+          standingResults = "Good Standing";
+      else if(standing >= 3)
+          standingResults = "Great Standing";
+      
+      return standingResults;
+  }
+  
+  
   public ArrayList<String> gatherPendingData(String type)
   {
     ArrayList<String> temp = new ArrayList<String>();

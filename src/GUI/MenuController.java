@@ -35,7 +35,9 @@ public class MenuController implements Initializable {
     @FXML ListView<String> dishes; 
     @FXML ImageView img;
     @FXML Label Description; 
-    @FXML Label Price; 
+    @FXML Label Price;
+    @FXML Label warning_label;
+    @FXML TextField SearchBar;
     ObservableList<String> data = FXCollections.observableArrayList();
     static String currentitemselected; 
     static String currentprice;
@@ -46,10 +48,12 @@ public class MenuController implements Initializable {
     private void gather_menu_items()
     {
          try{
-
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             DBManage dbmanager = new DBManage();
+            ResultSet rs = dbmanager.queryDatabase("select warnings from customers where email='"+UserInfo.email+"';");
+            rs.next();
+            warning_label.setText(Integer.toString(rs.getInt("warnings")));
             data.add("Penne alla vodka");
             data.add("Spaghetti");
             dishes.getItems().addAll(data);
@@ -79,7 +83,6 @@ public class MenuController implements Initializable {
  //           Image image = new Image("file:penneallavodka.png");
 //            img.setImage(image);
         }
-         
         catch(SQLException ex)
         {
             ex.printStackTrace();
@@ -87,20 +90,37 @@ public class MenuController implements Initializable {
          
     }
     @FXML private void AddToCart()
-         {
-             try{
-               Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
-               PreparedStatement ps = con.prepareStatement("INSERT into shopping_cart(dish_name, dish_price) values(?, ?)");
-               ps.setString(1, currentitemselected);
-               ps.setFloat(2, Float.parseFloat(currentprice));
-               ps.executeUpdate();
-             }
-             catch(SQLException ex)
-             {
-                 ex.printStackTrace();
-             }
+    {
+        try{
+            Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+            PreparedStatement ps = con.prepareStatement("INSERT into shopping_cart(dish_name, dish_price) values(?, ?)");
+            ps.setString(1, currentitemselected);
+            ps.setFloat(2, Float.parseFloat(currentprice));
+            ps.executeUpdate();
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+        }
                
-         }
+    }
+    
+    @FXML private void search() throws IOException{
+        try{
+            DBManage dbmanage = new DBManage();
+            String search = SearchBar.getText();
+        
+            ResultSet rs = dbmanage.queryDatabase("SELECT dish_name from dishes where dish_name ="+search+";");
+            if(rs.next()){
+                
+            }
+        
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
     @FXML private void ShowCart() throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OrderList.fxml"));

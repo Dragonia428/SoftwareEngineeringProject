@@ -189,10 +189,10 @@ public class LoginController implements Initializable {
     private void GoToDP() throws IOException
     {
         logged_in = true;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("DeliveryPerson.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Scene scene = new Scene(root);
-            Main.x.setScene(scene);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Delivery.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Main.x.setScene(scene);
     }
     private void GoToMenu() throws IOException
     {

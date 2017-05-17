@@ -59,31 +59,32 @@ public class Connect {
 
 	private void InitializeTables(String databasename){
 		try {
-	    	Statement st = con.createStatement();
-	    	st.execute("DROP TABLE IF EXISTS customer;");
-	    	st.execute("DROP TABLE IF EXISTS manager;");
-	    	st.execute("DROP TABLE IF EXISTS delivery");
-				st.execute("DROP TABLE IF EXISTS chef");
-				st.execute("DROP TABLE IF EXISTS dishes");
-				st.execute("DROP TABLE IF EXISTS orders");
-				st.execute("DROP TABLE IF EXISTS review");
-        st.execute("DROP TABLE IF EXISTS pending_accounts");
-	    	st.execute(CustomerTable());
-	    	st.execute(DeliveryTable());
-			  st.execute(ManagerTable());
-				st.execute(ChefsTable());
-        st.execute(PendingAccountsTable());
-	    	st.execute(DishesTable());
-				st.execute(OrderTable());
-				st.execute(reviewsTable());
-				st.execute(blacklistTable());
-				st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger');");
-        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Miguel', 'Rodriguez','Miguelrodriguez@thinmint.com', '123456');");
-        st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Galvin', 'Burgos', 'Galvinburgos@thinmint.com', '123456');");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena');");
-        st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina');");
-				st.execute("INSERT INTO customers(first_name, last_name, email, password) VALUES('Garody', 'Jean Charles', 'garody@customer.com', '1234');");
-        st.execute(ShoppingCart());
+                    Statement st = con.createStatement();
+                    st.execute("DROP TABLE IF EXISTS customer;");
+                    st.execute("DROP TABLE IF EXISTS manager;");
+                    st.execute("DROP TABLE IF EXISTS delivery");
+                    st.execute("DROP TABLE IF EXISTS chef");
+                    st.execute("DROP TABLE IF EXISTS dishes");
+                    st.execute("DROP TABLE IF EXISTS orders");
+                    st.execute("DROP TABLE IF EXISTS review");
+                    st.execute("DROP TABLE IF EXISTS pending_accounts");
+                    st.execute(CustomerTable());
+                    st.execute(DeliveryTable());
+                    st.execute(ManagerTable());
+                    st.execute(ChefsTable());
+                    st.execute(PendingAccountsTable());
+                    st.execute(DishesTable());
+                    st.execute(OrderTable());
+                    st.execute(reviewsTable());
+                    st.execute(blacklistTable());
+                    st.execute(ShoppingCart());
+                    st.execute("INSERT INTO manager(email, password, fname, lname) VALUES('manager@thinmint.com', '123456', 'Mana', 'Ger');");
+                    st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Miguel', 'Rodriguez','Miguelrodriguez@thinmint.com', '123456');");
+                    st.execute("INSERT INTO chefs(chef_fname, chef_lname, email, password) VALUES('Galvin', 'Burgos', 'Galvinburgos@thinmint.com', '123456');");
+                    st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Bryandepena@thinmint.com', '123456', 'Bryan', 'De Pena');");
+                    st.execute("INSERT INTO delivery(email, password, fname, lname) VALUES('Lawrancemedina@thinmint.com', '123456', 'Lawrance', 'Medina');");
+                    st.execute("INSERT INTO customers(first_name, last_name, email, password) VALUES('Garody', 'Jean Charles', 'garody@customer.com', '1234');");
+                    st.execute("INSERT INTO pending_accounts(email, first_name, last_name, password) VALUES('yo@customer.com', 'yo', 'yo', '1234');");
 		}
 
 		catch(Exception ex) {
@@ -117,7 +118,7 @@ public class Connect {
 		str.append("customer_id int(11) NOT NULL AUTO_INCREMENT,");
 		str.append("first_name varchar(20),");
 		str.append("last_name varchar(20),");
-    str.append("funds float DEFAULT 500.0,");
+                str.append("funds float DEFAULT 500.0,");
 		str.append("email varchar(30) NOT NULL,");
 		str.append("password varchar(10) NOT NULL,");
 		str.append("is_vip tinyint(1) DEFAULT false,");
