@@ -231,12 +231,14 @@ public class LoginController implements Initializable {
     private void GoToMenu() throws IOException
     {
         logged_in = true;
-        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email from customers where email='"+textfield.getText()+"';");
+        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email, standing, funds from customers where email='"+textfield.getText()+"';");
         try{
             rs.next();
             UserInfo.first_name = rs.getString("first_name");
             UserInfo.last_name = rs.getString("last_name");
             UserInfo.email = rs.getString("email");
+            UserInfo.standing = rs.getInt("standing");
+            UserInfo.funds = rs.getFloat("funds");
         }
         catch(SQLException ex){
             ex.printStackTrace();
