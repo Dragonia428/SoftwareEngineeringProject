@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.deliveryController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.deliveryController">
   <tabs>
     <Tab text="Your Info">
       <content>
@@ -26,12 +26,12 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="deliver_to" layoutX="411.0" layoutY="171.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="84.0" text="Deliver To" />
+                  <Button fx:id="deliver_to" layoutX="411.0" layoutY="171.0" mnemonicParsing="false" onAction="#deliverTo" prefHeight="37.0" prefWidth="84.0" text="Deliver To" />
                   <ListView fx:id="orders_list" layoutX="14.0" layoutY="14.0" prefHeight="318.0" prefWidth="249.0" />
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Route Map">
+      <Tab fx:id="routemap_tab" text="Route Map">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
