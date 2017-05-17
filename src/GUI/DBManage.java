@@ -105,7 +105,7 @@ public class DBManage
         ResultSet resultSet = null;
         try{
             Statement st = con.createStatement();
-            resultSet = st.executeQuery("SELECT fname, lname, title, email, salary FROM chefs WHERE email='"+Chefs.email+"';");
+            resultSet = st.executeQuery("SELECT fname, lname, title, email, salary, standing FROM chefs WHERE email='"+Chefs.email+"';");
         }
         catch(SQLException ex){
             System.out.println(ex.getMessage());

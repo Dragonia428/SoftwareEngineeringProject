@@ -179,7 +179,7 @@ public class RMTabController implements Initializable {
             
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select first_name, last_name, email from customers");
+            ResultSet rs = st.executeQuery("select first_name, last_name, email from customers where warning >= 3");
             while(rs.next())
             {
                  String first = rs.getString("first_name");
@@ -189,7 +189,8 @@ public class RMTabController implements Initializable {
                  userdata.add(new Users(first, last, email));  
             }
             
-           utable.setItems(userdata);
+            
+                utable.setItems(userdata);
            TableColumn<Users, Users> rem = remove;
            rem.setCellValueFactory(
                     param -> new ReadOnlyObjectWrapper<>(param.getValue())
