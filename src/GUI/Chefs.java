@@ -10,10 +10,11 @@ package GUI;
  * @author setti
  */
 public class Chefs {
-    public static String chefemail;
-    public static String cheffirst;
-    public static String cheflast;
+    public static String email;
+    public static String chef_fname;
+    public static String chef_lname;
     public static String title;
     public static int salary; 
     public static int standing; 
+    public static boolean locked;
 }

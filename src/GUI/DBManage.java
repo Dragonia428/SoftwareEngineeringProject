@@ -117,7 +117,7 @@ public class DBManage
         ResultSet resultSet = null;
         try{
             Statement st = con.createStatement();
-            resultSet = st.executeQuery("SELECT delivery_id , fname, lname, email, standing FROM delivery WHERE delivery_id=1;");
+            resultSet = st.executeQuery("SELECT delivery_id , fname, lname, email, standing FROM delivery WHERE email='"+DeliveryInfo.email+"';");
         }
         catch(SQLException ex){
             System.out.println(ex.getMessage());

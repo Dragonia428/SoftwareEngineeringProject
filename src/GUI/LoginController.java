@@ -30,6 +30,7 @@ public class LoginController implements Initializable {
     @FXML PasswordField passwordfield; 
     Connection con;
     public static boolean logged_in = false;
+    DBManage dbmanage = new DBManage();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -180,6 +181,20 @@ public class LoginController implements Initializable {
     private void GoToChefs() throws IOException
     {
         logged_in = true; 
+        ResultSet rs = dbmanage.queryDatabase("select chef_fname, chef_lname, email, title, salary, standing, locked from chefs where email="+textfield.getText()+";");
+        try{
+            rs.next();
+            Chefs.chef_fname = rs.getString("chef_fname");
+            Chefs.chef_lname = rs.getString("chef_lname");
+            Chefs.email = rs.getString("email");
+            Chefs.title = rs.getString("title");
+            Chefs.salary = rs.getInt("salary");
+            Chefs.standing = rs.getInt("standing");
+            Chefs.locked = rs.getBoolean("locked");
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmchef.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
@@ -189,6 +204,18 @@ public class LoginController implements Initializable {
     private void GoToDP() throws IOException
     {
         logged_in = true;
+        ResultSet rs = dbmanage.queryDatabase("select fname, lname, email, standing, locked from delivery where email='"+textfield.getText()+"';");
+        try{
+            rs.next();
+            DeliveryInfo.fname = rs.getString("fname");
+            DeliveryInfo.lname = rs.getString("lname");
+            DeliveryInfo.email = rs.getString("email");
+            DeliveryInfo.standing = rs.getInt("standing");
+            DeliveryInfo.locked = rs.getBoolean("locked");
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Delivery.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Scene scene = new Scene(root);
@@ -197,7 +224,16 @@ public class LoginController implements Initializable {
     private void GoToMenu() throws IOException
     {
         logged_in = true;
-        UserInfo.email = textfield.getText();
+        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email from customers where email="+textfield.getText()+";");
+        try{
+            rs.next();
+            UserInfo.first_name = rs.getString("first_name");
+            UserInfo.last_name = rs.getString("lname");
+            UserInfo.email = rs.getString("email");
+        }
+        catch(SQLException ex){
+            ex.printStackTrace();
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);

@@ -11,7 +11,8 @@ package GUI;
  */
 public class DeliveryInfo {
     static String email;
-    static String first;
-    static String last; 
+    static String fname;
+    static String lname; 
     static int standing; 
+    static boolean locked;
 }

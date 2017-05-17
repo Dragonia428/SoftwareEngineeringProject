@@ -38,11 +38,14 @@ public class deliveryController implements Initializable {
     @FXML Label email_label;
     @FXML Label standing_label;
     @FXML Button logout_button;
+    @FXML Tab routemap_tab;
+    @FXML TabPane tabPane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         DBManage dbmanage = new DBManage();
         ResultSet rs = dbmanage.getDeliveryPersonStatus();
+        
         try{
             int standing;
             rs.next();
@@ -55,6 +58,10 @@ public class deliveryController implements Initializable {
         catch(SQLException ex){
             ex.printStackTrace();
         }
+    }
+    
+    @FXML private void deliverTo() throws IOException{
+        tabPane.getSelectionModel().select(routemap_tab);
     }
 
     @FXML private void LogOut() throws IOException

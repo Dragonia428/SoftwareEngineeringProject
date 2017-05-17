@@ -11,8 +11,6 @@ package GUI;
  */
 public class UserInfo {
     public static String email;
-    public static String firstname;
-    public static String lastname; 
-    public static boolean isVIP;
-    public static double funds; 
+    public static String first_name;
+    public static String last_name; 
 }
