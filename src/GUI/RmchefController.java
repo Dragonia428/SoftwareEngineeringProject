@@ -122,14 +122,14 @@ public class RmchefController implements Initializable {
             dbm.deleteFromDishesTable(lit.next());
             //lit.remove();
         }
-        menuItemsListView.setItems(dbm.getMenuItemNames());
+        menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.id));
     }
     
     
     @FXML
     private void onSelectRemoveMenuItemTab(Event event) {
         if( removeMenuItemsTab.isSelected() ) {
-            menuItemsListView.setItems(dbm.getMenuItemNames());
+            menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.id));
         }
     }
     

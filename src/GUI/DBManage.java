@@ -634,7 +634,7 @@ public class DBManage
       ObservableList<String> dishNames = FXCollections.observableArrayList();
       try{
           Statement namesQuery = con.createStatement();
-          ResultSet resultSet = namesQuery.executeQuery("SELECT dish_name FROM dishes;");
+          ResultSet resultSet = namesQuery.executeQuery("SELECT dish_name FROM dishes where chef_by = "+chef_id+";");
           while( resultSet.next() )
               dishNames.add(resultSet.getString("dish_name"));
       }

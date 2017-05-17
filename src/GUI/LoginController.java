@@ -181,9 +181,10 @@ public class LoginController implements Initializable {
     private void GoToChefs() throws IOException
     {
         logged_in = true; 
-        ResultSet rs = dbmanage.queryDatabase("select chef_fname, chef_lname, email, title, salary, standing, locked from chefs where email='"+textfield.getText()+"';");
+        ResultSet rs = dbmanage.queryDatabase("select * from chefs where email='"+textfield.getText()+"';");
         try{
             rs.next();
+            Chefs.chef_id = rs.getInt("chef_id");
             Chefs.chef_fname = rs.getString("chef_fname");
             Chefs.chef_lname = rs.getString("chef_lname");
             Chefs.email = rs.getString("email");
@@ -202,6 +203,7 @@ public class LoginController implements Initializable {
             Main.x.setScene(scene);
         
     }
+    
     private void GoToDP() throws IOException
     {
         logged_in = true;

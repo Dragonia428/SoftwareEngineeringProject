@@ -87,6 +87,7 @@ public class Connect {
                     st.execute("INSERT INTO pending_accounts(email, first_name, last_name, password) VALUES('yo@customer.com', 'yo', 'yo', '1234');");
                     st.execute("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES('Pizza', 1, 4.50, 'American', 'Test Description', '/Users/Moomookittyclam/Documents/JavaFXApplication3/src/GUI/images/pizza.jpg');");
                     st.execute("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES('Burger', 1, 10.50, 'American', 'Test Description', '/Users/Moomookittyclam/Documents/JavaFXApplication3/src/GUI/images/burger.jpeg');");
+                    st.execute("INSERT INTO dishes(dish_name, chef_by, price, type, description, pic_location) VALUES('Salad', 2, 7.50, 'American', 'Test Description', '/Users/Moomookittyclam/Documents/JavaFXApplication3/src/GUI/images/salad.jpeg');");
 		}
 
 		catch(Exception ex) {
