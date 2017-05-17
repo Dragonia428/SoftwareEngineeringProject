@@ -32,7 +32,7 @@ public class RmchefController implements Initializable {
     @FXML
     private Button addDishButton, clearFieldsButton, removeDishesButton;
     @FXML
-    private Label chefName, chefTitle, chefEmail, chefSalary;
+    private Label chefName, chefTitle, chefEmail, chefSalary, standingLabel;
     @FXML
     private TextField dishNameField, dishTypeField, dishPriceField, dishImageFileField;
     @FXML
@@ -46,6 +46,7 @@ public class RmchefController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         dbm = new DBManage();
         menuItemsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        int chefStanding;
         try{
             ResultSet resultSet = dbm.getChefStatus();
             if( resultSet.next() ) {
@@ -53,6 +54,14 @@ public class RmchefController implements Initializable {
                 chefTitle.setText(resultSet.getNString("title"));
                 chefEmail.setText(resultSet.getNString("email"));
                 chefSalary.setText( NumberFormat.getCurrencyInstance().format(resultSet.getInt("salary")));
+                chefStanding = resultSet.getInt("standing");
+                if( chefStanding == 0 )
+                    standingLabel.setText("Neutral");
+                if( chefStanding > 0 )
+                    standingLabel.setText("Good");
+                if( chefStanding < 0 )
+                    standingLabel.setText("Bad");
+                
             }
         }
         catch( SQLException ex ){
@@ -122,11 +131,6 @@ public class RmchefController implements Initializable {
         if( removeMenuItemsTab.isSelected() ) {
             menuItemsListView.setItems(dbm.getMenuItemNames());
         }
-    }
-    
-    
-    public void createChefObject(String email, String password) {
-        
     }
     
 } // end FXMLDocumentController
