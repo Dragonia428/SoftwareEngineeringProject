@@ -101,11 +101,12 @@ public class DBManage
       }
   }
   
-   public ResultSet getChefStatus() {
+  
+   public ResultSet getChefStatus(int chef_id) {
         ResultSet resultSet = null;
         try{
             Statement st = con.createStatement();
-            resultSet = st.executeQuery("SELECT fname, lname, title, email, salary FROM chefs WHERE chef_id=1;");
+            resultSet = st.executeQuery("SELECT chef_fname, chef_lname, title, email, salary, standing FROM chefs WHERE chef_id=" + chef_id + ";");
         }
         catch(SQLException ex){
             System.out.println(ex.getMessage());
@@ -484,7 +485,7 @@ public class DBManage
   public boolean deleteFromDishesTable(String dish_name){
       boolean result = true;
     try{
-      String str = "DELETE FROM dishes WHERE dish_id=?;";
+      String str = "DELETE FROM dishes WHERE dish_name=?;";
       PreparedStatement ps = con.prepareStatement(str);
       ps.setString(1, dish_name);
       ps.executeUpdate();
@@ -630,11 +631,11 @@ public class DBManage
     return temp;
   }
   
-  public ObservableList<String> getMenuItemNames() {
+  public ObservableList<String> getMenuItemNames(int chef_id) {
       ObservableList<String> dishNames = FXCollections.observableArrayList();
       try{
           Statement namesQuery = con.createStatement();
-          ResultSet resultSet = namesQuery.executeQuery("SELECT dish_name FROM dishes;");
+          ResultSet resultSet = namesQuery.executeQuery("SELECT dish_name FROM dishes where chef_by = "+chef_id+";");
           while( resultSet.next() )
               dishNames.add(resultSet.getString("dish_name"));
       }

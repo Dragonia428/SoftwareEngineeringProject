@@ -181,9 +181,10 @@ public class LoginController implements Initializable {
     private void GoToChefs() throws IOException
     {
         logged_in = true; 
-        ResultSet rs = dbmanage.queryDatabase("select chef_fname, chef_lname, email, title, salary, standing, locked from chefs where email="+textfield.getText()+";");
+        ResultSet rs = dbmanage.queryDatabase("select * from chefs where email='"+textfield.getText()+"';");
         try{
             rs.next();
+            Chefs.chef_id = rs.getInt("chef_id");
             Chefs.chef_fname = rs.getString("chef_fname");
             Chefs.chef_lname = rs.getString("chef_lname");
             Chefs.email = rs.getString("email");
@@ -195,12 +196,14 @@ public class LoginController implements Initializable {
         catch(SQLException ex){
             ex.printStackTrace();
         }
+        
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rmchef.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
             Main.x.setScene(scene);
         
     }
+    
     private void GoToDP() throws IOException
     {
         logged_in = true;
@@ -224,11 +227,11 @@ public class LoginController implements Initializable {
     private void GoToMenu() throws IOException
     {
         logged_in = true;
-        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email from customers where email="+textfield.getText()+";");
+        ResultSet rs = dbmanage.queryDatabase("select first_name, last_name, email from customers where email='"+textfield.getText()+"';");
         try{
             rs.next();
             UserInfo.first_name = rs.getString("first_name");
-            UserInfo.last_name = rs.getString("lname");
+            UserInfo.last_name = rs.getString("last_name");
             UserInfo.email = rs.getString("email");
         }
         catch(SQLException ex){

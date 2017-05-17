@@ -131,8 +131,8 @@ GUI.DBManage
 javafx.scene.control.Label
 java.lang.Exception
 java.text.NumberFormat
-java.sql.ResultSet
 javafx.scene.control.MultipleSelectionModel
+java.sql.ResultSet
 GUI.RmchefController
 javafx.stage.Stage
 java.lang.Object
@@ -271,6 +271,9 @@ javafx.event.ActionEvent
 GUI.RMTabController$3
 java.lang.Object
 GUI.RMTabController$3$1
+||:GUI.DishInfo
+java.lang.Object
+GUI.DishInfo
 ||:GUI.RmusersController
 javafx.fxml.Initializable
 java.sql.SQLException

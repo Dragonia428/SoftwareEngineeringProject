@@ -45,6 +45,17 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label layoutX="40.0" layoutY="180.0" text="Standing:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="standingLabel" layoutX="135.0" layoutY="180.0" text="Label">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="582.0" layoutY="342.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="107.0" text="Log out" />
                </children></AnchorPane>
       </content>
     </Tab>
