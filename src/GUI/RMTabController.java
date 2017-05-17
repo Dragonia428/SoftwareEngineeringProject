@@ -83,48 +83,80 @@ public class RMTabController implements Initializable {
                 
                 pendingdata.add(new Pending(first, last, email));
             }
-               ptable.setItems(pendingdata);
-                rmapprove.setCellValueFactory(
-                        new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, 
-                        ObservableValue<Boolean>>() {
+               ptable.setItems(pendingdata); //add user to table
+               
+               //approve a customer (allow him to customers DB)
+                   TableColumn<Pending, Pending> appr = rmapprove;
+                    appr.setCellValueFactory(
+                             param -> new ReadOnlyObjectWrapper<>(param.getValue())
+                     );
+                    appr.setCellFactory(param -> new TableCell<Pending, Pending>() {
+                    private final Button deleteButton = new Button("Approve");
+                       @Override
+                         protected void updateItem(Pending person, boolean empty) {
+                         super.updateItem(person, empty);
 
-                    @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Disposer.Record, Boolean> p) {
-                        return new SimpleBooleanProperty(p.getValue() != null);
-                    }
-                });
+                                 if (person == null) {
+                                     setGraphic(null);
+                                     return;
+                                 }
 
-                //Adding the Button to the cell
-                rmapprove.setCellFactory
-                (
-                  new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Record, Boolean>>() {
+                                 setGraphic(deleteButton);
 
-                    @Override
-                    public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                        return new Approve();
-                    }
 
-                });
-                deny.setCellValueFactory(
-                        new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, 
-                        ObservableValue<Boolean>>() {
+                                 deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+                                     @Override public void handle(ActionEvent e) {
+                                         try{
+                                          getTableView().getItems().remove(person);
+                                          DBManage dbmanager = new DBManage();
+                                          Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+                                          PreparedStatement st = con.prepareStatement("select password from pending_accounts where email =?");
+                                          st.setString(1, person.getEmail());
+                                          ResultSet rs = st.executeQuery();
+                                          rs.next();
+                                          String password = rs.getString("password");
+                                          dbmanager.addtoCustomerTable(person.getFirstName(), person.getLastName(), person.getEmail(), password);
+                                          dbmanager.deleteFromPenAccTable(person.getEmail());
+                                         }
+                                         catch(SQLException ex)
+                                         {
+                                             
+                                         }
+                                     }
 
-                    @Override
-                    public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Disposer.Record, Boolean> p) {
-                        return new SimpleBooleanProperty(p.getValue() != null);
-                    }
-                });
+                                 });
+                             }
+                         });
+                //button for handling denying a customer. 
+                
+                TableColumn<Pending, Pending> den = deny;
+                den.setCellValueFactory(
+                         param -> new ReadOnlyObjectWrapper<>(param.getValue())
+                 );
+                den.setCellFactory(param -> new TableCell<Pending, Pending>() {
+                private final Button deleteButton = new Button("Deny");
+                   @Override
+                     protected void updateItem(Pending person, boolean empty) {
+                     super.updateItem(person, empty);
 
-                //Adding the Button to the cell
-                deny.setCellFactory(
-                    new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
+                             if (person == null) {
+                                 setGraphic(null);
+                                 return;
+                             }
 
-                    @Override
-                    public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                        return new Deny();
-                    }
+                             setGraphic(deleteButton);
 
-                });
+
+                             deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+                                 @Override public void handle(ActionEvent e) {
+                                      getTableView().getItems().remove(person);
+                                      DBManage dbmanager = new DBManage();
+                                      dbmanager.deleteFromPenAccTable(person.getEmail());
+                                 }
+
+                             });
+                         }
+                     });
 
             }
       
@@ -159,14 +191,14 @@ public class RMTabController implements Initializable {
             
             
                 utable.setItems(userdata);
-           TableColumn<Pending, Pending> status = new TableColumn<>("Status");
-           status.setCellValueFactory(
+           TableColumn<Users, Users> rem = remove;
+           rem.setCellValueFactory(
                     param -> new ReadOnlyObjectWrapper<>(param.getValue())
             );
-           status.setCellFactory(param -> new TableCell<Pending, Pending>() {
-           private final Button deleteButton = new Button("Unfriend");
+           rem.setCellFactory(param -> new TableCell<Users, Users>() {
+           private final Button deleteButton = new Button("Remove");
               @Override
-                protected void updateItem(Pending person, boolean empty) {
+                protected void updateItem(Users person, boolean empty) {
                 super.updateItem(person, empty);
 
                         if (person == null) {
@@ -175,35 +207,23 @@ public class RMTabController implements Initializable {
                         }
 
                         setGraphic(deleteButton);
-                        deleteButton.setOnAction(new EventHandler<ActionEvent>())
-                        {
+                        
+                       
+                        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override public void handle(ActionEvent e) {
+                                 getTableView().getItems().remove(person);
+                                 DBManage dbmanager = new DBManage();
+                                 dbmanager.deleteFromCustomerTable(person.getEmail());
+                            }
                             
                         });
                     }
                 });
-           
+                
         
             
             
-           remove.setCellValueFactory(
-           new Callback<TableColumn.CellDataFeatures<Disposer.Record, Boolean>, 
-           ObservableValue<Boolean>>() 
-            {
-
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Disposer.Record, Boolean> p) {
-                return new SimpleBooleanProperty(p.getValue() != null);
-            }
-            });
-            remove.setCellFactory(
-                new Callback<TableColumn<Disposer.Record, Boolean>, TableCell<Disposer.Record, Boolean>>() {
-
-            @Override
-            public TableCell<Disposer.Record, Boolean> call(TableColumn<Disposer.Record, Boolean> p) {
-                return new RemCell();
-            }
-        
-        });
+          
             
             
             
@@ -266,7 +286,7 @@ class StatCell extends TableCell<Disposer.Record, Boolean> {
         }
         
         @Override
-        protected void updateItem(Pending p, boolean empty) {
+        protected void updateItem(Boolean p, boolean empty) {
             super.updateItem(p, empty);
             if(!empty){
                 setGraphic(cellButton);
