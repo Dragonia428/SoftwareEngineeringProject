@@ -12,13 +12,12 @@
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <children>
             <Accordion layoutX="14.0" layoutY="49.0" />
-            <TextField fx:id="textfield" layoutX="244.0" layoutY="154.0" />
-            <PasswordField fx:id="passwordfield" layoutX="244.0" layoutY="216.0" />
-            <Button layoutX="437.0" layoutY="261.0" mnemonicParsing="false" onAction="#OnLogin" text="Login" />
-            <Label layoutX="142.0" layoutY="154.0" text="Username" />
-            <Label layoutX="144.0" layoutY="221.0" text="Password" />
-            <Hyperlink layoutX="337.0" layoutY="305.0" onAction="#GoToRegistration" text="Register" />
-            <Hyperlink layoutX="430.0" layoutY="305.0" text="Forgot Password?" />
+            <TextField fx:id="textfield" layoutX="258.0" layoutY="154.0" />
+            <PasswordField fx:id="passwordfield" layoutX="258.0" layoutY="216.0" />
+            <Button layoutX="444.0" layoutY="267.0" mnemonicParsing="false" onAction="#OnLogin" prefHeight="31.0" prefWidth="88.0" text="Login" />
+            <Label layoutX="156.0" layoutY="154.0" text="Username" />
+            <Label layoutX="158.0" layoutY="221.0" text="Password" />
+            <Hyperlink layoutX="326.0" layoutY="318.0" onAction="#GoToRegistration" text="Register" />
             <Label layoutX="14.0" layoutY="13.0" text="Welcome">
                <font>
                   <Font size="50.0" />
@@ -29,6 +28,8 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Hyperlink layoutX="426.0" layoutY="318.0" onAction="#GoToSurfer" text="Continue as Surfer" />
+            <Label fx:id="error" layoutX="147.0" layoutY="261.0" prefHeight="50.0" prefWidth="264.0" textFill="#720101" wrapText="true" />
          </children>
       </Pane>
    </children>

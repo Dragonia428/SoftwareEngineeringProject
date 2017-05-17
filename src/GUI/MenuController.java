@@ -14,8 +14,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import java.sql.*;
+import java.text.DecimalFormat;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,7 +42,7 @@ public class MenuController implements Initializable {
     @FXML Label Price;
     @FXML Label warning_label;
     @FXML TextField SearchBar;
-    ObservableList<String> data = FXCollections.observableArrayList();
+    ObservableSet<String> data = FXCollections.observableSet();
     static String currentitemselected; 
     static String currentprice;
     @Override
@@ -53,31 +55,37 @@ public class MenuController implements Initializable {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             DBManage dbmanager = new DBManage();
+            if(LoginController.logged_in)
+            {
             ResultSet rs = dbmanager.queryDatabase("select warnings from customers where email='"+UserInfo.email+"';");
             rs.next();
             warning_label.setText(Integer.toString(rs.getInt("warnings")));
+            }
             ResultSet rs2 = st.executeQuery("select dish_name from dishes");
             while(rs2.next())
             {
                 String dish = rs2.getString("dish_name");
                 data.add(dish);
             }
-            dishes.setItems(data);
+            dishes.getItems().addAll(data);
             dishes.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
              @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    currentitemselected = newValue; 
-                    for(int i = 0; i < data.size(); i++)
+                    ObservableList<String> temp = FXCollections.observableArrayList();
+                    temp.addAll(data);
+                    for(int i = 0; i < temp.size(); i++)
                     {
-                        if(newValue.equals(data.get(i)))
+                        if(newValue.equals(temp.get(i)))
                         {
                                 try {
                                     ResultSet rs3 = st.executeQuery("select price, description from dishes where dish_name=" + "'" + newValue + "'");
                                     rs3.next();
                                     String descr = rs3.getString("description");
-                                    Double price = rs3.getDouble("price");
+                                    Double price = DishInfo.round(rs3.getDouble("price"), 2);
                                     Description.setText(descr);
-                                    Price.setText(price.toString());
+                                    DecimalFormat df = new DecimalFormat("0.00##");
+                                    String pr = df.format(price.toString());
+                                    Price.setText(pr);
                                     
                                
                                 }
@@ -117,7 +125,10 @@ public class MenuController implements Initializable {
         try{
             DBManage dbmanage = new DBManage();
             String search = SearchBar.getText();
-        
+            if(search == "")
+            {
+                gather_menu_items();
+            }
             ResultSet rs = dbmanage.queryDatabase("SELECT dish_name from dishes where dish_name ="+search+";");
             if(rs.next()){
                 
@@ -131,10 +142,13 @@ public class MenuController implements Initializable {
     
     @FXML private void ShowCart() throws IOException
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OrderList.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Scene scene = new Scene(root);
-            Main.x.setScene(scene);
+        if(LoginController.logged_in)
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("OrderList.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Scene scene = new Scene(root);
+                Main.x.setScene(scene);
+        }
     }
     
     @FXML private void ShowReviews() throws IOException{

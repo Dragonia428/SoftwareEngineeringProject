@@ -36,7 +36,7 @@ public class OrderListController implements Initializable {
     /**
      * Initializes the controller class.
      */
-        static ObservableList<Shopping> data = FXCollections.observableArrayList();
+     ObservableList<Shopping> data = FXCollections.observableArrayList();
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {

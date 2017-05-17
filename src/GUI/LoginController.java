@@ -16,6 +16,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import java.sql.*;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
 /**
  * FXML Controller class
  *
@@ -26,6 +28,7 @@ public class LoginController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @FXML Label error;
     @FXML TextField textfield;
     @FXML PasswordField passwordfield; 
     Connection con;
@@ -48,12 +51,13 @@ public class LoginController implements Initializable {
         String email = textfield.getText();
         String password = passwordfield.getText();
         if(isBlacklist(email)){
-            //update label to say "Sorry your account is locked. Please consult with the manager."
+            error.setText("Sorry your account is locked. Please consult with the manager.");
         }
         else if(isManager(email, password)) GoToRM();
         else if(isChef(email, password)) GoToChefs();
         else if(isDP(email, password)) GoToDP();
         else if(isUser(email, password)) GoToMenu();
+        else {error.setText("Username and password do not match");}
     }
     
     private boolean isBlacklist(String email) throws IOException{
@@ -240,7 +244,17 @@ public class LoginController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Scene scene = new Scene(root);
+              
             Main.x.setScene(scene);
     }
-    
+    @FXML private void GoToSurfer(ActionEvent e) throws IOException
+    {
+            logged_in = false; 
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("surfer.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Scene scene = new Scene(root);
+          
+            Main.x.setScene(scene);
+            Main.x.show();
+    }
 }
