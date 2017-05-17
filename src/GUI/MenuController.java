@@ -84,10 +84,15 @@ public class MenuController implements Initializable {
                         {
                             
                                 try {
-                                    ResultSet rs3 = st.executeQuery("select price, description from dishes where dish_name=" + "'" + newValue + "'");
+                                    ResultSet rs3 = st.executeQuery("select price, type, description, chef_by, pic_location from dishes where dish_name=" + "'" + newValue + "'");
                                     rs3.next();
                                     String descr = rs3.getString("description");
                                     Double price = rs3.getDouble("price");
+                                    String pic_location = rs3.getString("pic_location");
+                                    String type = rs3.getString("type");
+                                    String chef_by = rs3.getString("chef_by");
+                                    Image image = new Image(pic_location);
+                                    Menu_img.setImage(image);
                                     currentprice = price.toString();
                                     
                                     //System.out.println(String.format("%.2f", price.toString()));

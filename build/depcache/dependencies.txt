@@ -547,11 +547,13 @@ java.lang.StringBuilder
 GUI.MenuController
 javafx.scene.control.Label
 java.sql.Statement
+javafx.scene.image.Image
 java.sql.ResultSet
 java.lang.Double
 javafx.collections.FXCollections
 javafx.beans.value.ChangeListener
 javafx.collections.ObservableList
+javafx.scene.image.ImageView
 java.lang.Object
 GUI.MenuController$1
 java.lang.String
@@ -806,7 +808,6 @@ javafx.scene.control.ListView
 GUI.MenuController
 GUI.MenuController$1
 java.sql.Statement
-javafx.scene.control.MenuItem
 javafx.collections.ObservableList
 GUI.LoginController
 GUI.Connect
