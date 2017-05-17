@@ -51,7 +51,7 @@ public class RMTabController implements Initializable {
     @FXML Tab chefstable; 
     @FXML TableColumn deny, rmapprove;
     @FXML TableView ptable, utable; 
-    @FXML TableColumn status,remove; 
+    @FXML TableColumn warn,remove; 
     @FXML TableColumn rmfirst, rmlast, rmemail;
     @FXML TableColumn ufirst, ulast, uemail;
     static ObservableList<Users> userdata = FXCollections.observableArrayList();
@@ -172,7 +172,7 @@ public class RMTabController implements Initializable {
     }
      @FXML private void buildusertable()
     {
-        System.out.println(utable.getItems().size());
+  
         if(utable.getItems().isEmpty()) 
         {
          try {
@@ -219,15 +219,46 @@ public class RMTabController implements Initializable {
                         });
                     }
                 });
-                
-        
-            
-            
-          
-            
-            
-            
-             
+            TableColumn<Users, Users> warning = warn;
+           warning.setCellValueFactory(
+                    param -> new ReadOnlyObjectWrapper<>(param.getValue())
+            );
+           warning.setCellFactory(param -> new TableCell<Users, Users>() {
+           private final Button warnButton = new Button("Warn");
+              @Override
+                protected void updateItem(Users person, boolean empty) {
+                super.updateItem(person, empty);
+
+                        if (person == null) {
+                            setGraphic(null);
+                            return;
+                        }
+
+                        setGraphic(warnButton);
+                        
+                       
+                        warnButton.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override public void handle(ActionEvent e) {
+                                try {
+                                 DBManage dbmanager = new DBManage();
+                                 Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
+                                 Statement st = con.createStatement();
+                                 st.executeUpdate("update customers set warnings = warnings + 1 where email=" + "'" + person.getEmail() + "'");
+                                }
+                                catch(SQLException ex)
+                                {
+                                    
+                                }
+                            }
+                            
+                        });
+                    }
+                });
+           
+           
+           
+           
+           
          }
          catch(SQLException ex)
          {
@@ -242,172 +273,4 @@ public class RMTabController implements Initializable {
         login.GoToLogin();
     }
 }
-class StatCell extends TableCell<Disposer.Record, Boolean> {
-        final Button cellButton = new Button("Status");
-        public static String userfirst;
-        public static String userlast;
-        public static String useremail; 
-        StatCell(){
-            
-        	//Action when the button is pressed
-            cellButton.setOnAction(new EventHandler<ActionEvent>(){
 
-                @Override
-                public void handle(ActionEvent t) {
-                    // get Selected Item
-                        UserstatusController ucon = new UserstatusController();
-                        Users users;
-                        users = (Users) StatCell.this.getTableView().getItems().get(StatCell.this.getIndex());
-                        userfirst = users.getFirstName();
-                        userlast = users.getLastName();
-                        useremail = users.getEmail();
-                        DBManage dbmanager = new DBManage();
-                        System.out.println(dbmanager.GetCustomerID(users.getEmail()));
-                        
-                }
-            });
-            
-        }
-        
-        private void CheckStatus()
-        {
-            try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("userstatus.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Scene scene = new Scene(root);
-            Main.x.setScene(scene);
-            Main.x.show();
-            }
-            catch(IOException ex)
-            {
-                ex.printStackTrace();
-            }
-            
-        }
-        
-        @Override
-        protected void updateItem(Boolean p, boolean empty) {
-            super.updateItem(p, empty);
-            if(!empty){
-                setGraphic(cellButton);
-                
-            }
-            
-        }
-}
-class RemCell extends TableCell<Disposer.Record, Boolean> {
-        final Button cellButton = new Button("Remove");
-        RemCell(){
-            
-        	//Action when the button is pressed
-            cellButton.setOnAction(new EventHandler<ActionEvent>(){
-
-                @Override
-                public void handle(ActionEvent t) {
-                    // get Selected Item
-                       Remove();
-                        
-                }
-            });
-            
-        }
-        
-        private void Remove()
-        {
-             Users curruser;
-             curruser = (Users) RemCell.this.getTableView().getItems().get(RemCell.this.getIndex());
-             int index = RemCell.this.getTableRow().getIndex();
-             DBManage dbmanager = new DBManage();
-             RMTabController.userdata.remove(index);
-             dbmanager.deleteFromCustomerTable(curruser.getEmail());
-        }
-        
-        @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton);
-                
-            }
-        }
-}
-class Approve extends TableCell<Disposer.Record, Boolean> {
-        final Button cellButton = new Button("Approve");
-        Approve(){
-            
-        	//Action when the button is pressed
-            cellButton.setOnAction(new EventHandler<ActionEvent>(){
-
-                @Override
-                public void handle(ActionEvent t) {
-                    // get Selected Item
-                        ApproveCustomer();
-                        
-                }
-            });
-            
-        }
-        private void ApproveCustomer()
-        {
-            try
-            {
-                        Pending currentPerson;
-                        currentPerson = (Pending) Approve.this.getTableView().getItems().get(Approve.this.getIndex());
-                	//remove selected item from the table list
-                        DBManage dbmanager = new DBManage();
-                        Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
-                        PreparedStatement st = con.prepareStatement("select password from pending_accounts where email =?");
-                        st.setString(1, currentPerson.getEmail());
-                        ResultSet rs = st.executeQuery();
-                        rs.next();
-                        String password = rs.getString("password");
-                        dbmanager.addtoCustomerTable(currentPerson.getFirstName(), currentPerson.getLastName(), currentPerson.getEmail(), password);
-                        dbmanager.deleteFromPenAccTable(currentPerson.getEmail());
-                	RMTabController.pendingdata.remove(currentPerson);
-                }
-               catch(SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-        }
-        //Display button if the row is not empty
-        @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton);
-                
-            }
-        }
-    }
-class Deny extends TableCell<Record, Boolean>
-{
-     final Button cellButton2 = new Button("Deny");
-    public Deny() {
-     cellButton2.setOnAction(new EventHandler<ActionEvent>(){
-
-                @Override
-                public void handle(ActionEvent t) {
-                    // get Selected Item
-                        DenyCustomer();
-                        
-                }
-            });
-    }
-    private void DenyCustomer()
-        {
-            Pending currentPerson;
-            currentPerson = (Pending) Deny.this.getTableView().getItems().get(Deny.this.getIndex());
-            RMTabController.pendingdata.remove(currentPerson);
-            DBManage dbmanager = new DBManage();
-            dbmanager.deleteFromPenAccTable(currentPerson.getEmail());
-        }
-      @Override
-        protected void updateItem(Boolean t, boolean empty) {
-            super.updateItem(t, empty);
-            if(!empty){
-                setGraphic(cellButton2);
-                
-            }
-        }
-}

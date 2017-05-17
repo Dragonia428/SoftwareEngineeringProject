@@ -56,7 +56,7 @@
                                <TableColumn fx:id="ufirst" editable="false" prefWidth="92.0" text="First Name" />
                                <TableColumn fx:id="ulast" editable="false" prefWidth="109.0" text="Last Name" />
                                  <TableColumn fx:id="uemail" editable="false" prefWidth="198.0" text="Email" />
-                                 <TableColumn fx:id="status" prefWidth="91.0" text="Status" />
+                                 <TableColumn fx:id="warn" prefWidth="91.0" text="Status" />
                                  <TableColumn fx:id="remove" prefWidth="96.0" text="Remove" />
                              </columns>
                            </TableView>
