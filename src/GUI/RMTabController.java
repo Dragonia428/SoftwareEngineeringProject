@@ -18,11 +18,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.Set;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -56,6 +58,8 @@ public class RMTabController implements Initializable {
     @FXML TableColumn ufirst, ulast, uemail;
     static ObservableList<Users> userdata = FXCollections.observableArrayList();
     static ObservableList<Pending> pendingdata = FXCollections.observableArrayList(); 
+    ObservableSet<Pending> test = FXCollections.observableSet(); 
+    ObservableSet<Users> test2 = FXCollections.observableSet();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
           rmfirst.setCellValueFactory(new PropertyValueFactory<Pending,String>("firstName"));
@@ -64,14 +68,15 @@ public class RMTabController implements Initializable {
           ufirst.setCellValueFactory(new PropertyValueFactory<Users,String>("firstName"));
           ulast.setCellValueFactory(new PropertyValueFactory<Users,String>("lastName"));
           uemail.setCellValueFactory(new PropertyValueFactory<Users,String>("email"));
+          ptable.getColumns().removeAll(pendingdata);
+          utable.getColumns().removeAll(userdata);
     }   
-    
+
     @FXML private void buildpendingtable()
     {
-        if(ptable.getItems().isEmpty())
-        {
+        
         try {
-           
+            
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select first_name, last_name, email from pending_accounts");
@@ -81,9 +86,10 @@ public class RMTabController implements Initializable {
                  String last = rs.getString("last_name");
                  String email = rs.getString("email");
                 
-                pendingdata.add(new Pending(first, last, email));
+                test.add(new Pending(first, last, email));
             }
-               ptable.setItems(pendingdata); //add user to table
+               
+               ptable.getItems().addAll(test); //add user to table
                
                //approve a customer (allow him to customers DB)
                    TableColumn<Pending, Pending> appr = rmapprove;
@@ -169,14 +175,13 @@ public class RMTabController implements Initializable {
             ex.printStackTrace();
         }
         }
-    }
+    
      @FXML private void buildusertable()
     {
   
-        if(utable.getItems().isEmpty()) 
-        {
+        
          try {
-            
+             
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select first_name, last_name, email from customers");
@@ -186,10 +191,10 @@ public class RMTabController implements Initializable {
                  String last = rs.getString("last_name");
                  String email = rs.getString("email");
                 
-                 userdata.add(new Users(first, last, email));  
+                 test2.add(new Users(first, last, email));  
             }
-            
-           utable.setItems(userdata);
+
+           utable.getItems().addAll(test2);
            TableColumn<Users, Users> rem = remove;
            rem.setCellValueFactory(
                     param -> new ReadOnlyObjectWrapper<>(param.getValue())
@@ -243,6 +248,19 @@ public class RMTabController implements Initializable {
                                  Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
                                  Statement st = con.createStatement();
                                  st.executeUpdate("update customers set warnings = warnings + 1 where email=" + "'" + person.getEmail() + "'");
+                                 ResultSet rs = st.executeQuery("select warnings, standing from customers where email=" + "'" + person.getEmail() + "'");
+                                 rs.next();
+                                 int warnings = rs.getInt("warnings");
+                                 int standing = rs.getInt("standing");
+                                 if(warnings == 3 && standing == 0)
+                                 {
+                                                getTableView().getItems().remove(person);
+                                                dbmanager.deleteFromCustomerTable(person.getEmail());
+                                 }
+                                 else if(warnings == 2 && standing == 1) {
+                                     st.executeUpdate("update customers set standing = 0 where email=" + "'" + person.getEmail() + "'");
+                                     st.executeUpdate("update customers set warnings = 0 where email =" + "'" + person.getEmail() + "'");
+                                 }
                                 }
                                 catch(SQLException ex)
                                 {
@@ -263,7 +281,7 @@ public class RMTabController implements Initializable {
          {
              ex.printStackTrace();
          }
-        }
+        
     }
 
     @FXML private void LogOut() throws IOException

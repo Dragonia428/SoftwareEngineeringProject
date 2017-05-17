@@ -47,6 +47,7 @@ java.lang.Integer
 java.lang.Object
 java.sql.Connection
 java.lang.String
+GUI.DeliveryInfo
 ||:GUI.RecentController
 javafx.fxml.Initializable
 java.sql.SQLException
@@ -175,11 +176,14 @@ GUI.Users
 javafx.event.EventHandler
 GUI.Connect
 java.sql.Statement
+java.sql.ResultSet
 java.sql.DriverManager
+javafx.scene.control.TableView
 GUI.DBManage
+javafx.collections.ObservableList
 javafx.event.ActionEvent
-GUI.RMTabController$4
 java.sql.Connection
+GUI.RMTabController$4
 java.lang.Object
 java.sql.SQLException
 ||:GUI.RemCell
@@ -328,6 +332,7 @@ java.sql.Connection
 ||:GUI.LoginController
 javafx.fxml.Initializable
 java.sql.SQLException
+java.lang.StringBuilder
 java.sql.DriverManager
 GUI.Main
 GUI.UserInfo
@@ -338,14 +343,17 @@ GUI.LoginController
 GUI.Connect
 java.io.IOException
 javafx.fxml.FXMLLoader
+GUI.DBManage
+GUI.Chefs
 javafx.scene.control.PasswordField
 java.sql.ResultSet
 javafx.scene.Parent
-java.lang.Object
 javafx.stage.Stage
+java.lang.Object
 javafx.scene.Scene
 java.sql.Connection
 java.lang.String
+GUI.DeliveryInfo
 ||:GUI.RMTabController$2$1
 javafx.event.EventHandler
 javafx.scene.control.TableView
@@ -451,6 +459,7 @@ GUI.Direction$1
 java.lang.Object
 GUI.DeliveryInfo
 ||:GUI.deliveryController
+javafx.scene.control.TabPane
 GUI.LoginController
 java.util.ResourceBundle
 javafx.scene.control.Label
@@ -458,6 +467,7 @@ javafx.fxml.Initializable
 java.sql.ResultSet
 GUI.DBManage
 GUI.deliveryController
+javafx.scene.control.SingleSelectionModel
 java.net.URL
 java.lang.Object
 java.io.IOException

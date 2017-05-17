@@ -68,7 +68,7 @@ public class MenuController implements Initializable {
                         Description.setText("This is spaghetti");
                         Price.setText("12.95");
                         currentprice = Price.getText();
-                        File file = new File("src/penneallavodka.png");
+                        File file = new File("C:\\Users\\setti\\Documents\\NetBeansProjects\\JavaFXApplication1\\src\\GUI\\penneallavodka.png");
                         Image image = new Image(file.toURI().toString());
                         System.out.println(image);
                         Menu_img.setImage(image);
