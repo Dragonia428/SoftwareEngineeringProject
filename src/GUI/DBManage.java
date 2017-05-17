@@ -101,11 +101,11 @@ public class DBManage
       }
   }
   
-   public ResultSet getChefStatus() {
+   public ResultSet getChefStatus(int chef_id) {
         ResultSet resultSet = null;
         try{
             Statement st = con.createStatement();
-            resultSet = st.executeQuery("SELECT chef_fname, chef_lname, title, email, salary, standing FROM chefs WHERE chef_id=1;");
+            resultSet = st.executeQuery("SELECT chef_fname, chef_lname, title, email, salary, standing FROM chefs WHERE chef_id=" + chef_id + ";");
         }
         catch(SQLException ex){
             System.out.println(ex.getMessage());

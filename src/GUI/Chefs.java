@@ -10,6 +10,7 @@ package GUI;
  * @author setti
  */
 public class Chefs {
+    public static int chef_id;
     public static String email;
     public static String chef_fname;
     public static String chef_lname;

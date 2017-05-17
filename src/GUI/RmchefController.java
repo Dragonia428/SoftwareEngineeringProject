@@ -48,7 +48,7 @@ public class RmchefController implements Initializable {
         menuItemsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         int chefStanding;
         try{
-            ResultSet resultSet = dbm.getChefStatus();
+            ResultSet resultSet = dbm.getChefStatus(Chefs.chef_id);
             if( resultSet.next() ) {
                 chefName.setText(resultSet.getNString("chef_fname") + " "  + resultSet.getNString("chef_lname"));
                 chefTitle.setText(resultSet.getNString("title"));
@@ -122,14 +122,14 @@ public class RmchefController implements Initializable {
             dbm.deleteFromDishesTable(lit.next());
             //lit.remove();
         }
-        menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.id));
+        menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.chef_id));
     }
     
     
     @FXML
     private void onSelectRemoveMenuItemTab(Event event) {
         if( removeMenuItemsTab.isSelected() ) {
-            menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.id));
+            menuItemsListView.setItems(dbm.getMenuItemNames(Chefs.chef_id));
         }
     }
     
