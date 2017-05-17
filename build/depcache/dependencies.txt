@@ -674,8 +674,10 @@ java.util.Random
 GUI.Connect
 java.util.Calendar
 GUI.DBManage
+javafx.scene.control.Label
 java.sql.ResultSet
 java.lang.Integer
+java.lang.Double
 java.lang.Object
 java.sql.Connection
 GUI.AddressPlacementController

@@ -32,12 +32,6 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
-            <Menu mnemonicParsing="false" text="Complaint/Complement">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#complain" text="Complain" />
-                  <MenuItem mnemonicParsing="false" onAction="#compliment" text="Complement" />
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false" text="Logout">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#LogOut" text="Logout" />
@@ -58,12 +52,7 @@
          <font>
             <Font name="AR BLANCA" size="36.0" />
          </font></Label>
-      <Button layoutX="648.0" layoutY="57.0" mnemonicParsing="false" onAction="#AddToCart" onMouseClicked="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Add To Cart">
-         <font>
-            <Font name="AR BERKLEY" size="18.0" />
-         </font>
-      </Button>
-       <Button layoutX="648.0" layoutY="105.0" mnemonicParsing="false" onAction="#ShowCart" prefHeight="37.0" prefWidth="139.0" text="Show Cart">
+      <Button layoutX="656.0" layoutY="68.0" mnemonicParsing="false" onAction="#Order" onMouseClicked="#AddToCart" prefHeight="37.0" prefWidth="139.0" text="Order">
          <font>
             <Font name="AR BERKLEY" size="18.0" />
          </font>
@@ -73,6 +62,5 @@
       <Button fx:id="search_button" layoutX="277.0" layoutY="103.0" mnemonicParsing="false" onAction="#search" prefHeight="26.0" prefWidth="58.0" text="enter" />
       <Label layoutX="656.0" layoutY="486.0" text="Warnings:" />
       <Label fx:id="warning_label" layoutX="725.0" layoutY="486.0" text="place_holder" />
-      <Button fx:id="logout_button" layoutX="688.0" layoutY="532.0" mnemonicParsing="false" onAction="#LogOut" prefHeight="37.0" prefWidth="70.0" text="Log Out" />
    </children>
 </AnchorPane>

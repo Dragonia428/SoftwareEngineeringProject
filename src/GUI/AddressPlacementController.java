@@ -32,8 +32,12 @@ public class AddressPlacementController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        show_total_price();
     }    
+    private void show_total_price()
+    {     
+            total_price.setText("$" + MenuController.currentprice);
+    }
      @FXML private void OrderFood()
     {
       try{

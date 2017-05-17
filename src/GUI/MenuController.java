@@ -165,8 +165,8 @@ public class MenuController implements Initializable {
         }
     }
     
-    @FXML private void goback() throws IOException{
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("menu.fxml"));
+    @FXML private void Order() throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddressPlacement.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         Scene scene = new Scene(root); 
         Main.x.setScene(scene);

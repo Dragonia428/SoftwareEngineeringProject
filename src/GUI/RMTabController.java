@@ -395,7 +395,7 @@ public class RMTabController implements Initializable {
             {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select fname, lname, email from delivery where standing >= -3");
+            ResultSet rs = st.executeQuery("select fname, lname, email from delivery where standing =< -3");
             while(rs.next())
             {
                  String first = rs.getString("fname");
