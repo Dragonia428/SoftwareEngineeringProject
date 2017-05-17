@@ -13,6 +13,7 @@ public class UserInfo {
     public static String email;
     public static String first_name;
     public static String last_name; 
-    public static int standing;
+    public static int warnings;
+    public static int standing; 
     public static float funds; 
 }

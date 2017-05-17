@@ -188,16 +188,17 @@ public class MenuController implements Initializable {
     }
     
     @FXML private void complain() throws IOException{
-        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("complain.fxml"));
-        //Parent root = (Parent) fxmlLoader.load();
-        //Scene scene = new Scene(root);
-        //Main.x.setScene(scene);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("complain.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Main.x.setScene(scene);
     }
+    
     @FXML private void compliment() throws IOException{
-    //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("comliment.fxml"));
-        //Parent root = (Parent) fxmlLoader.load();
-        //Scene scene = new Scene(root);
-        //Main.x.setScene(scene);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("complement.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        Scene scene = new Scene(root);
+        Main.x.setScene(scene);
     }
     
     @FXML private void LogOut() throws IOException

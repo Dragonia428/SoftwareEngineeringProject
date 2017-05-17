@@ -238,6 +238,8 @@ public class LoginController implements Initializable {
             UserInfo.last_name = rs.getString("last_name");
             UserInfo.email = rs.getString("email");
             UserInfo.standing = rs.getInt("is_vip");
+
+            UserInfo.warnings = rs.getInt("warnings");
             UserInfo.funds = rs.getFloat("funds");
         }
         catch(SQLException ex){
