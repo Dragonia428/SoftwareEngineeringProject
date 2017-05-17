@@ -49,7 +49,7 @@ public class RmchefController implements Initializable {
         try{
             ResultSet resultSet = dbm.getChefStatus();
             if( resultSet.next() ) {
-                chefName.setText(resultSet.getNString("fname") + " "  + resultSet.getNString("lname"));
+                chefName.setText(resultSet.getNString("chef_fname") + " "  + resultSet.getNString("chef_lname"));
                 chefTitle.setText(resultSet.getNString("title"));
                 chefEmail.setText(resultSet.getNString("email"));
                 chefSalary.setText( NumberFormat.getCurrencyInstance().format(resultSet.getInt("salary")));
@@ -113,13 +113,13 @@ public class RmchefController implements Initializable {
             dbm.deleteFromDishesTable(lit.next());
             //lit.remove();
         }
+        menuItemsListView.setItems(dbm.getMenuItemNames());
     }
     
     
     @FXML
     private void onSelectRemoveMenuItemTab(Event event) {
         if( removeMenuItemsTab.isSelected() ) {
-            
             menuItemsListView.setItems(dbm.getMenuItemNames());
         }
     }
