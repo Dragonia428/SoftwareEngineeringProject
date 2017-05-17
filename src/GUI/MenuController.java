@@ -88,7 +88,7 @@ public class MenuController implements Initializable {
                                     
                                     //System.out.println(String.format("%.2f", price.toString()));
                                     Description.setText(descr);
-                                    Price.setText(currentprice);
+                                    Price.setText("$" + currentprice);
                                     
                                
                                 }

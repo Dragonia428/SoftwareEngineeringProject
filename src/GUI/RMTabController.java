@@ -68,15 +68,16 @@ public class RMTabController implements Initializable {
           ufirst.setCellValueFactory(new PropertyValueFactory<Users,String>("firstName"));
           ulast.setCellValueFactory(new PropertyValueFactory<Users,String>("lastName"));
           uemail.setCellValueFactory(new PropertyValueFactory<Users,String>("email"));
-          ptable.getColumns().removeAll(pendingdata);
-          utable.getColumns().removeAll(userdata);
+          ptable.getColumns().removeAll(test);
+          utable.getColumns().removeAll(test2);
     }   
 
     @FXML private void buildpendingtable()
     {
         
         try {
-            
+            if(test.isEmpty())
+            {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery("select first_name, last_name, email from pending_accounts");
@@ -163,7 +164,7 @@ public class RMTabController implements Initializable {
                              });
                          }
                      });
-
+            }
             }
       
            
@@ -181,10 +182,11 @@ public class RMTabController implements Initializable {
   
         
          try {
-             
+            if(test2.isEmpty())
+            {
             Connection con = DriverManager.getConnection(Connect.databaselink, "root", "123456");
             Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select first_name, last_name, email from customers where warning >= 3");
+            ResultSet rs = st.executeQuery("select first_name, last_name, email from customers where warnings >= 3");
             while(rs.next())
             {
                  String first = rs.getString("first_name");
@@ -278,7 +280,7 @@ public class RMTabController implements Initializable {
                 });
            
            
-           
+            }
            
            
          }

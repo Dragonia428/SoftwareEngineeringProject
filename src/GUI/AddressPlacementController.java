@@ -60,7 +60,7 @@ public class AddressPlacementController implements Initializable {
           ResultSet dish_rs = dbmanage.queryDatabase("select dish_id from dishes WHERE dish_name ='"+MenuController.currentitemselected+"';");
           dish_rs.next();
           disharray.add(dish_rs.getInt("dish_id"));
-          dbmanage.addtoOrdersTable(customer_id, date, total_price, address, disharray.get(i), dptoDeliver);
+          dbmanage.addtoOrdersTable(customer_id, date, total_price, address.getText(), disharray.get(0), dptoDeliver);
         
         
         UpdateCustomerTable(customer_id, total_price);
